@@ -1,4 +1,15 @@
 <app-navbar></app-navbar>
-<div class="widget-board">
-<app-todo></app-todo>
-</div>
+
+  <div class="widget-board">
+    <div class='wrapper'>
+      <div class='container col-md-6' [dragula]='"first-bag"'>
+          <app-todo></app-todo>
+          <app-quotes></app-quotes>
+      </div>
+      <div class='container col-md-6' [dragula]='"first-bag"'>
+        <div>This is the default use case. You only need to specify the containers you want to use</div>
+        <div>More interactive use cases lie ahead</div>
+        <div>Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>
+      </div>
+    </div>
+  </div>
