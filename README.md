@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/Jairove/dash-app.svg?token=75GTyUjbtzXqXw84pZE8&branch=master)](https://travis-ci.com/Jairove/dash-app)
+[![codecov](https://codecov.io/gh/Jairove/dash-app/branch/master/graph/badge.svg?token=3sqD3SsEHB)](https://codecov.io/gh/Jairove/dash-app)
+
 # DashApp
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.25.5.

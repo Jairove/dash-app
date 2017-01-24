@@ -1,0 +1,22 @@
+language: node_js
+sudo: true
+dist: trusty
+
+node_js:
+  - '7.4.0'
+
+branches:
+  only:
+  - master
+
+before_install:
+ - export CHROME_BIN=/usr/bin/google-chrome
+ - export DISPLAY=:99.0
+ - sh -e /etc/init.d/xvfb start
+ - sudo apt-get update
+ - sudo apt-get install -y libappindicator1 fonts-liberation
+ - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+ - sudo dpkg -i google-chrome*.deb
+
+ after_success:
+  - bash <(curl -s https://codecov.io/bash) -t c08958dd-6b99-43f7-a46a-f5f22f593507
