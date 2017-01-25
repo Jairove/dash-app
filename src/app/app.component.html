@@ -4,7 +4,7 @@
 
 
   <div class="container">
-        <div class="row" [dragula]="first-bag" [dragulaModel]="widgets">
+        <div class="row" [dragula]="widget-bag" [dragulaModel]="widgets">
           <div *ngFor="let widget of widgets" [class]="widget.colSize">
               <widget-wrapper [type]="widget.type"></widget-wrapper>
           </div>
