@@ -1,13 +1,18 @@
-
 <app-navbar></app-navbar>
-<div class="container">
+
   <div class="widget-board">
-      <div class="row">
-        <div [dragula]='"widget-bag"'>
-            <div *ngFor="let widget of widgets">
+
+
+  <div class="container">
+        <div class="row" [dragula]="first-bag">
+          <div class="col-xs-4" *ngFor="let widget of widgets">
               <widget-wrapper [type]="widget"></widget-wrapper>
-            </div>
+          </div>
         </div>
-      </div>
   </div>
-</div>
+
+  <div class='wrapper'>
+    <div class='container' [dragula]='"another-bag"' [dragulaModel]='many'>
+      <div *ngFor='let text of many' [innerHtml]='text'></div>
+    </div>
+  </div>

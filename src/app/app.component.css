@@ -1,3 +1,13 @@
 .widget-board {
     padding-top: 100px;
 }
+
+.col-xs {
+  text-align: justify;
+}
+
+.row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 32px; /* So we can drag into rows that are empty*/
+}
