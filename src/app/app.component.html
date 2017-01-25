@@ -4,15 +4,14 @@
 
 
   <div class="container">
-        <div class="row" [dragula]="first-bag">
-          <div class="col-xs-4" *ngFor="let widget of widgets">
-              <widget-wrapper [type]="widget"></widget-wrapper>
+        <div class="row" [dragula]="first-bag" [dragulaModel]="widgets">
+          <div *ngFor="let widget of widgets" [class]="widget.colSize">
+              <widget-wrapper [type]="widget.type"></widget-wrapper>
           </div>
         </div>
   </div>
 
-  <div class='wrapper'>
-    <div class='container' [dragula]='"another-bag"' [dragulaModel]='many'>
-      <div *ngFor='let text of many' [innerHtml]='text'></div>
-    </div>
-  </div>
+    <!--Debugging: gracias a esto puedo ver como se modifica el array de widgets-->
+          <div *ngFor="let widget of widgets">
+              <p>{{widget.type}}</p>
+          </div>
