@@ -1,15 +1,13 @@
-<app-navbar></app-navbar>
 
+<app-navbar></app-navbar>
+<div class="container">
   <div class="widget-board">
-    <div class='wrapper'>
-      <div class='container col-md-6' [dragula]='"first-bag"'>
-          <app-todo></app-todo>
-          <app-quotes></app-quotes>
+      <div class="row">
+        <div [dragula]='"widget-bag"'>
+            <div *ngFor="let widget of widgets">
+              <widget-wrapper [type]="widget"></widget-wrapper>
+            </div>
+        </div>
       </div>
-      <div class='container col-md-6' [dragula]='"first-bag"'>
-        <div>This is the default use case. You only need to specify the containers you want to use</div>
-        <div>More interactive use cases lie ahead</div>
-        <div>Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>
-      </div>
-    </div>
   </div>
+</div>

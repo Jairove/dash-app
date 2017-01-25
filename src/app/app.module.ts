@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TodoComponent } from './todo/todo.component';
 import { QuotesComponent } from './quotes/quotes.component';
+import { WidgetWrapperComponent } from './widget-wrapper/widget-wrapper.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     TodoComponent,
-    QuotesComponent
+    QuotesComponent,
+    WidgetWrapperComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -23,6 +25,10 @@ import { QuotesComponent } from './quotes/quotes.component';
     FormsModule,
     HttpModule,
     DragulaModule
+  ],
+  entryComponents: [
+    TodoComponent,
+    QuotesComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
