@@ -8,7 +8,8 @@
     "start": "ng serve",
     "lint": "tslint \"src/**/*.ts\" --project src/tsconfig.json --type-check && tslint \"e2e/**/*.ts\" --project e2e/tsconfig.json --type-check",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
-    "e2e": "protractor"
+    "e2e": "protractor",
+    "build": "ng build && node server.js"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +22,11 @@
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/router": "^3.3.1",
     "@types/lodash": "^4.14.50",
+    "axios": "^0.15.3",
+    "body-parser": "^1.16.0",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "express": "^4.14.0",
     "jquery": "^3.1.1",
     "ng2-bootstrap": "^1.2.6",
     "ng2-dragula": "^1.3.0",

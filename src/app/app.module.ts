@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { JsonpModule } from '@angular/http';
 import { AlertModule } from 'ng2-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
 
@@ -24,6 +25,7 @@ import { WidgetWrapperComponent } from './widget-wrapper/widget-wrapper.componen
     BrowserModule,
     FormsModule,
     HttpModule,
+    JsonpModule,
     DragulaModule
   ],
   entryComponents: [
