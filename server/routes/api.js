@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-
-const axios = require('axios');
 const API = 'https://jsonplaceholder.typicode.com';
+
+const todoController  = require('../controller/todo-controller');
+
+const mongoose = require( 'mongoose' );
 
 /* GET api listing. */
 router.get('/', (req, res) => {
@@ -10,16 +12,10 @@ router.get('/', (req, res) => {
 });
 
 
-// Get mock todos
-router.get('/todos', (req, res) => {
-  // This will be replaced with a service that connects to MongoDB
-  axios.get(`${API}/todos`)
-    .then(posts => {
-      res.status(200).json(posts.data);
-    })
-    .catch(error => {
-      res.status(500).send(error)
-    });
-});
+// Routes
+router.get('/todos/:id', todoController.index);
+router.post('/todos', todoController.update);
+router.put('/todos', todoController.create);
+router.delete('/todos', todoController.delete);
 
 module.exports = router;
