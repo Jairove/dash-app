@@ -26,11 +26,11 @@ exports.create = function (req,res,next) {
     todo._userid = userid;
     todo._id = mongoose.Types.ObjectId();
     todo.title = req.body.title;
-    todo.completed = req.body.completed;
+    todo.complete = req.body.complete;
 
     todo.save(function(err){
         if(err){ throw err; }
-        console.log('saved');
+        console.log('saved: '+todo);
     })
 
     //Update the user's todo list
@@ -38,29 +38,29 @@ exports.create = function (req,res,next) {
         $push: { todos: todo._id }
     }, {'new': true}, function(err,user) {
         if(err) { throw err; }
-        res.send(user.todos);
+        res.send(todo);
     });
 }
 
 //Manages the deletion of a new todo
 exports.delete = function (req,res,next) {
     //TODO This userid should be obtained from the user session or something similar
-    var userid = mongoose.Types.ObjectId('588f4d928385f3d550b44025');
 
     //Delete the todo
-    Todo.findByIdAndRemove(req.body._id, function (err,todo){
+    Todo.findByIdAndRemove(req.params.id, function (err,todo){
         if(err) { throw err; }
         else {
-            res.send('Deleted todo with id: '+req.body._id);
+                
+            //Delete the reference from the user's todo list
+            User.findByIdAndUpdate(todo._userid, {
+                $pull: { todos: todo._id }
+            }, function(err,user) {
+                if(err) { throw err; }
+            });
+
+            res.send(todo);
         }
     })
-
-    //Delete the reference from the user's todo list
-    User.findByIdAndUpdate(userid, {
-        $pull: { todos: req.body._id }
-    }, function(err,user) {
-        if(err) { throw err; }
-    });
 
 }
 
@@ -73,7 +73,7 @@ exports.update = function (req, res, next) {
         }
         else {
             todo.title = req.body.title || todo.title;
-            todo.completed = req.body.completed || todo.completed;
+            todo.complete = req.body.complete;
             todo.save(function(err,save) {
                 if (err) { res.status(500).send(err) }
                 else res.send(save);

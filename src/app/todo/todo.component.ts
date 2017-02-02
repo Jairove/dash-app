@@ -9,8 +9,6 @@ import {Todo} from './todo';
   providers: [TodoDataService]
 })
 export class TodoComponent implements OnInit {
-
-
   newTodo: Todo = new Todo();
   todos: Todo[] = [];
   errorMessage: string;
@@ -24,18 +22,26 @@ export class TodoComponent implements OnInit {
   // Service is now available as this.todoDataService
 
   addTodo() {
-    this.todoDataService.addTodo(this.newTodo);
-    this.todos.push(this.newTodo);
+    this.todoDataService.addTodo(this.newTodo)
+            .subscribe(
+                todo  => this.todos.push(todo),
+                error =>  this.errorMessage = <any>error);  
+    // TODO Handle errors
     this.newTodo = new Todo();
   }
 
   toggleTodoComplete(todo) {
-    this.todoDataService.toggleTodoComplete(todo);
+    this.todoDataService.toggleTodoComplete(todo)
+            .subscribe(
+                todo  => { this.todos.find(item => item._id === todo._id) .complete = todo.complete; },
+                error =>  this.errorMessage = <any>error);
   }
 
   removeTodo(todo) {
-    this.todos = this.todos.filter(item => item.id !== todo.id);
-    this.todoDataService.deleteTodoById(todo.id);
+    this.todoDataService.deleteTodoById(todo._id)
+            .subscribe(
+              todo  => { this.todos = this.todos.filter(item => item._id !== todo._id); },
+              error =>  this.errorMessage = <any>error);
   }
 
   refreshTodos() {

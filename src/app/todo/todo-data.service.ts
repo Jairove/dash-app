@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -9,10 +9,6 @@ import { Todo } from './todo';
 
 @Injectable()
 export class TodoDataService {
-
-  //Placeholders
-  lastId: number = 0;
-  todos: Todo[] = [];
 
   private todosUrl = 'api/todos';
 
@@ -25,7 +21,7 @@ export class TodoDataService {
   }
 
   private extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body || { };
   }
 
@@ -43,37 +39,41 @@ export class TodoDataService {
     return Observable.throw(errMsg);
   }
 
-  getTodoById(id: number): Todo {
-    return this.todos
-      .filter(todo => todo.id === id)
-      .pop();
+  addTodo(todo: Todo): Observable<Todo> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(this.todosUrl, todo, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
-  addTodo(todo: Todo): TodoDataService {
-    if(!todo.id) {
-      todo.id = ++this.lastId;
-    }
-    this.todos.push(todo);
-    return this;
+  deleteTodoById(id): Observable<Todo> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.delete(this.todosUrl + '/' + id, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
-  deleteTodoById(id:number): TodoDataService {
-    this.todos = this.todos.filter(todo => todo.id !== id);
-    return this;
-  }
+  // updateTodoById(id: number, values: Object = {}): Observable<Todo> {
+  //   let headers = new Headers({ 'Content-Type': 'application/json' });
+  //   let options = new RequestOptions({ headers: headers });
 
-  updateTodoById(id:number, values: Object = {}): Todo {
-    let todo = this.getTodoById(id);
-    if(!todo) { return null; }
-    Object.assign(todo,values);
-    return todo;
-  }
+  //   return this.http.post(this.todosUrl, {id, values}, options)
+  //                   .map(this.extractData)
+  //                   .catch(this.handleError);
+  // }
 
-  toggleTodoComplete(todo: Todo){
-    let updatedTodo = this.updateTodoById(todo.id, {
-      complete: !todo.complete
-    });
-    return updatedTodo;
+  toggleTodoComplete(todo: Todo): Observable<Todo> {
+    todo.complete = !todo.complete;
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(this.todosUrl, todo, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
 }

@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
 var todoSchema = new Schema({
     _userid : { type: ObjectId, ref: 'User' },
     title : String,
-    completed : Boolean
+    complete : Boolean
 });
 
 exports.Todo = mongoose.model("Todo",todoSchema);

@@ -13,9 +13,9 @@ router.get('/', (req, res) => {
 
 
 // Routes
-router.get('/todos/:id', todoController.index);
+router.get('/todos', todoController.index);
 router.post('/todos', todoController.update);
 router.put('/todos', todoController.create);
-router.delete('/todos', todoController.delete);
+router.delete('/todos/:id', todoController.delete);
 
 module.exports = router;
