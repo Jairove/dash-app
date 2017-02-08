@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TodoComponent } from './todo/todo.component';
 import { QuotesComponent } from './quotes/quotes.component';
 import { WidgetWrapperComponent } from './widget-wrapper/widget-wrapper.component';
+import { NewsRssComponent } from './news-rss/news-rss.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { WidgetWrapperComponent } from './widget-wrapper/widget-wrapper.componen
     NavbarComponent,
     TodoComponent,
     QuotesComponent,
-    WidgetWrapperComponent
+    WidgetWrapperComponent,
+    NewsRssComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -31,6 +33,7 @@ import { WidgetWrapperComponent } from './widget-wrapper/widget-wrapper.componen
   entryComponents: [
     TodoComponent,
     QuotesComponent,
+    NewsRssComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
