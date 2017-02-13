@@ -9,7 +9,7 @@ import { FeedRssService } from './feed-rss.service'
 })
 export class NewsRssComponent implements OnInit {
 
-  feedUrl: String = 'http://rss.nytimes.com/services/xml/rss/nyt/World.xml';
+  feedUrls: string[] = ['http://rss.nytimes.com/services/xml/rss/nyt/World.xml','http://feeds.washingtonpost.com/rss/world','http://ep00.epimg.net/rss/elpais/portada.xml'];
   feedItems: Array<any> = [];
 
   constructor(private feedRssService: FeedRssService) { }
@@ -18,11 +18,22 @@ export class NewsRssComponent implements OnInit {
     this.refreshFeed();
   }
 
-  private refreshFeed() {
-    this.feedRssService.getContent(this.feedUrl)
-        .subscribe(
-            feed => this.feedItems = feed.items,
-            error => console.log(error));
+  private refreshFeed() { 
+    for(let url of this.feedUrls) {
+      this.feedRssService.getContent(url)
+          .subscribe(
+              feed => Object.assign(this.feedItems, this.feedItems, feed.items),
+              error => console.log(error));
+    }
   }
+
+/*private sortArrayByDate():any {
+    this.feedItems.sort(function(a,b):any{
+    // Turn your strings into dates, and then subtract them
+    // to get a value that is either negative, positive, or zero.
+    return new Date(b.date) - new Date(a.date);
+  });
+}*/
+
 
 }

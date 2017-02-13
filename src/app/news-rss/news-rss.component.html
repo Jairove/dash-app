@@ -8,10 +8,15 @@
   
       <section class="main" *ngIf="feedItems.length > 0">
         <div class="panel-body">
-        <ul class="todo-list">
+        <ul class="news-list">
           <li *ngFor="let feed of feedItems">
+            <hr />
             <div class="view">
-              <label>{{feed.title}}</label>
+              <a href="{{feed.link}}">
+                <h4>{{feed.title}}</h4>
+              </a>
+              <label class="author">{{feed.author}} | {{feed.pubDate}}</label>
+              <p>{{feed.description}}</p>
             </div>
           </li>
         </ul>
