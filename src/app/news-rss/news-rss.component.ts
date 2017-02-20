@@ -1,3 +1,4 @@
+import { FeedEntry } from './feedEntry';
 import { Component, OnInit } from '@angular/core';
 import { FeedRssService } from './feed-rss.service'
 
@@ -9,20 +10,38 @@ import { FeedRssService } from './feed-rss.service'
 })
 export class NewsRssComponent implements OnInit {
 
-  feedUrls: string[] = ['http://rss.nytimes.com/services/xml/rss/nyt/World.xml','http://feeds.washingtonpost.com/rss/world','http://ep00.epimg.net/rss/elpais/portada.xml'];
-  feedItems: Array<any> = [];
+  feedUrls: string[] = ['http://www.huffingtonpost.es/feeds/verticals/spain/index.xml','http://ep00.epimg.net/rss/elpais/portada.xml'];
+  feedItems: any[] = [];
+  noOfItems = 20; // This will have to be a config value
 
-  constructor(private feedRssService: FeedRssService) { }
-
-  ngOnInit() {
+  constructor(private feedRssService: FeedRssService) {
     this.refreshFeed();
   }
 
-  private refreshFeed() { 
+  ngOnInit() {
+    console.log(this.feedItems);
+    console.log(this.feedItems[0]);
+  }
+
+  private sortItems() {
+    this.feedItems.sort(
+      (a,b): number => {
+        let date1 = +new Date(b.pubDate);
+        let date2 = +new Date(a.pubDate);
+        return date1 - date2;
+      }
+    );
+    this.feedItems.splice(this.noOfItems);
+  }
+
+  private refreshFeed() {
     for(let url of this.feedUrls) {
       this.feedRssService.getContent(url)
+          .finally(() => this.sortItems())
           .subscribe(
-              feed => Object.assign(this.feedItems, this.feedItems, feed.items),
+              feed => {
+                this.feedItems.push(...feed.items);
+              },
               error => console.log(error));
     }
   }
