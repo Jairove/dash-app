@@ -19,7 +19,7 @@ export class AuthenticationService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.loginUrl, JSON.stringify({ username: username, password: password }), options)
+    return this.http.post(this.loginUrl, JSON.stringify({ email: username, password: password }), options)
                     .map((response: Response) => {
                         // login successful if there's a jwt token in the response
                         let token = response.json() && response.json().token;

@@ -12,15 +12,15 @@ const api = require('./server/routes/api');
 
 const app = express();
 
-// Initialize Passport
-app.use(passport.initialize());
-
 // Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
+
+// Initialize Passport
+app.use(passport.initialize());
 
 // Set our api routes
 app.use('/api', api);
