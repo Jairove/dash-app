@@ -50,7 +50,7 @@ exports.delete = function (req,res,next) {
     Todo.findByIdAndRemove(req.params.id, function (err,todo){
         if(err) { throw err; }
         else {
-                
+
             //Delete the reference from the user's todo list
             User.findByIdAndUpdate(todo._userid, {
                 $pull: { todos: todo._id }

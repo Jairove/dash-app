@@ -1,8 +1,8 @@
 import { NewsRssComponent } from './news-rss/news-rss.component';
 import { Component } from '@angular/core';
-import {NavbarComponent} from './navbar/navbar.component';
-import {TodoComponent} from './todo/todo.component';
-import {QuotesComponent} from './quotes/quotes.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { TodoComponent } from './todo/todo.component';
+import { QuotesComponent } from './quotes/quotes.component';
 
 @Component({
   selector: 'app-root',

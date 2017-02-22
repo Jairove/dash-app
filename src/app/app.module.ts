@@ -12,6 +12,8 @@ import { TodoComponent } from './todo/todo.component';
 import { QuotesComponent } from './quotes/quotes.component';
 import { WidgetWrapperComponent } from './widget-wrapper/widget-wrapper.component';
 import { NewsRssComponent } from './news-rss/news-rss.component';
+import { LoginComponent } from './_components/login/login.component';
+import { RegisterComponent } from './_components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { NewsRssComponent } from './news-rss/news-rss.component';
     TodoComponent,
     QuotesComponent,
     WidgetWrapperComponent,
-    NewsRssComponent
+    NewsRssComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     AlertModule.forRoot(),
