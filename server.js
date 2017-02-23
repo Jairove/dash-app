@@ -28,7 +28,7 @@ app.use('/api/todos', api);
 app.use('/api/todos/:id', api);
 
 // Catch all other routes and return the index file
-app.get('*', (req, res) => {
+app.get('/api/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 

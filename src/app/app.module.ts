@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { JsonpModule } from '@angular/http';
 import { AlertModule } from 'ng2-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
+import { RouterModule }   from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -14,6 +15,8 @@ import { WidgetWrapperComponent } from './widget-wrapper/widget-wrapper.componen
 import { NewsRssComponent } from './news-rss/news-rss.component';
 import { LoginComponent } from './_components/login/login.component';
 import { RegisterComponent } from './_components/register/register.component';
+import { DashboardComponent } from './dashboard.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { RegisterComponent } from './_components/register/register.component';
     WidgetWrapperComponent,
     NewsRssComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -32,7 +36,21 @@ import { RegisterComponent } from './_components/register/register.component';
     FormsModule,
     HttpModule,
     JsonpModule,
-    DragulaModule
+    DragulaModule,
+    RouterModule.forRoot([
+      {
+        path: 'dash',
+        component: DashboardComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+    ])
   ],
   entryComponents: [
     TodoComponent,
@@ -42,4 +60,5 @@ import { RegisterComponent } from './_components/register/register.component';
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
