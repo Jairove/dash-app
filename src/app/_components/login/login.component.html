@@ -1,5 +1,6 @@
 <div class="container">
-    <h1>LOGIN</h1>
+  <div class="login-form panel panel-default">
+    <h1>Login</h1>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="username">Username</label>
@@ -11,5 +12,6 @@
       </div>
       <button type="Login" class="btn btn-success">Login</button>
     </form>
-    <h4>{{loginSuccess}}</h4>
+    <h4>{{errorMessage}}</h4>
+  </div>
 </div>

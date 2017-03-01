@@ -51,17 +51,14 @@ exports.register = function(req,res,next) {
   user.email = req.body.email;
 
   user.setPassword(req.body.password);
-  console.log("Hello 2");
   user.save(function(err) {
     var token;
     token = user.generateJwt();
-    console.log("Hello 3");
     res.status(200);
     res.json({
       "token" : token
     });
   });
-  console.log("Hello 4");
   return;
 }
 

@@ -6,8 +6,8 @@
       </header>
     </div>
 
-      <section class="main" *ngIf="feedItems.length > 0">
-        <div class="panel-body">
+    <section class="main" *ngIf="feedItems.length > 0">
+      <div class="panel-body">
         <ul class="news-list">
           <li *ngFor="let feed of feedItems">
             <hr />
@@ -16,12 +16,12 @@
                 <h4>{{feed.title}}</h4>
               </a>
               <label class="author">{{feed.author}} | {{feed.pubDate}}</label>
-            <!--  <p>{{feed.description}}</p> -->
+              <!--  <p>{{feed.description}}</p> -->
             </div>
           </li>
         </ul>
-        </div>
-      </section>
+      </div>
+    </section>
 
   </section>
 </div>

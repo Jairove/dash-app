@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -9,10 +10,16 @@ export class AuthenticationService {
   private loginUrl: string = '/api/login';
   private registerUrl: string = '/api/register';
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private router: Router) {
       // set token if saved in local storage
       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this.token = currentUser && currentUser.token;
+  }
+
+
+  isUserLoggedIn() {
+    if(JSON.parse(localStorage.getItem('currentUser'))!=null) return true;
+    else return false;
   }
 
   login(username: string, password: string): Observable<boolean> {
@@ -44,6 +51,7 @@ export class AuthenticationService {
       // clear token remove user from local storage to log user out
       this.token = null;
       localStorage.removeItem('currentUser');
+      this.router.navigate(['/login']);
   }
 
   register(username: string, password: string, name: string): Observable<boolean> {

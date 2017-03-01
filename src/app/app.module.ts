@@ -16,6 +16,8 @@ import { NewsRssComponent } from './news-rss/news-rss.component';
 import { LoginComponent } from './_components/login/login.component';
 import { RegisterComponent } from './_components/register/register.component';
 import { DashboardComponent } from './dashboard.component';
+import { LoginGuard } from './_services/login-guard.service';
+import { AuthenticationService } from './_services/authentication.service';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { DashboardComponent } from './dashboard.component';
     RouterModule.forRoot([
       {
         path: 'dash',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [LoginGuard]
       },
       {
         path: 'login',
@@ -57,7 +60,10 @@ import { DashboardComponent } from './dashboard.component';
     QuotesComponent,
     NewsRssComponent
   ],
-  providers: [],
+  providers: [
+    LoginGuard,
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 
