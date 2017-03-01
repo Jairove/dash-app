@@ -12,7 +12,7 @@ export class NewsRssComponent implements OnInit {
 
   feedUrls: string[] = ['http://www.huffingtonpost.es/feeds/verticals/spain/index.xml','http://ep00.epimg.net/rss/elpais/portada.xml'];
   feedItems: any[] = [];
-  noOfItems = 20; // This will have to be a config value
+  noOfItems = 10; // This will have to be a config value
 
   constructor(private feedRssService: FeedRssService) {
     this.refreshFeed();

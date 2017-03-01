@@ -11,7 +11,7 @@ import { QuotesComponent } from './quotes/quotes.component';
 })
 export class DashboardComponent {
   //La lista de widgets deberia recuperarse de la db y contener el orden de los widgets
-  public widgets = [{type: QuotesComponent, colSize: "col-xs-3"},{type: TodoComponent, colSize: "col-xs-8"},{type: NewsRssComponent, colSize: "col-xs-8"}];
+  public widgets = [{type: NewsRssComponent, colSize: "col-xs-8"},{type: QuotesComponent, colSize: "col-xs-4"},{type: TodoComponent, colSize: "col-xs-4"}];
 
   constructor() {
   }
