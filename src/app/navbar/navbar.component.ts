@@ -18,4 +18,8 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
   }
 
+  private isUserLoggedIn() {
+    return this.authService.isUserLoggedIn();
+  }
+
 }

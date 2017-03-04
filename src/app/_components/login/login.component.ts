@@ -33,7 +33,10 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authenticationService.login(this.username,this.password)
                       .subscribe(
-                          status => { this.router.navigate([this.returnUrl]); },
+                          status => {
+                            if(this.returnUrl!=null) this.router.navigate([this.returnUrl]);
+                            else this.router.navigate(["/"]);
+                          },
                           error => { this.errorMessage = <any>error; }
                       );
   }

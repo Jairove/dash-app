@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  private currentUser;
+export class AppComponent implements OnInit {
 
   constructor(private router: Router) { }
 

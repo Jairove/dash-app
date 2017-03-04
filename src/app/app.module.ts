@@ -41,7 +41,7 @@ import { AuthenticationService } from './_services/authentication.service';
     DragulaModule,
     RouterModule.forRoot([
       {
-        path: 'dash',
+        path: '',
         component: DashboardComponent,
         canActivate: [LoginGuard]
       },
