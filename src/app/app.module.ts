@@ -13,9 +13,10 @@ import { TodoComponent } from './todo/todo.component';
 import { QuotesComponent } from './quotes/quotes.component';
 import { WidgetWrapperComponent } from './widget-wrapper/widget-wrapper.component';
 import { NewsRssComponent } from './news-rss/news-rss.component';
-import { LoginComponent } from './_components/login/login.component';
+import { HomeComponent } from './_components/home/home.component';
 import { RegisterComponent } from './_components/register/register.component';
-import { DashboardComponent } from './dashboard.component';
+import { DashboardComponent } from './_components/dashboard/dashboard.component';
+import { LoginComponent } from './_components/login/login.component';
 import { LoginGuard } from './_services/login-guard.service';
 import { AuthenticationService } from './_services/authentication.service';
 
@@ -28,6 +29,7 @@ import { AuthenticationService } from './_services/authentication.service';
     QuotesComponent,
     WidgetWrapperComponent,
     NewsRssComponent,
+    HomeComponent,
     LoginComponent,
     RegisterComponent,
     DashboardComponent
@@ -42,8 +44,7 @@ import { AuthenticationService } from './_services/authentication.service';
     RouterModule.forRoot([
       {
         path: '',
-        component: DashboardComponent,
-        canActivate: [LoginGuard]
+        component: HomeComponent
       },
       {
         path: 'login',
@@ -52,6 +53,11 @@ import { AuthenticationService } from './_services/authentication.service';
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'dash',
+        component: DashboardComponent,
+        canActivate: [LoginGuard]
       },
     ])
   ],

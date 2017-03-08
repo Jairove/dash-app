@@ -11,11 +11,20 @@ import { Todo } from './todo';
 export class TodoDataService {
 
   private todosUrl = 'api/todos';
+  private currentUser;
+  private headers;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ this.currentUser.token
+    });
+  }
 
-  getAllTodos(): Observable<Todo[]> {
-    return this.http.get(this.todosUrl)
+  getUserTodos(): Observable<Todo[]> {
+    let options = new RequestOptions({ headers: this.headers });
+    return this.http.get(this.todosUrl, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
@@ -40,8 +49,7 @@ export class TodoDataService {
   }
 
   addTodo(todo: Todo): Observable<Todo> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    let options = new RequestOptions({ headers: this.headers });
 
     return this.http.put(this.todosUrl, todo, options)
                     .map(this.extractData)
@@ -49,8 +57,7 @@ export class TodoDataService {
   }
 
   deleteTodoById(id): Observable<Todo> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    let options = new RequestOptions({ headers: this.headers });
 
     return this.http.delete(this.todosUrl + '/' + id, options)
                     .map(this.extractData)
@@ -68,8 +75,7 @@ export class TodoDataService {
 
   toggleTodoComplete(todo: Todo): Observable<Todo> {
     todo.complete = !todo.complete;
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    let options = new RequestOptions({ headers: this.headers });
 
     return this.http.post(this.todosUrl, todo, options)
                     .map(this.extractData)

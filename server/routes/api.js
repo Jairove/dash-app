@@ -18,10 +18,10 @@ router.get('/', (req, res) => {
 
 
 // To-dos Routes
-router.get('/todos', todoController.index);
-router.post('/todos', todoController.update);
-router.put('/todos', todoController.create);
-router.delete('/todos/:id', todoController.delete);
+router.get('/todos', auth, todoController.index);
+router.post('/todos', auth, todoController.update);
+router.put('/todos', auth, todoController.create);
+router.delete('/todos/:id', auth, todoController.delete);
 
 // Auth Routes
 router.get('/profile/:userid', auth, authController.profile); //to handle new users registering

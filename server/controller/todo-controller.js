@@ -19,7 +19,7 @@ exports.indexAll = function (req, res, next) {
 //Manages the creation of a new todo
 exports.create = function (req,res,next) {
     //TODO This userid should be obtained from the user session or something similar
-    var userid = mongoose.Types.ObjectId('588f4d928385f3d550b44025');
+    var userid = req.payload._id;
 
     //Create a new todo
     var todo = new Todo();
@@ -44,7 +44,6 @@ exports.create = function (req,res,next) {
 
 //Manages the deletion of a new todo
 exports.delete = function (req,res,next) {
-    //TODO This userid should be obtained from the user session or something similar
 
     //Delete the todo
     Todo.findByIdAndRemove(req.params.id, function (err,todo){
@@ -85,7 +84,7 @@ exports.update = function (req, res, next) {
 //Retrieves the todos of a given user
 exports.index = function (req, res, next) {
     //TODO This userid should be obtained from the user session or something similar
-    var userid = mongoose.Types.ObjectId('588f4d928385f3d550b44025');
+    var userid = req.payload._id;
 
     User.findById(userid).populate('todos').exec(function(err,user) {
         if (err||user===null) { res.status(500).send(err) }

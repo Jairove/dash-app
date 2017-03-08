@@ -25,7 +25,7 @@ export class TodoComponent implements OnInit {
     this.todoDataService.addTodo(this.newTodo)
             .subscribe(
                 todo  => this.todos.push(todo),
-                error =>  this.errorMessage = <any>error);  
+                error =>  this.errorMessage = <any>error);
     // TODO Handle errors
     this.newTodo = new Todo();
   }
@@ -45,7 +45,7 @@ export class TodoComponent implements OnInit {
   }
 
   refreshTodos() {
-    this.todoDataService.getAllTodos()
+    this.todoDataService.getUserTodos()
         .subscribe(
             todos => this.todos = todos,
             error =>  this.errorMessage = <any>error
