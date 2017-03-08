@@ -35,31 +35,43 @@ exports.login = function(req,res,next) {
 }
 
 exports.register = function(req,res,next) {
-  console.log("hello");
-  console.log(req.body);
 
   if(!req.body.name || !req.body.email || !req.body.password) {
-    sendJSONresponse(res, 400, {
-      "message": "All fields are required",
+    res.status(400);
+    res.json({
+      "message" : "All fields are required."
     });
     return;
   }
 
-  var user = new User();
+  User.findOne({ email: req.body.email }).exec(function(err, user){
 
-  user.name = req.body.name;
-  user.email = req.body.email;
+    if (user) {
+      res.status(400);
+      res.json({
+        "message" : "This email is already in use."
+      });
+      return;
+    }
+    else {
 
-  user.setPassword(req.body.password);
-  user.save(function(err) {
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
-    });
+      var user = new User();
+
+      user.name = req.body.name;
+      user.email = req.body.email;
+
+      user.setPassword(req.body.password);
+      user.save(function(err) {
+        var token;
+        token = user.generateJwt();
+        res.status(200);
+        res.json({
+          "token" : token
+        });
+      });
+      return;
+    }
   });
-  return;
 }
 
 exports.profile = function(req, res) {

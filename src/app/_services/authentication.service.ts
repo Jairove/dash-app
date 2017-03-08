@@ -44,7 +44,9 @@ export class AuthenticationService {
                             return false;
                         }
                     })
-                    .catch(this.handleError);
+                    .catch((response: Response) => {
+                      return response.json().message;
+                    });
   }
 
   logout(): void {
@@ -54,7 +56,7 @@ export class AuthenticationService {
       this.router.navigate(['/login']);
   }
 
-  register(username: string, password: string, name: string): Observable<boolean> {
+  register(username: string, password: string, name: string): Observable<string> {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -71,27 +73,15 @@ export class AuthenticationService {
                 localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
 
                 // return true to indicate successful login
-                return true;
+                return "success";
             } else {
                 // return false to indicate failed login
-                return false;
+                return response.json().message;
             }
         })
-      .catch(this.handleError);
-  }
-
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+      .catch((response: Response) => {
+        return response.json().message;
+      });
   }
 
 }

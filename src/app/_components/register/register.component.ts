@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
            password:"",
            name:""
          };
-  status: boolean = false;
+  status: string = '';
 
   constructor(private authService: AuthenticationService) { }
 
@@ -24,7 +24,9 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.authService.register(this.user.username, this.user.password, this.user.name)
             .subscribe(
-              status => {this.status = status;},
+              status => {
+                this.status = status;
+              },
             );
   }
 
