@@ -1,7 +1,7 @@
 {
   "project": {
     "version": "1.0.0-beta.25.5",
-    "name": "dash-app"
+    "name": "dashpot"
   },
   "apps": [
     {
@@ -20,7 +20,8 @@
       "styles": [
         "styles.css",
         "../src/css/bootstrap.min.css",
-        "../node_modules/dragula/dist/dragula.css"
+        "../node_modules/dragula/dist/dragula.css",
+        "../src/css/weather-icons.min.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
