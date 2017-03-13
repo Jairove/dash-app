@@ -1,13 +1,29 @@
 .icon {
-  font-size: 65px;
+  font-size: 5.5em;
   float: left;
+  display: inline-block;
 }
 
 .unit {
-  font-size: 16px;
+  font-size: 0.6em;
   color: grey;
+  vertical-align: super;
+  margin-left: -15px;
 }
 
 .description {
-  font-size: 20px;
+  vertical-align: super;
+  font-size: 0.5em;
+  display: inline-block;
+}
+
+.wrapper {
+  display: inline;
+}
+
+.temp {
+  padding-left: 15px;
+  font-size: 4.5em;
+  display: inline-block;
+  vertical-align: top;
 }

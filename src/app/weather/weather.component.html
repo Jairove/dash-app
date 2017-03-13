@@ -1,12 +1,13 @@
-<div class="col-md-4">
+<div class="wrapper">
   <div class="icon">
-    <i class="wi wi-owm-{{code}}"></i>
+    <i class="wi wi-owm-{{forecast.cod}}"></i>
   </div>
 
   <div>
-    <h1>24
+    <h1 class="temp">
+  {{forecast.weather.main.temp}}
       <span class="unit">ºC</span>
-      <span class="description">Soleado</span>
+      <span class="description">{{forecast.weather.description}}</span>
     </h1>
   </div>
 
