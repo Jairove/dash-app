@@ -20,6 +20,7 @@ import { LoginComponent } from './_components/login/login.component';
 import { LoginGuard } from './_services/login-guard.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { WeatherComponent } from './weather/weather.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { WeatherComponent } from './weather/weather.component';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    WeatherComponent
+    WeatherComponent,
+    WelcomeComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -67,7 +69,8 @@ import { WeatherComponent } from './weather/weather.component';
     TodoComponent,
     QuotesComponent,
     NewsRssComponent,
-    WeatherComponent
+    WeatherComponent,
+    WelcomeComponent
   ],
   providers: [
     LoginGuard,
