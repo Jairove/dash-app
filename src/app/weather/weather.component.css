@@ -4,8 +4,15 @@
   display: inline-block;
 }
 
+.info {
+  float: left;
+  display: inline-block;
+  margin-top: 25px;
+  margin-left: 20px;
+}
+
 .unit {
-  font-size: 0.6em;
+  font-size: 0.5em;
   color: grey;
   vertical-align: super;
   margin-left: -15px;
@@ -13,17 +20,20 @@
 
 .description {
   vertical-align: super;
-  font-size: 0.5em;
-  display: inline-block;
-}
-
-.wrapper {
+  font-size: 2em;
   display: inline;
 }
 
+.wrapper {
+  display: inline-block;
+}
+
 .temp {
-  padding-left: 15px;
-  font-size: 4.5em;
+  font-size: 0.8em;
   display: inline-block;
   vertical-align: top;
+}
+
+.place {
+  margin-top: -5px;
 }

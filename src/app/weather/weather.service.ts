@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { Weather } from './weather';
-
+import { Forecast } from './forecast';
 @Injectable()
 export class WeatherService {
-  private apiBaseUrl = "http://api.openweathermap.org/data/2.5/forecast/";
-  private key = "7fa9b10c5a391cccf5aa4196888b33e8";
-  private city = "524901";
-  private apiUrl = this.apiBaseUrl + "city?id=" + this.city + "&APPID=" + this.key;
+  private apiBaseUrl = "/api/weather?";
+  private lat = "41.5696259";
+  private lon = "-4.7200211";
+  private units = "metric";
+  private apiUrl = this.apiBaseUrl + "lat=" + this.lat
+          + "&lon=" + this.lon + "&units=" + this.units;
 
   constructor(private http: Http) { }
 
-  getContent(): Observable<Weather> {
+  getContent(): Observable<Forecast> {
+    console.log(this.apiUrl);
     return this.http.get(this.apiUrl)
             .map(this.extractWeather)
             .catch(this.handleError);
   }
 
-  private extractWeather(res: Response): Weather {
+  private extractWeather(res: Response): Forecast {
     return res.json() || { };
   }
 

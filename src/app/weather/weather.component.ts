@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from './weather.service';
-import { Weather } from './weather';
+import { Forecast } from './forecast';
 
 @Component({
   selector: 'app-weather',
@@ -9,21 +9,29 @@ import { Weather } from './weather';
   providers: [ WeatherService ]
 })
 export class WeatherComponent implements OnInit {
-  public forecast: Weather = new Weather();
+  private forecast;
+  private units = 'metric';
 
   constructor(private weatherService: WeatherService) {
       this.refreshWeather();
   }
 
   ngOnInit() {
-     this.refreshWeather();
+    if(this.forecast == null) {
+      this.forecast = {
+        weather:[{main:"Unavailable",description:"Not available"}],
+        main:{temp:0,temp_min:0,temp_max:0},
+        name:"Unknown",
+        cod:0
+      };
+    }
   }
 
   private refreshWeather() {
     this.weatherService.getContent()
         .subscribe(
             data => {
-              //this.forecast = data;
+              if(data.cod!=0 && data.cod!=null) this.forecast = data;
             },
             error => console.log(error));
   }
