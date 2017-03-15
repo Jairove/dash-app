@@ -14,6 +14,8 @@ import { SettingsService } from '../../_services/settings.service';
   providers: [ SettingsService ]
 })
 export class DashboardComponent implements OnInit {
+  private editMode = false;
+
   //La lista de widgets deberia recuperarse de la db y contener el orden de los widgets
   public widgets = [{type: WelcomeComponent, colSize: "col-md-6"},{type: WeatherComponent, colSize: "col-md-6"},{type: NewsRssComponent, colSize: "col-md-8"},{type: QuotesComponent, colSize: "col-md-4"},{type: TodoComponent, colSize: "col-md-4"}];
 
@@ -29,6 +31,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getSettings();
+  }
+
+  public toggleEdit() {
+    this.editMode = !this.editMode;
   }
 
 }

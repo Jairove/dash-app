@@ -1,10 +1,18 @@
-<app-navbar></app-navbar>
+<app-navbar (onEdit)="toggleEdit()"></app-navbar>
 <div class="board">
   <div class="container">
-      <div class="row" [dragula]="widget-bag" [dragulaModel]="widgets">
+
+      <div *ngIf="editMode" class="row" [dragula]="widget-bag" [dragulaModel]="widgets">
         <div *ngFor="let widget of widgets" [class]="widget.colSize">
             <widget-wrapper [type]="widget.type"></widget-wrapper>
         </div>
       </div>
+
+      <div *ngIf="!editMode" class="row">
+        <div *ngFor="let widget of widgets" [class]="widget.colSize">
+            <widget-wrapper [type]="widget.type"></widget-wrapper>
+        </div>
+      </div>
+
   </div>
 </div>

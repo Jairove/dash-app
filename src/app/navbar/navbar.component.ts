@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
@@ -9,10 +9,14 @@ import { AuthenticationService } from '../_services/authentication.service';
 })
 export class NavbarComponent implements OnInit {
 
+  @Output() onEdit: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
+
+  ngOnChanges() { }
 
   private logout() {
     this.authService.logout();
@@ -20,6 +24,10 @@ export class NavbarComponent implements OnInit {
 
   private isUserLoggedIn() {
     return this.authService.isUserLoggedIn();
+  }
+
+  private activateEdit() {
+    this.onEdit.emit(true);
   }
 
 }
