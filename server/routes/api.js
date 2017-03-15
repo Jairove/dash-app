@@ -4,6 +4,7 @@ const API = 'https://jsonplaceholder.typicode.com';
 const todoController  = require('../controller/todo-controller');
 const authController  = require('../controller/auth-controller');
 const weatherController  = require('../controller/weather-controller');
+const settingsController  = require('../controller/settings-controller');
 const mongoose = require( 'mongoose' );
 const jwt = require('express-jwt');
 
@@ -30,5 +31,7 @@ router.post('/login', authController.login); //to handle new users registering
 router.put('/register', authController.register); //to return profile details when given a USERID
 
 router.get('/weather', weatherController.refresh);
+
+router.get('/settings', auth, settingsController.get);
 
 module.exports = router;
