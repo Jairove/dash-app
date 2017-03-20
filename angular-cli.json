@@ -21,12 +21,15 @@
         "styles.css",
         "../src/css/bootstrap.min.css",
         "../node_modules/dragula/dist/dragula.css",
-        "../src/css/weather-icons.min.css"
+        "../src/css/weather-icons.min.css",
+        "../node_modules/slick-carousel/slick/slick.css",
+        "../node_modules/slick-carousel/slick/slick-theme.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../src/js/bootstrap.min.js",
-        "../node_modules/lodash/lodash.js"
+        "../node_modules/lodash/lodash.js",
+        "../node_modules/slick-carousel/slick/slick.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

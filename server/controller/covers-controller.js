@@ -10,7 +10,7 @@ exports.refreshCovers = function() {
 
   var format = '.750.jpg';
 
-  var coverUrls = ["/es/elpais","/es/elmundo","/es/abc","/us/newyork_times","/fr/lemonde","/uk/the_times"];
+  var coverUrls = ["/es/elpais","/es/elmundo","/es/abc","/us/newyork_times","/uk/the_times","/es/marca","/es/mundodeportivo"];
 
   function performRequest(coverUrl) {
     var requestUrl = baseUrl + dateString + coverUrl + format;
@@ -20,11 +20,13 @@ exports.refreshCovers = function() {
           if(err)
             console.log(err);
         });
+      else console.log(response);
     });
   }
 
   for(i=0; i < coverUrls.length; i++) {
     performRequest(coverUrls[i]);
+    console.log(coverUrls[i]);
   }
 
 }
