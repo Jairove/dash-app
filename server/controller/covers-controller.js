@@ -2,6 +2,15 @@ exports.refreshCovers = function() {
   var request = require('request');
   var fs = require('fs');
 
+  // Make sure the directories exist
+  var dir = 'dist/assets/covers';
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+    fs.mkdirSync(dir+'/es');
+    fs.mkdirSync(dir+'/us');
+    fs.mkdirSync(dir+'/uk');
+  }
+
   var baseUrl = 'http://img.kiosko.net/';
 
   var dt = new Date();
@@ -16,7 +25,7 @@ exports.refreshCovers = function() {
     var requestUrl = baseUrl + dateString + coverUrl + format;
     request.get({url: requestUrl, encoding: 'binary'}, function (err, response, body) {
       if(response.statusCode == 200)
-        fs.writeFile("dist/assets/covers"+coverUrl+".jpg", body, 'binary', function(err) {
+        fs.writeFile(dir+coverUrl+".jpg", body, 'binary', function(err) {
           if(err)
             console.log(err);
         });
