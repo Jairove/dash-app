@@ -1,9 +1,11 @@
 exports.refreshCovers = function() {
   var request = require('request');
   var fs = require('fs');
+  console.log(__dirname);
+
 
   // Make sure the directories exist
-  var dir = 'assets/covers';
+  var dir = './assets/covers';
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
     fs.mkdirSync(dir+'/es');
