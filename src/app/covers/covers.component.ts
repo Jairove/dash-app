@@ -7,11 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoversComponent implements OnInit {
 
+
   constructor() { }
 
   ngOnInit() {
-      var $:any;
-      (<any>$('.cover-wrapper')).slick({
+    var $:any;
+      ($('.cover-wrapper')).slick({
         dots: true,
         infinite: false,
         speed: 300,
