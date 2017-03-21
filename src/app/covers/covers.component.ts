@@ -11,7 +11,6 @@ export class CoversComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    var $:any;
       ($('.cover-wrapper')).slick({
         dots: true,
         infinite: false,

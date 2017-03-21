@@ -24,7 +24,7 @@ exports.refreshCovers = function() {
     request.get({url: requestUrl, encoding: 'binary'}, function (err, response, body) {
       if(response.statusCode == 200)
         fs.writeFile(dir+coverUrl+".jpg", body, 'binary', function(err) {
-          if(err)
+          if(err) console.log(err);
         });
     });
   }
