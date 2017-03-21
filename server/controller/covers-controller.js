@@ -1,8 +1,6 @@
 exports.refreshCovers = function() {
   var request = require('request');
   var fs = require('fs');
-  console.log(__dirname);
-
 
   // Make sure the directories exist
   var dir = '/app/dist/covers';
@@ -15,13 +13,10 @@ exports.refreshCovers = function() {
   }
 
   var baseUrl = 'http://img.kiosko.net/';
-
   var dt = new Date();
   var dateString = dt.getFullYear() + "/" + ("0" + (dt.getMonth() + 1)).slice(-2) +
                     "/" + ("0" + dt.getDate()).slice(-2);
-
   var format = '.750.jpg';
-
   var coverUrls = ["/es/elpais","/es/elmundo","/es/abc","/us/newyork_times","/uk/the_times","/es/marca","/es/mundodeportivo"];
 
   function performRequest(coverUrl) {
@@ -30,15 +25,12 @@ exports.refreshCovers = function() {
       if(response.statusCode == 200)
         fs.writeFile(dir+coverUrl+".jpg", body, 'binary', function(err) {
           if(err)
-            console.log(err);
         });
-      else console.log(response);
     });
   }
 
   for(i=0; i < coverUrls.length; i++) {
     performRequest(coverUrls[i]);
-    console.log(coverUrls[i]);
   }
 
 }
