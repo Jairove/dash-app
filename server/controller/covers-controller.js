@@ -3,9 +3,9 @@ exports.refreshCovers = function() {
   var fs = require('fs');
 
   // Make sure the directories exist
-  var dir = './dist/assets/covers';
+  var dir = 'assets/covers';
   if (!fs.existsSync(dir)) {
-    mkdirParent(dir);
+    fs.mkdirSync(dir);
     fs.mkdirSync(dir+'/es');
     fs.mkdirSync(dir+'/us');
     fs.mkdirSync(dir+'/uk');
@@ -39,18 +39,3 @@ exports.refreshCovers = function() {
   }
 
 }
-
-mkdirParent = function(dirPath, mode, callback) {
-  var fs = require('fs');
-  var path = require('path');
-
-  fs.mkdir(dirPath, mode, function(error) {
-    if (error && error.errno === 34) {
-      //Create all the parents recursively
-      fs.mkdirParent(path.dirname(dirPath), mode, callback);
-      //And then the directory
-      fs.mkdirParent(dirPath, mode, callback);
-    }
-    callback && callback(error);
-  });
-};
