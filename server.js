@@ -48,11 +48,13 @@ const port = process.env.PORT || '3000';
 app.set('port', port);
 
 /**
-* Get the newspappers covers
+* Get the newspappers covers every hour
 */
-// TODO This should be ran every hour using some kind of cron job
 const covers = require('./server/controller/covers-controller');
-covers.refreshCovers();
+var schedule = require('node-schedule');
+var j = schedule.scheduleJob('42 * * * *', function(){
+  covers.refreshCovers();
+});
 
 /**
  * Create HTTP server.
