@@ -5,9 +5,10 @@ exports.refreshCovers = function() {
 
 
   // Make sure the directories exist
-  var dir = './assets/covers';
+  var dir = '/app/dist/covers';
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
+    if (!fs.existsSync('/app/dist')) fs.mkdirSync('/app/dist');
+    fs.mkdirSync('/app/dist/covers');
     fs.mkdirSync(dir+'/es');
     fs.mkdirSync(dir+'/us');
     fs.mkdirSync(dir+'/uk');
