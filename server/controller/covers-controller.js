@@ -5,7 +5,7 @@ exports.refreshCovers = function() {
   // Make sure the directories exist
   var dir = './dist/assets/covers';
   if (!fs.existsSync(dir)) {
-    fs.mkdirParent(dir);
+    mkdirParent(dir);
     fs.mkdirSync(dir+'/es');
     fs.mkdirSync(dir+'/us');
     fs.mkdirSync(dir+'/uk');
@@ -40,7 +40,7 @@ exports.refreshCovers = function() {
 
 }
 
-fs.mkdirParent = function(dirPath, mode, callback) {
+mkdirParent = function(dirPath, mode, callback) {
   var fs = require('fs');
   var path = require('path');
 
