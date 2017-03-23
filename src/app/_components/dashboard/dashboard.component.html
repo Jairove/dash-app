@@ -9,7 +9,7 @@
       </div>
 
       <div *ngIf="!editMode" class="row">
-        <div *ngFor="let widget of widgets" [class]="widget.colSize">
+        <div *ngFor="let widget of widgets" [class]="widget-edit widget.colSize">
             <widget-wrapper [type]="widget.type"></widget-wrapper>
         </div>
       </div>
