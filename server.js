@@ -48,13 +48,11 @@ const port = process.env.PORT || '3000';
 app.set('port', port);
 
 /**
-* Get the newspappers covers every hour
+* Get the newspappers covers on start
 */
 const covers = require('./server/controller/covers-controller');
-var schedule = require('node-schedule');
-var j = schedule.scheduleJob('42 * * * *', function(){
-  covers.refreshCovers();
-});
+covers.refreshCovers();
+
 
 /**
  * Create HTTP server.
