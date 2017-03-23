@@ -48,13 +48,6 @@ const port = process.env.PORT || '3000';
 app.set('port', port);
 
 /**
-* Get the newspappers covers on start
-*/
-const covers = require('./server/controller/covers-controller');
-covers.refreshCovers();
-
-
-/**
  * Create HTTP server.
  */
 const server = http.createServer(app);
