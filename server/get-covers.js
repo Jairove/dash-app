@@ -27,6 +27,7 @@ function performRequest(coverUrl) {
   var requestUrl = baseUrl + dateString + coverUrl + format;
   request.get({url: requestUrl, encoding: 'binary'}, function (err, response, body) {
     if(response.statusCode == 200)
+      console.log('Cover found for ' + requestUrl);
       fs.writeFile(dir+coverUrl+".jpg", body, 'binary', function(err) {
         if(err) console.log(err);
       });
