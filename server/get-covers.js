@@ -2,10 +2,11 @@ var request = require('request');
 var fs = require('fs');
 
 // Make sure the directories exist
-var dir = '/app/dist/covers';
+var dir = '/app/dist/assets/covers';
 if (!fs.existsSync(dir)) {
   if (!fs.existsSync('/app/dist')) fs.mkdirSync('/app/dist');
-  fs.mkdirSync('/app/dist/covers');
+  if (!fs.existsSync('/app/dist/assets')) fs.mkdirSync('/app/dist/assets');
+  fs.mkdirSync('/app/dist/assets/covers');
   fs.mkdirSync(dir+'/es');
   fs.mkdirSync(dir+'/us');
   fs.mkdirSync(dir+'/uk');
