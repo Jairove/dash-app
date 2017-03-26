@@ -8,6 +8,8 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
+        "assets",
+        "../dist/assets/covers",
         "favicon.png"
       ],
       "index": "index.html",
