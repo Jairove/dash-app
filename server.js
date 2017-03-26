@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static('public'));
 
 // Initialize Passport
 app.use(passport.initialize());
@@ -27,10 +28,6 @@ app.use('/api', api);
 //app.use('/api/todos', api);
 //app.use('/api/todos/:id', api);
 
-// Catch all other routes and return the index file
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
-});
 
 // error handlers
 // Catch unauthorised errors
