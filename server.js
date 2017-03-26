@@ -22,6 +22,9 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // Add static path for covers
 app.use(express.static(path.join(__dirname, 'covers')));
 
+// Add public directory
+app.use(express.static(__dirname + '/public'));
+
 // Initialize Passport
 app.use(passport.initialize());
 
