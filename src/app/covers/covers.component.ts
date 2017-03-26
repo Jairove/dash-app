@@ -6,8 +6,48 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./covers.component.css']
 })
 export class CoversComponent implements OnInit {
+  public slideIndex;
 
-  constructor() { }
+  constructor() {
+    this.slideIndex = 1;
+}
+
+  public displayModal = 'none';
+
+  public openModal(): void {
+    var modal: HTMLElement = document.getElementById('myModal')
+    modal.style.display = "block";
+  }
+
+  public closeModal(): void {
+    var modal: HTMLElement = document.getElementById('myModal')
+    modal.style.display = "none";
+  }
+
+  public plusSlides(n): void {
+    this.showSlides(this.slideIndex += n);
+  }
+
+  public currentSlide(n: number): void {
+    this.showSlides(this.slideIndex = n);
+  }
+
+  public showSlides(n: number): void {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
+    var captionText = document.getElementById("caption");
+    if (n > slides.length) {this.slideIndex = 1}
+    if (n < 1) {this.slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      (<HTMLElement>slides[i]).style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    (<HTMLElement>slides[this.slideIndex-1]).style.display = "block";
+    dots[this.slideIndex-1].className += " active";
+  }
 
   ngOnInit() {
       (<any>$('.cover-wrapper')).slick({
@@ -42,5 +82,7 @@ export class CoversComponent implements OnInit {
           }
         ]
       });
+      this.showSlides(this.slideIndex);
     }
+
 }
