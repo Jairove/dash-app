@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Add static path for covers
-app.use(express.static('/covers','covers'));
+app.use(express.static(path.join(__dirname, 'covers')));
 
 // Initialize Passport
 app.use(passport.initialize());
