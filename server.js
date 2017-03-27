@@ -22,9 +22,6 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // Add static path for covers
 app.use(express.static(path.join(__dirname, 'covers')));
 
-// Add public directory
-app.use(express.static(__dirname + '/public'));
-
 // Initialize Passport
 app.use(passport.initialize());
 
@@ -33,7 +30,10 @@ app.use('/api', api);
 //app.use('/api/todos', api);
 //app.use('/api/todos/:id', api);
 
-
+// Catch all other routes and return the index file
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
 
 // error handlers
 // Catch unauthorised errors
