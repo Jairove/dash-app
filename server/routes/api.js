@@ -6,6 +6,7 @@ const authController  = require('../controller/auth-controller');
 const weatherController  = require('../controller/weather-controller');
 const settingsController  = require('../controller/settings-controller');
 const quotesController  = require('../controller/quotes-controller');
+const widgetsController  = require('../controller/widget-controller');
 const mongoose = require( 'mongoose' );
 const jwt = require('express-jwt');
 
@@ -36,5 +37,8 @@ router.get('/weather', weatherController.refresh);
 router.get('/settings', auth, settingsController.get);
 
 router.get('/quote', quotesController.get);
+
+router.get('/widgets', auth, widgetsController.index);
+router.post('/widgets', auth, widgetsController.updateDash);
 
 module.exports = router;

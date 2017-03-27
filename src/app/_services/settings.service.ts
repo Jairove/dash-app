@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Settings } from '../settings';
+import { Settings } from '../_models/settings';
+import { Widget } from '../_models/widget';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -44,5 +45,33 @@ export class SettingsService {
 
 
   }
+
+  public getWidgets(): Observable<Widget> {
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ currentUser.token
+    });
+
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get('/api/widgets', options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }
+  public updateDash(widgets): Observable<void> {
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ currentUser.token
+    });
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post('/api/widgets', widgets, options)
+                    .catch(this.handleError);
+
+  }
+
 
 }

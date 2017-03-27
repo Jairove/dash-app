@@ -19,8 +19,7 @@ export class NewsRssComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.feedItems);
-    console.log(this.feedItems[0]);
+
   }
 
   private sortItems() {

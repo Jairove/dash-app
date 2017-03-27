@@ -16,11 +16,12 @@ import { CoversComponent } from '../../covers/covers.component';
 })
 export class DashboardComponent implements OnInit {
   private editMode = false;
-
-  //La lista de widgets deberia recuperarse de la db y contener el orden de los widgets
-  public widgets = [{type: WelcomeComponent, colSize: "col-md-6"},{type: WeatherComponent, colSize: "col-md-6"},{type: CoversComponent, colSize: "col-md-12"},{type: NewsRssComponent, colSize: "col-md-8"},{type: QuotesComponent, colSize: "col-md-4"},{type: TodoComponent, colSize: "col-md-4"}];
+  public widgets;
+  private response: String;
 
   constructor(private settingsService: SettingsService) {
+    this.getWidgets();
+    console.log(this.widgets);
   }
 
   private getSettings() {
@@ -30,12 +31,26 @@ export class DashboardComponent implements OnInit {
         );
   }
 
+  private getWidgets() {
+    this.settingsService.getWidgets()
+        .subscribe(
+            widgets =>  this.widgets = widgets
+        );
+  }
+
+  private updateDash() {
+    this.settingsService.updateDash(this.widgets)
+        .subscribe(
+        );
+  }
+
   ngOnInit() {
     this.getSettings();
   }
 
   public toggleEdit() {
     this.editMode = !this.editMode;
+    this.updateDash();
   }
 
 }

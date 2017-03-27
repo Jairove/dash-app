@@ -14,7 +14,6 @@ export class WeatherService {
   constructor(private http: Http) { }
 
   getContent(): Observable<Forecast> {
-    console.log(this.apiUrl);
     return this.http.get(this.apiUrl)
             .map(this.extractWeather)
             .catch(this.handleError);

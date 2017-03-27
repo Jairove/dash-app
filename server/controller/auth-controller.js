@@ -5,6 +5,9 @@ const mongoose = require('mongoose').set('debug', true)
 const passport = require('passport');
 
 var User = mongoose.model('User');
+var User = mongoose.model('User');
+
+const widgetsController = require('./widget-controller');
 
 var sendJSONresponse = function(res, status, content) {
   res.status(status);
@@ -54,21 +57,27 @@ exports.register = function(req,res,next) {
       return;
     }
     else {
-
       var user = new User();
-
       user.name = req.body.name;
       user.email = req.body.email;
+      user._id = mongoose.Types.ObjectId();
 
       user.setPassword(req.body.password);
       user.save(function(err) {
-        var token;
-        token = user.generateJwt();
-        res.status(200);
-        res.json({
-          "token" : token
-        });
+        if(err) console.log(err);
+        else {
+          var token;
+          token = user.generateJwt();
+          res.status(200);
+          res.json({
+            "token" : token
+          });
+        }
       });
+
+      // Initialize default dash
+      widgetsController.createDefaultDash(user._id);
+
       return;
     }
   });

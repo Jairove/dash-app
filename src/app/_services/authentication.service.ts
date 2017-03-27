@@ -63,7 +63,7 @@ export class AuthenticationService {
 
     return this.http.put(this.registerUrl, JSON.stringify({ name: name, email: username, password: password }), options)
         .map((response: Response) => {
-            // login successful if there's a jwt token in the response
+            // register successful if there's a jwt token in the response
             let token = response.json() && response.json().token;
             if (token) {
                 // set token property

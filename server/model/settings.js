@@ -3,7 +3,8 @@ var mongoose = require('mongoose')
 , ObjectId = Schema.ObjectId;
 
 var settingsSchema = new Schema({
-    name : String
+    name : String,
+    _userid : { type: ObjectId, ref: 'User' },  
 });
 
 exports.Settings = mongoose.model("Settings",settingsSchema);

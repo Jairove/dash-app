@@ -16,7 +16,14 @@ var userDataSchema = new Schema({
     },
     hash: String,
     salt: String,
-    todos: [{type : ObjectId, ref: 'Todo'}]
+    settings: {
+      type: ObjectId,
+      //unique: true,
+      //required: true,
+      ref: 'Settings'
+    },
+    todos: [{type : ObjectId, ref: 'Todo'}],
+    widgets: [{type : ObjectId, ref: 'Widget'}]
 });
 
 userDataSchema.methods.setPassword = function(password){
@@ -43,6 +50,14 @@ userDataSchema.methods.generateJwt = function() {
     name: this.name,
     exp: parseInt(expiry.getTime() / 1000),
   }, "MY_SECRET"); // I SHOULD NOT KEEP THE SECRET IN THE CODE!
+};
+
+function generateDefaultDash() {
+  var widgets = [{type: WelcomeComponent, colSize: "col-md-6"},
+  {type: WeatherComponent, colSize: "col-md-6"},{type: CoversComponent, colSize: "col-md-12"},
+  {type: NewsRssComponent, colSize: "col-md-8"},{type: QuotesComponent, colSize: "col-md-4"},
+  {type: TodoComponent, colSize: "col-md-4"}];
+  return widgets;
 };
 
 exports.User = mongoose.model("User",userDataSchema);
