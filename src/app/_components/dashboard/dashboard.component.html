@@ -5,14 +5,14 @@
       <div *ngIf="editMode" class="row" [dragula]="widget-bag" [dragulaModel]="widgets">
         <div *ngFor="let widget of widgets" [class]="widget.colSize">
           <div class="widget-edit">
-            <widget-wrapper [type]="widget.type"></widget-wrapper>
+            <widget-wrapper [type]="class[widget.type]"></widget-wrapper>
           </div>
         </div>
       </div>
 
       <div *ngIf="!editMode" class="row">
         <div *ngFor="let widget of widgets" [class]="widget.colSize">
-            <widget-wrapper [type]="widget.type"></widget-wrapper>
+            <widget-wrapper [type]="class[widget.type]"></widget-wrapper>
         </div>
       </div>
   </div>

@@ -34,7 +34,9 @@ export class DashboardComponent implements OnInit {
   private getWidgets() {
     this.settingsService.getWidgets()
         .subscribe(
-            widgets =>  this.widgets = widgets
+            widgets =>  {
+              this.widgets = widgets
+            }
         );
   }
 
