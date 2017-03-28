@@ -16,12 +16,12 @@ var userDataSchema = new Schema({
     },
     hash: String,
     salt: String,
-    settings: {
-      type: ObjectId,
+    //settings: {
+      //type: ObjectId,
       //unique: true,
       //required: true,
-      ref: 'Settings'
-    },
+      //ref: 'Settings'
+    //},
     todos: [{type : ObjectId, ref: 'Todo'}],
     widgets: [{type : ObjectId, ref: 'Widget'}]
 });

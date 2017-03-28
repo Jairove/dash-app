@@ -72,11 +72,10 @@ exports.register = function(req,res,next) {
           res.json({
             "token" : token
           });
+          // Initialize default dash
+          widgetsController.createDefaultDash(user._id);
         }
       });
-
-      // Initialize default dash
-      widgetsController.createDefaultDash(user._id);
 
       return;
     }

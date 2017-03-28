@@ -39,6 +39,6 @@ router.get('/settings', auth, settingsController.get);
 router.get('/quote', quotesController.get);
 
 router.get('/widgets', auth, widgetsController.index);
-router.post('/widgets', auth, widgetsController.updateDash);
+router.post('/widget', auth, widgetsController.updateWidget);
 
 module.exports = router;

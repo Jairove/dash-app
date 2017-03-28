@@ -16,13 +16,19 @@ import { CoversComponent } from '../../covers/covers.component';
 })
 export class DashboardComponent implements OnInit {
   private editMode = false;
-  public widgets;
+  public widgets = [{type: 'WelcomeComponent', colSize: "col-md-6", pos: 0}];
   private response: String;
 
-  constructor(private settingsService: SettingsService) {
-    this.getWidgets();
-    console.log(this.widgets);
-  }
+  private types = {
+    'WelcomeComponent': WelcomeComponent,
+    'WeatherComponent': WeatherComponent,
+    'NewsRssComponent': NewsRssComponent,
+    'CoversComponent': CoversComponent,
+    'QuotesComponent': QuotesComponent,
+    'TodoComponent': TodoComponent
+  };
+
+  constructor(private settingsService: SettingsService) { }
 
   private getSettings() {
     this.settingsService.getSettings()
@@ -35,18 +41,36 @@ export class DashboardComponent implements OnInit {
     this.settingsService.getWidgets()
         .subscribe(
             widgets =>  {
-              this.widgets = widgets
+              //Sort widgets by position
+              widgets.sort(
+                (a,b): number => {
+                  if (a.pos < b.pos)
+                    return -1;
+                  if (a.pos > b.pos)
+                    return 1;
+                  return 0;
+                });
+
+              // Assign
+              this.widgets = widgets;
             }
         );
   }
 
   private updateDash() {
-    this.settingsService.updateDash(this.widgets)
-        .subscribe(
-        );
+    //Save new positions
+    for(let widget of this.widgets) {
+      if(widget.pos != this.widgets.indexOf(widget)) {
+        widget.pos = this.widgets.indexOf(widget);
+        this.settingsService.updateWidget(widget).subscribe();
+      }
+    }
+    this.getWidgets();
   }
 
   ngOnInit() {
+    // this.widgets =
+    this.getWidgets();
     this.getSettings();
   }
 

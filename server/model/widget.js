@@ -19,6 +19,10 @@ var widgetSchema = new Schema({
     colSize : {
       type: String,
       required: true
+    },
+    pos : {
+      type: Number,
+      required: true
     }
 });
 

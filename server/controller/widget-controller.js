@@ -27,6 +27,7 @@ function create (userid,widget) {
     newWidget._id = mongoose.Types.ObjectId();
     newWidget.type = widget.type;
     newWidget.colSize = widget.colSize;
+    newWidget.pos = widget.pos;
 
     console.log(newWidget);
 
@@ -44,26 +45,47 @@ function create (userid,widget) {
     });
 }
 
-//Manages the update of the widgets array
-exports.updateDash = function (req, res, next) {
-    var userid = req.payload._id;
-    var newWidgets = req.body.widgets;
+// //Manages the update of the widgets array
+// exports.updateDash = function (req, res, next) {
+//     var userid = req.payload._id;
+//     var newWidgets = req.body.widgets;
+//
+//     //Update the user's widget list
+//     User.findByIdAndUpdate(userid, {
+//         $set: { widgets: newWidgets }
+//     }, {'new': true}, function(err,user) {
+//         if(err) { throw err; }
+//     });
+// }
 
-    //Update the user's widget list
-    User.findByIdAndUpdate(userid, {
-        $set: { widgets: newWidgets }
-    }, {'new': true}, function(err,user) {
-        if(err) { throw err; }
-    });
+//Manages the update of a widget
+exports.updateWidget = function (req, res, next) {
+  Widget.findById(req.body._id, function(err, widget) {
+      if (err) {
+          console.log(err)
+          return next(err)
+      }
+      else {
+          widget.type = req.body.type || widget.type;
+          widget.colSize = req.body.colSize || widget.colSize;
+          widget.pos = req.body.pos || widget.pos;
+
+          widget.save(function(err,save) {
+              if (err) { res.status(500).send(err) }
+              else res.send(save);
+          })
+      }
+  })
 }
+
 
 
 //Manages the creation of a new widget
 exports.createDefaultDash = function(userid) {
-    var widgets = [{type: 'WelcomeComponent', colSize: "col-md-6"},
-    {type: 'WeatherComponent', colSize: "col-md-6"},{type: 'CoversComponent', colSize: "col-md-12"},
-    {type: 'NewsRssComponent', colSize: "col-md-8"},{type: 'QuotesComponent', colSize: "col-md-4"},
-    {type: 'TodoComponent', colSize: "col-md-4"}];
+    var widgets = [{type: 'WelcomeComponent', colSize: "col-md-6", pos:0},
+    {type: 'WeatherComponent', colSize: "col-md-6", pos:1},{type: 'CoversComponent', colSize: "col-md-12", pos:2},
+    {type: 'NewsRssComponent', colSize: "col-md-8", pos:3},{type: 'QuotesComponent', colSize: "col-md-4", pos:4},
+    {type: 'TodoComponent', colSize: "col-md-4", pos:5}];
 
     for (widget of widgets) {
       create(userid,widget);

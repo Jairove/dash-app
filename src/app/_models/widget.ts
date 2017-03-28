@@ -3,6 +3,7 @@ export class Widget {
     _id: number;
     type: string = '';
     colSize:  string = '';
+    pos: number = 0;
 
     constructor(values: Object = {}) {
         Object.assign(this,values);

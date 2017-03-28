@@ -46,7 +46,7 @@ export class SettingsService {
 
   }
 
-  public getWidgets(): Observable<Widget> {
+  public getWidgets(): Observable<any> {
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     var headers = new Headers({
       'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export class SettingsService {
                     .catch(this.handleError);
 
   }
-  public updateDash(widgets): Observable<void> {
+  public updateWidget(widget): Observable<void> {
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     var headers = new Headers({
       'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export class SettingsService {
 
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('/api/widgets', widgets, options)
+    return this.http.post('/api/widget', widget, options)
                     .catch(this.handleError);
 
   }

@@ -1,9 +1,9 @@
-import { Component, 
-        ViewChild, 
-        ViewContainerRef, 
-        Input, Type, 
-        ComponentRef, 
-        ComponentFactoryResolver, 
+import { Component,
+        ViewChild,
+        ViewContainerRef,
+        Input, Type,
+        ComponentRef,
+        ComponentFactoryResolver,
         Compiler, OnInit } from '@angular/core';
 
 @Component({
@@ -23,7 +23,7 @@ export class WidgetWrapperComponent implements OnInit {
       return;
     }
     if(this.cmpRef) {
-      // when the `type` input changes we destroy a previously 
+      // when the `type` input changes we destroy a previously
       // created component before creating the new one
       this.cmpRef.destroy();
     }
@@ -42,12 +42,12 @@ export class WidgetWrapperComponent implements OnInit {
   ngOnDestroy() {
     if(this.cmpRef) {
       this.cmpRef.destroy();
-    }    
+    }
   }
 
   ngOnInit(){
       this.isViewInitialized = true;
-      this.updateComponent();  
+      this.updateComponent();
   }
 
 }
