@@ -22,6 +22,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { WeatherComponent } from './weather/weather.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { CoversComponent } from './covers/covers.component';
+import { ProfileComponent } from './_components/profile/profile.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { CoversComponent } from './covers/covers.component';
     DashboardComponent,
     WeatherComponent,
     WelcomeComponent,
-    CoversComponent
+    CoversComponent,
+    ProfileComponent
   ],
   imports: [
     AlertModule.forRoot(),
