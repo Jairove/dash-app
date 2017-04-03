@@ -67,6 +67,11 @@ import { ProfileComponent } from './_components/profile/profile.component';
         component: DashboardComponent,
         canActivate: [LoginGuard]
       },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [LoginGuard]
+      }
     ])
   ],
   entryComponents: [

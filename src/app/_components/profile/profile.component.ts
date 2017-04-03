@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  private user;
+
+  constructor() {
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+  }
 
   ngOnInit() {
   }
