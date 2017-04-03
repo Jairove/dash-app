@@ -68,7 +68,8 @@ exports.updateWidget = function (req, res, next) {
       else {
           widget.type = req.body.type || widget.type;
           widget.colSize = req.body.colSize || widget.colSize;
-          widget.pos = req.body.pos || widget.pos;
+          widget.pos = req.body.pos;
+          console.log(req.body.pos);
 
           widget.save(function(err,save) {
               if (err) { res.status(500).send(err) }
@@ -87,6 +88,7 @@ exports.createDefaultDash = function(userid) {
     {type: 'NewsRssComponent', colSize: "col-md-8", pos:3},{type: 'QuotesComponent', colSize: "col-md-4", pos:4},
     {type: 'TodoComponent', colSize: "col-md-4", pos:5}];
 
+    // Save the widgets in DB
     for (widget of widgets) {
       create(userid,widget);
     }

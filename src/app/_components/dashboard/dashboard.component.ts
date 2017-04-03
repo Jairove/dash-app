@@ -69,7 +69,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.widgets =
     this.getWidgets();
     this.getSettings();
   }
