@@ -28,7 +28,9 @@ router.put('/todos', auth, todoController.create);
 router.delete('/todos/:id', auth, todoController.delete);
 
 // Auth Routes
-router.get('/profile/:userid', auth, authController.profile); //to handle new users registering
+router.get('/profile', auth, authController.profile); //to handle new users registering
+router.post('/profile', auth, authController.updateProfile); //to handle new users registering
+router.post('/password', auth, authController.changePassword); //to handle new users registering
 router.post('/login', authController.login); //to handle new users registering
 router.put('/register', authController.register); //to return profile details when given a USERID
 

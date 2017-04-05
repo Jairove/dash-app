@@ -6,3 +6,18 @@
 .field {
   width: auto;
 }
+
+#sidebar {
+  visibility: hidden;
+}
+
+@media screen and (min-width: 993px) {
+  #sidebar {
+    visibility: visible;
+    padding-top: 20px;
+  }
+}
+
+.settings-container {
+  padding-bottom: 20px;
+}

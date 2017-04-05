@@ -10,6 +10,8 @@ export class SettingsService {
 
   constructor(private http: Http) { }
 
+  private currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
   private extractData(res: Response) {
     const body = res.json();
     return body || { };
@@ -32,10 +34,9 @@ export class SettingsService {
 
 
   public getSettings(): Observable<Settings> {
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     var headers = new Headers({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer '+ currentUser.token
+      'Authorization': 'Bearer '+ this.currentUser.token
     });
 
     let options = new RequestOptions({ headers: headers });
@@ -46,11 +47,23 @@ export class SettingsService {
 
   }
 
-  public getWidgets(): Observable<any> {
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  public getProfile(): Observable<any> {
     var headers = new Headers({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer '+ currentUser.token
+      'Authorization': 'Bearer '+ this.currentUser.token
+    });
+
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get('/api/profile', options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }
+
+  public getWidgets(): Observable<any> {
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ this.currentUser.token
     });
 
     let options = new RequestOptions({ headers: headers });
@@ -59,16 +72,42 @@ export class SettingsService {
                     .catch(this.handleError);
 
   }
+
   public updateWidget(widget): Observable<void> {
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     var headers = new Headers({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer '+ currentUser.token
+      'Authorization': 'Bearer '+ this.currentUser.token
     });
 
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post('/api/widget', widget, options)
+                    .catch(this.handleError);
+
+  }
+
+  public updateProfile(profile): Observable<void> {
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ this.currentUser.token
+    });
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post('/api/profile', profile, options)
+                    .catch(this.handleError);
+
+  }
+
+  public changePassword(password): Observable<void> {
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ this.currentUser.token
+    });
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post('/api/password', password, options)
                     .catch(this.handleError);
 
   }

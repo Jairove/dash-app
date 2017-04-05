@@ -94,7 +94,69 @@ exports.profile = function(req, res) {
     User
       .findById(req.payload._id)
       .exec(function(err, user) {
-        res.status(200).json(user);
+        responseUser = {
+          name: user.name,
+          email: user.email
+        }
+        res.status(200).json(responseUser);
       });
   }
+}
+
+
+//Uodates the profile of the current user
+exports.updateProfile = function (req, res, next) {
+    var userid = req.payload._id;
+
+    if(!req.body.email || !req.body.name) {
+      res.status(400);
+      res.json({
+        "message" : "Name and email are required."
+      });
+      return;
+    }
+
+    // Check mail is unique
+    User.findOne({ email: req.body.email }).exec(function(err, user){
+      if (user._id != userid) {
+        res.status(400);
+        res.json({
+          "message" : "This email is already in use."
+        });
+        return;
+      }
+    });
+
+    //Update the user
+    User.findByIdAndUpdate(userid, { name: req.body.name, email: req.body.email },
+        {'new': true}, function(err,user) {
+        if(err) { throw err; res.send('ko'); }
+        res.send('ok');
+    });
+
+}
+
+//Uodates the profile of the current user
+exports.changePassword = function (req, res, next) {
+    var userid = req.payload._id;
+
+    if(!req.body.password) {
+      res.status(400);
+      res.json({
+        "message" : "Password is required."
+      });
+      return;
+    }
+
+    User.findOne({ _id: userid }).exec(function(err, user){
+      user.setPassword(req.body.password);
+      user.save(function(err) {
+        if(err) console.log(err);
+        else {
+          res.status(200);
+          res.send('Password updated');
+          return;
+        }
+      });
+    });
 }

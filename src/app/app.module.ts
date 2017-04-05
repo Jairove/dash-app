@@ -6,6 +6,7 @@ import { JsonpModule } from '@angular/http';
 import { AlertModule } from 'ng2-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
 import { RouterModule }   from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -49,6 +50,7 @@ import { ProfileComponent } from './_components/profile/profile.component';
     HttpModule,
     JsonpModule,
     DragulaModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       {
         path: '',
