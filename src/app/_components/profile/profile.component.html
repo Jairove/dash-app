@@ -14,7 +14,7 @@
       <div *ngIf="profile">
         <div id="profile-settings" class="settings-container">
           <h1>Profile Settings</h1>
-          <form (ngSubmit)="onProfileSubmit()">
+          <form (ngSubmit)="updateProfile()">
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" class="form-control" id="name"  name="name" required [(ngModel)]="profile.name">
@@ -23,14 +23,14 @@
               <label for="username">Email</label>
               <input type="text" class="form-control" id="username" name="username" required [(ngModel)]="profile.email">
             </div>
-            <button class="btn btn-success" (click)="updateProfile()">Update profile</button>
+            <button class="btn btn-success">Update profile</button>
           </form>
         </div>
       </div>
 
       <div id="new-pass" class="settings-container">
         <h1>Password Change</h1>
-        <form (ngSubmit)="onPasswordSubmit()">
+        <form (ngSubmit)="changePassword()">
           <div class="form-group">
             <label for="password">New Password</label>
             <input type="password" class="form-control" id="password"  name="password" required [(ngModel)]="newPassword">
@@ -39,17 +39,18 @@
             <label for="verifypass">Verify Password</label>
             <input type="password" class="form-control" id="verifypass" name="verifypass" required [(ngModel)]="verifyPassword">
           </div>
-          <button class="btn btn-success" (click)="changePassword()">Save password</button>
+          <button class="btn btn-success">Save password</button>
           <p>{{passwordFeedbackLabel}}</p>
         </form>
       </div>
 
       <div id="dash-settings" class="settings-container">
         <h1>Dashboard Settings</h1>
-        <form [formGroup]="unitsform">
+        <form [formGroup]="settingsform" (ngSubmit)="saveSettings()">
           <p><label for="units">Units system</label></p>
           <input type="radio" formControlName="units" value="metric" > Metric
           <input type="radio" formControlName="units" value="imperial"> Imperial
+          <button class="btn btn-success">Save settings</button>
         </form>
       </div>
 

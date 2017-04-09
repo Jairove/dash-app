@@ -52,12 +52,4 @@ userDataSchema.methods.generateJwt = function() {
   }, "MY_SECRET"); // I SHOULD NOT KEEP THE SECRET IN THE CODE!
 };
 
-function generateDefaultDash() {
-  var widgets = [{type: WelcomeComponent, colSize: "col-md-6"},
-  {type: WeatherComponent, colSize: "col-md-6"},{type: CoversComponent, colSize: "col-md-12"},
-  {type: NewsRssComponent, colSize: "col-md-8"},{type: QuotesComponent, colSize: "col-md-4"},
-  {type: TodoComponent, colSize: "col-md-4"}];
-  return widgets;
-};
-
 exports.User = mongoose.model("User",userDataSchema);

@@ -5,7 +5,6 @@ const mongoose = require('mongoose').set('debug', true)
 const passport = require('passport');
 
 var User = mongoose.model('User');
-var User = mongoose.model('User');
 
 const widgetsController = require('./widget-controller');
 
@@ -104,7 +103,7 @@ exports.profile = function(req, res) {
 }
 
 
-//Uodates the profile of the current user
+//Updates the profile of the current user (username and password)
 exports.updateProfile = function (req, res, next) {
     var userid = req.payload._id;
 
@@ -118,12 +117,15 @@ exports.updateProfile = function (req, res, next) {
 
     // Check mail is unique
     User.findOne({ email: req.body.email }).exec(function(err, user){
-      if (user._id != userid) {
-        res.status(400);
-        res.json({
-          "message" : "This email is already in use."
-        });
-        return;
+      if(err) { throw err; res.send('ko'); }
+      if(user) {
+        if (user._id != userid) {
+          res.status(400);
+          res.json({
+            "message" : "This email is already in use."
+          });
+          return;
+        }
       }
     });
 
@@ -136,10 +138,9 @@ exports.updateProfile = function (req, res, next) {
 
 }
 
-//Uodates the profile of the current user
+//Updates the profile of the current user
 exports.changePassword = function (req, res, next) {
     var userid = req.payload._id;
-
     if(!req.body.password) {
       res.status(400);
       res.json({
@@ -149,8 +150,13 @@ exports.changePassword = function (req, res, next) {
     }
 
     User.findOne({ _id: userid }).exec(function(err, user){
-      user.setPassword(req.body.password);
-      user.save(function(err) {
+      var u = new User();
+      u.name = user.name;
+      u.email = user.email;
+      u._id = user._id;
+
+      u.setPassword(req.body.password);
+      u.save(function(err) {
         if(err) console.log(err);
         else {
           res.status(200);

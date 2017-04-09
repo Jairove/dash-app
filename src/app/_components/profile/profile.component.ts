@@ -15,13 +15,12 @@ export class ProfileComponent implements OnInit {
   private newPassword;
   private verifyPassword;
   private passwordFeedbackLabel;
-  private units = "metric";
 
   constructor(private route: ActivatedRoute, private settingsService: SettingsService) {
     this.getProfile();
   }
 
-  unitsform = new FormGroup({
+  settingsform = new FormGroup({
     units: new FormControl('metric'),
   });
 
@@ -39,9 +38,13 @@ export class ProfileComponent implements OnInit {
     this.settingsService.updateProfile(this.profile).subscribe();
   }
 
+  private saveSettings() {
+    this.settingsService.saveSettings(this.settingsform.value).subscribe();
+  }
+
   private changePassword() {
     if(this.newPassword===this.verifyPassword) {
-      var password = this.newPassword;
+      var password = {password: this.newPassword};
       this.settingsService.changePassword(password).subscribe();
     }
     else {
@@ -56,15 +59,7 @@ export class ProfileComponent implements OnInit {
    })
   }
 
-  private onProfileSubmit() {
-
-  }
-
   private resetDashboard() {
-
-  }
-
-  private onPasswordSubmit() {
 
   }
 

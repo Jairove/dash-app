@@ -29,14 +29,15 @@ router.delete('/todos/:id', auth, todoController.delete);
 
 // Auth Routes
 router.get('/profile', auth, authController.profile); //to handle new users registering
+router.post('/password', auth, authController.changePassword);
 router.post('/profile', auth, authController.updateProfile); //to handle new users registering
-router.post('/password', auth, authController.changePassword); //to handle new users registering
 router.post('/login', authController.login); //to handle new users registering
 router.put('/register', authController.register); //to return profile details when given a USERID
 
 router.get('/weather', weatherController.refresh);
 
 router.get('/settings', auth, settingsController.get);
+router.post('/settings', auth, settingsController.save);
 
 router.get('/quote', quotesController.get);
 

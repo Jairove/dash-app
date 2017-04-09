@@ -47,6 +47,19 @@ export class SettingsService {
 
   }
 
+  public saveSettings(settings): Observable<void> {
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ this.currentUser.token
+    });
+
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post('/api/settings', settings, options)
+                    .catch(this.handleError);
+
+
+  }
+
   public getProfile(): Observable<any> {
     var headers = new Headers({
       'Content-Type': 'application/json',
