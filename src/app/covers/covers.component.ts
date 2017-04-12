@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoversComponent implements OnInit {
 
+  private routeToCover;
 
   constructor() {}
 
@@ -43,6 +44,10 @@ export class CoversComponent implements OnInit {
           }
         ]
       });
+    }
+
+    private changeCoverToBeOpened(route: string) {
+      this.routeToCover = route;
     }
 
 }

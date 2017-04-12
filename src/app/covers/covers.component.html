@@ -1,9 +1,54 @@
 <div class="cover-wrapper">
-  <div><img class="cover"  src="./assets/covers/es/elpais.jpg" alt="El Pais" height="220" width="160"></div>
-  <div><img class="cover"  src="./assets/covers/es/abc.jpg" alt="ABC" height="220" width="160"></div>
-  <div><img class="cover"  src="./assets/covers/es/elmundo.jpg" alt="El Mundo" height="220" width="160"></div>
-  <div><img class="cover"  src="./assets/covers/es/marca.jpg" alt="Marca" height="220" width="160"></div>
-  <div><img class="cover"  src="./assets/es/mundodeportivo.jpg" alt="Mundo Deportivo" height="220" width="160"></div>
-  <div><img class="cover"  src="assets/covers/uk/the_times.jpg" alt="The Times" height="220" width="160"></div>
-  <div><img class="cover"  src="./assets/covers/us/newyork_times.jpg" alt="New York Times" height="220" width="160"></div>
+  <div>
+    <a href="#" data-toggle="modal" data-target="#coverModal" (click)="changeCoverToBeOpened('./assets/covers/es/elpais.jpg')">
+      <img class="cover"  src="./assets/covers/es/elpais.jpg" alt="El Pais" height="220" width="160">
+    </a>
+  </div>
+  <div>
+    <a href="#" data-toggle="modal" data-target="#coverModal" (click)="changeCoverToBeOpened('./assets/covers/es/abc.jpg')">
+      <img class="cover"  src="./assets/covers/es/abc.jpg" alt="ABC" height="220" width="160">
+    </a>
+  </div>
+  <div>
+    <a href="#" data-toggle="modal" data-target="#coverModal" (click)="changeCoverToBeOpened('./assets/covers/es/elmundo.jpg')">
+      <img class="cover"  src="./assets/covers/es/elmundo.jpg" alt="El Mundo" height="220" width="160">
+    </a>
+  </div>
+  <div>
+    <a href="#" data-toggle="modal" data-target="#coverModal" (click)="changeCoverToBeOpened('./assets/covers/es/marca.jpg')">
+      <img class="cover"  src="./assets/covers/es/marca.jpg" alt="Marca" height="220" width="160">
+    </a>
+  </div>
+  <div>
+    <a href="#" data-toggle="modal" data-target="#coverModal" (click)="changeCoverToBeOpened('./assets/covers/es/mundodeportivo.jpg')">
+      <img class="cover"  src="./assets/es/mundodeportivo.jpg" alt="Mundo Deportivo" height="220" width="160">
+    </a>
+  </div>
+  <div>
+    <a href="#" data-toggle="modal" data-target="#coverModal" (click)="changeCoverToBeOpened('./assets/covers/es/the_times.jpg')">
+      <img class="cover"  src="./assets/covers/uk/the_times.jpg" alt="The Times" height="220" width="160">
+    </a>
+  </div>
+  <div>
+    <a href="#" data-toggle="modal" data-target="#coverModal" (click)="changeCoverToBeOpened('./assets/covers/es/newyork_times.jpg')">
+      <img class="cover"  src="./assets/covers/us/newyork_times.jpg" alt="New York Times" height="220" width="160">
+    </a>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div id="coverModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Cover</h4>
+      </div>
+      <div class="modal-body">
+        <img src="{{routeToCover}}" alt="cover" id="big-cover">
+      </div>
+    </div>
+  </div>
 </div>
