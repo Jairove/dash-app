@@ -7,6 +7,7 @@ import { WeatherComponent } from '../../weather/weather.component';
 import { WelcomeComponent } from '../../welcome/welcome.component';
 import { SettingsService } from '../../_services/settings.service';
 import { CoversComponent } from '../../covers/covers.component';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'dashboard',
@@ -26,6 +27,21 @@ export class DashboardComponent implements OnInit {
     'CoversComponent': CoversComponent,
     'QuotesComponent': QuotesComponent,
     'TodoComponent': TodoComponent
+  };
+
+
+  private sizes = {
+    'xs': 'col-md-2',
+    's': 'col-md-4',
+    'm': 'col-md-6',
+    'l': 'col-md-8',
+    'xl': 'col-md-10',
+    'xxl': 'col-md-12'
+  };
+
+  newWidgetForm = {
+    size: 'xs',
+    type: 'covers'
   };
 
   constructor(private settingsService: SettingsService) { }
@@ -64,6 +80,9 @@ export class DashboardComponent implements OnInit {
         widget.pos = this.widgets.indexOf(widget);
         this.settingsService.updateWidget(widget).subscribe();
       }
+      else {
+        this.settingsService.updateWidget(widget).subscribe();
+      }
     }
     this.getWidgets();
   }
@@ -76,6 +95,21 @@ export class DashboardComponent implements OnInit {
   public toggleEdit() {
     this.editMode = !this.editMode;
     this.updateDash();
+  }
+
+  public select(element: string): void {
+    console.log(element);
+  }
+
+  public addWidget() {
+    let widget = {
+      type: this.newWidgetForm.type,
+      colSize: this.sizes[this.newWidgetForm.size],
+      pos: this.widgets.length
+    }
+    this.widgets.push(widget);
+
+    console.log('Widget added');
   }
 
 }

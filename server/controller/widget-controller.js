@@ -58,25 +58,31 @@ function create (userid,widget) {
 //     });
 // }
 
-//Manages the update of a widget
+//Manages the update of a widget, creates a new one if it does not exist
 exports.updateWidget = function (req, res, next) {
-  Widget.findById(req.body._id, function(err, widget) {
-      if (err) {
-          console.log(err)
-          return next(err)
-      }
-      else {
-          widget.type = req.body.type || widget.type;
-          widget.colSize = req.body.colSize || widget.colSize;
-          widget.pos = req.body.pos;
-          console.log(req.body.pos);
 
-          widget.save(function(err,save) {
-              if (err) { res.status(500).send(err) }
-              else res.send(save);
-          })
-      }
-  })
+  if(req.body._id!=null) {
+
+    Widget.findById(req.body._id, function(err, widget) {
+        if (err) {
+            console.log(err)
+            return next(err)
+        }
+        else {
+              widget.type = req.body.type || widget.type;
+              widget.colSize = req.body.colSize || widget.colSize;
+              widget.pos = req.body.pos;
+
+              widget.save(function(err,save) {
+                  if (err) { res.status(500).send(err) }
+                  else res.send(save);
+              })
+        }
+      })
+    }
+
+  else create(req.payload._id, req.body);
+
 }
 
 

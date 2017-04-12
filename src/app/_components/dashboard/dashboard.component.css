@@ -9,5 +9,22 @@
 }
 
 .widget-edit {
+  opacity: 0.6;
+}
+
+.widget-edit:hover{
   cursor: move;
+  opacity: 1;
+}
+
+#addWidgetModal {
+  padding-top: 15%;
+}
+
+#addWidgetButton {
+  width: 100px;
+}
+
+.dropdown {
+  width: 100%;
 }
