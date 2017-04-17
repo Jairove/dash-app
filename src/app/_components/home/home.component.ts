@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.authenticationService.isUserLoggedIn()) {
+      this.router.navigate(['./dash']);
+    }
   }
 
   username: string = '';

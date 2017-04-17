@@ -17,8 +17,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
   private editMode = false;
-  public widgets = [{type: 'WelcomeComponent', colSize: "col-md-6", pos: 0}];
+  private widgets: any = [{type: 'WelcomeComponent', colSize: "col-md-6", pos: 0}];
   private response: String;
+  private widgetsToBeDeleted: Array<any> = [];
 
   private types = {
     'WelcomeComponent': WelcomeComponent,
@@ -74,7 +75,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private updateDash() {
-    //Save new positions
+    // Save new positions if widgets have been moved
     for(let widget of this.widgets) {
       if(widget.pos != this.widgets.indexOf(widget)) {
         widget.pos = this.widgets.indexOf(widget);
@@ -84,6 +85,12 @@ export class DashboardComponent implements OnInit {
         this.settingsService.updateWidget(widget).subscribe();
       }
     }
+
+    // Remove the deleted widgets if any
+    for(let widget of this.widgetsToBeDeleted) {
+      this.settingsService.removeWidget(widget._id).subscribe();
+    }
+
     this.getWidgets();
   }
 
@@ -97,6 +104,7 @@ export class DashboardComponent implements OnInit {
     this.updateDash();
   }
 
+  // TODO Remove this
   public select(element: string): void {
     console.log(element);
   }
@@ -110,6 +118,25 @@ export class DashboardComponent implements OnInit {
     this.widgets.push(widget);
 
     console.log('Widget added');
+  }
+
+  public removeWidget(position: number): void {
+    // Add to array to delete it from database if user saves (it has an _id if exists in db)
+     if(this.widgets[position]._id!=null) {
+       this.widgetsToBeDeleted.push(this.widgets[position]);
+     }
+     
+    console.log('Widget to be removed: '+position);
+    this.widgets.splice(position, 1);
+
+    //Update positions
+    for(let widget of this.widgets) {
+      if(widget.pos != this.widgets.indexOf(widget)) {
+        widget.pos = this.widgets.indexOf(widget);
+      }
+    }
+
+    console.log(this.widgets);
   }
 
 }

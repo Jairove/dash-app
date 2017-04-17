@@ -5,12 +5,10 @@
       <div *ngIf="editMode" class="row" [dragula]="widget-bag" [dragulaModel]="widgets">
         <div *ngFor="let widget of widgets" [class]="widget.colSize">
           <div class="widget-edit">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="removeWidget(widget.pos)"></span>
             <widget-wrapper [type]="types[widget.type]"></widget-wrapper>
           </div>
         </div>
-
-                <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addWidgetModal">Open Modal</button>
 
         <!-- Modal -->
         <div id="addWidgetModal" class="modal fade" role="dialog">
@@ -26,7 +24,6 @@
 
                 <div id="widget-settings" class="widget-settings-container">
                     <form>
-
                       <h5>Widget</h5>
                       <select name="type" class="dropdown" (change)="select($event.target.value)" [(ngModel)]="newWidgetForm.type">
                         <option value="WelcomeComponent">Welcome</option>
@@ -46,7 +43,6 @@
                         <option value="xl">Extra Large</option>
                         <option value="xxl">Full Large</option>
                       </select>
-
                   </form>
                 </div>
               </div>

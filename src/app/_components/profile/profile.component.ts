@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
   private changePassword() {
     if(this.newPassword===this.verifyPassword) {
       var password = {password: this.newPassword};
-      this.settingsService.changePassword(password).subscribe();
+             this.settingsService.changePassword(password).subscribe();
     }
     else {
       this.passwordFeedbackLabel = "Passwords do not match";

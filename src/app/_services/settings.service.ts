@@ -99,6 +99,19 @@ export class SettingsService {
 
   }
 
+  public removeWidget(widgetId): Observable<void> {
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ this.currentUser.token
+    });
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.delete('/api/widget/' + widgetId, options)
+                    .catch(this.handleError);
+
+  }
+
   public updateProfile(profile): Observable<void> {
     var headers = new Headers({
       'Content-Type': 'application/json',

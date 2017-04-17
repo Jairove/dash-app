@@ -109,3 +109,25 @@ exports.index = function (req, res, next) {
         else {  res.send(user.widgets); }
     })
 }
+
+//Manages the deletion of a new todo
+exports.removeWidget = function (req,res,next) {
+
+    //Delete the todo
+    Widget.findByIdAndRemove(req.params.id, function (err,widget){
+        if(err) { throw err; }
+        else {
+          if( widget != null ) {
+            //Delete the reference from the user's todo list
+            User.findByIdAndUpdate(widget._userid, {
+                $pull: { widgets: widget._id }
+            }, function(err,user) {
+                if(err) { throw err; }
+            });
+
+            res.send('ok');
+          }
+        }
+    })
+
+}

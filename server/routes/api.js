@@ -43,5 +43,6 @@ router.get('/quote', quotesController.get);
 
 router.get('/widgets', auth, widgetsController.index);
 router.post('/widget', auth, widgetsController.updateWidget);
+router.delete('/widget/:id', auth, widgetsController.removeWidget);
 
 module.exports = router;

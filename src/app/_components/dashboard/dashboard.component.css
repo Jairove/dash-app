@@ -9,12 +9,24 @@
 }
 
 .widget-edit {
-  opacity: 0.6;
+  opacity: 0.8;
+  position: relative;
 }
 
 .widget-edit:hover{
   cursor: move;
   opacity: 1;
+}
+
+.widget-edit span {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.widget-edit span:hover {
+  color: red;
 }
 
 #addWidgetModal {

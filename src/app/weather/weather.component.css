@@ -5,10 +5,9 @@
 }
 
 .info {
-  float: left;
-  display: inline-block;
+  float: right;
   margin-top: 25px;
-  margin-left: 20px;
+  vertical-align: top;
 }
 
 .unit {
@@ -25,8 +24,7 @@
 }
 
 .wrapper {
-  display: inline-block;
-  float: right;
+
 }
 
 .temp {
@@ -37,5 +35,5 @@
 }
 
 .place {
-  margin-top: -5px;
+  margin-top: 0px;
 }
