@@ -8,8 +8,7 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
-        "assets",
-        "favicon.png"
+        "assets"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -18,12 +17,12 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.css",
         "../src/css/bootstrap.min.css",
         "../node_modules/dragula/dist/dragula.css",
         "../src/css/weather-icons.min.css",
         "../node_modules/slick-carousel/slick/slick.css",
-        "../node_modules/slick-carousel/slick/slick-theme.css"
+        "../node_modules/slick-carousel/slick/slick-theme.css",
+        "../node_modules/wowjs/css/libs/animate.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",

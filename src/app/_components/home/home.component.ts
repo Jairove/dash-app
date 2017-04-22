@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit {
 
   username: string = '';
   password: string = '';
-
   errorMessage: any = '';
 
   onSubmit() {

@@ -22,7 +22,7 @@ export class AuthenticationService {
     else return false;
   }
 
-  login(username: string, password: string): Observable<boolean> {
+  login(username: string, password: string): Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -40,12 +40,12 @@ export class AuthenticationService {
                             // return true to indicate successful login
                             return true;
                         } else {
-                            // return false to indicate failed login
-                            return false;
+                            // return message to indicate failed login
+                            throw response.json().message;
                         }
                     })
                     .catch((response: Response) => {
-                      return response.json().message;
+                      throw response.json().message;
                     });
   }
 

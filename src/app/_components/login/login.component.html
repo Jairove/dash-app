@@ -18,9 +18,9 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password"  name="password" required [(ngModel)]="password">
           </div>
+          <p *ngIf="errorMessage!=''" class="alert alert-danger"><strong>Login failed! </strong>{{errorMessage}}</p>
           <button type="Login" class="btn btn-success">Login</button>
         </form>
-        <h4>{{errorMessage}}</h4>
       </div>
     </div>
   </div>
