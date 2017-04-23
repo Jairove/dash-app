@@ -49,8 +49,7 @@ router.get('/auth/facebook/callback/:code',
               var token = user.generateJwt();
               res.redirect("/"+token);
               //res.redirect("/dash/"+token);
-          };
-);
+          });
 
 router.get('/weather', weatherController.refresh);
 
