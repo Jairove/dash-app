@@ -42,12 +42,15 @@ router.put('/register', authController.register); //to return profile details wh
 router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
 // handle the callback after facebook has authenticated the user
-router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/api/facebooklogin',
-                                      failureRedirect: '/' }));
-
-router.get('/facebooklogin', authController.facebookLogin);
-
+router.get('/auth/facebook/callback/:code',
+  passport.authenticate('facebook',
+      {session: false, failureRedirect: '/' }),
+          function(req, res, next) {
+              var token = user.generateJwt();
+              res.redirect("/"+token);
+              //res.redirect("/dash/"+token);
+          };
+);
 
 router.get('/weather', weatherController.refresh);
 
