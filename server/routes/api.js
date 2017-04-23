@@ -42,7 +42,11 @@ router.put('/register', authController.register); //to return profile details wh
 router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
 // handle the callback after facebook has authenticated the user
-router.get('/auth/facebook/callback', authController.facebookLoginCallback);
+router.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/api/facebooklogin',
+                                      failureRedirect: '/' }));
+
+router.get('/facebooklogin', authController.facebookLogin);
 
 
 router.get('/weather', weatherController.refresh);

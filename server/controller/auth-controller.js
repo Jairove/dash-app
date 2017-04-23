@@ -167,11 +167,12 @@ exports.changePassword = function (req, res, next) {
     });
 }
 
-exports.facebookLoginCallback = function(req, res, next) {
+exports.facebookLogin = function(req, res, next) {
   passport.authenticate('facebook',
       {session: false, failureRedirect: '/' }),
           function(req, res, next) {
               var token = user.generateJwt();
-              res.redirect("/dash/"+token);
+              res.redirect("/"+token);
+              //res.redirect("/dash/"+token);
           };
 }
