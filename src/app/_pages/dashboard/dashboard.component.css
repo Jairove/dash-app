@@ -1,0 +1,42 @@
+.col-md {
+  text-align: justify;
+}
+
+.row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 32px; /* So we can drag into rows that are empty*/
+}
+
+.widget-edit {
+  opacity: 0.8;
+  position: relative;
+}
+
+.widget-edit:hover{
+  cursor: move;
+  opacity: 1;
+}
+
+.widget-edit span {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.widget-edit span:hover {
+  color: red;
+}
+
+#addWidgetModal {
+  padding-top: 15%;
+}
+
+#addWidgetButton {
+  width: 100px;
+}
+
+.dropdown {
+  width: 100%;
+}

@@ -1,0 +1,66 @@
+<app-navbar (onEdit)="toggleEdit()"></app-navbar>
+<div class="board">
+  <div class="container">
+
+      <div *ngIf="editMode" class="row" [dragula]="widget-bag" [dragulaModel]="widgets">
+        <div *ngFor="let widget of widgets" [class]="widget.colSize">
+          <div class="widget-edit">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="removeWidget(widget.pos)"></span>
+            <widget-wrapper [type]="types[widget.type]"></widget-wrapper>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="addWidgetModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Widget</h4>
+              </div>
+              <div class="modal-body">
+
+                <div id="widget-settings" class="widget-settings-container">
+                    <form>
+                      <h5>Widget</h5>
+                      <select name="type" class="dropdown" (change)="select($event.target.value)" [(ngModel)]="newWidgetForm.type">
+                        <option value="WelcomeComponent">Welcome</option>
+                        <option value="CoversComponent">Covers</option>
+                        <option value="TodoComponent">Todo List</option>
+                        <option value="WeatherComponent">Weather</option>
+                        <option value="NewsRssComponent">RSS News</option>
+                        <option value="QuotesComponent">Quotes</option>
+                      </select>
+
+                      <h5>Size</h5>
+                      <select name="size" class="dropdown" [(ngModel)]="newWidgetForm.size">
+                        <option value="xs">Extra Small</option>
+                        <option value="s">Small</option>
+                        <option value="m">Medium</option>
+                        <option value="l">Large</option>
+                        <option value="xl">Extra Large</option>
+                        <option value="xxl">Full Large</option>
+                      </select>
+                  </form>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" id="addWidgetButton" (click)="addWidget()" data-dismiss="modal">Add</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!editMode" class="row">
+        <div *ngFor="let widget of widgets" [class]="widget.colSize">
+            <widget-wrapper [type]="types[widget.type]"></widget-wrapper>
+        </div>
+      </div>
+  </div>
+</div>

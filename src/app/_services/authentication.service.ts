@@ -22,7 +22,7 @@ export class AuthenticationService {
     else return false;
   }
 
-  login(username: string, password: string): Observable<boolean> {
+  login(username: string, password: string): Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -40,12 +40,12 @@ export class AuthenticationService {
                             // return true to indicate successful login
                             return true;
                         } else {
-                            // return false to indicate failed login
-                            return false;
+                            // return message to indicate failed login
+                            throw response.json().message;
                         }
                     })
                     .catch((response: Response) => {
-                      return response.json().message;
+                      throw response.json().message;
                     });
   }
 
@@ -56,14 +56,14 @@ export class AuthenticationService {
       this.router.navigate(['/login']);
   }
 
-  register(username: string, password: string, name: string): Observable<string> {
+  register(username: string, password: string, name: string): Observable<any> {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.put(this.registerUrl, JSON.stringify({ name: name, email: username, password: password }), options)
         .map((response: Response) => {
-            // login successful if there's a jwt token in the response
+            // register successful if there's a jwt token in the response
             let token = response.json() && response.json().token;
             if (token) {
                 // set token property
@@ -73,14 +73,14 @@ export class AuthenticationService {
                 localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
 
                 // return true to indicate successful login
-                return "success";
+                return true;
             } else {
                 // return false to indicate failed login
-                return response.json().message;
+                throw response.json().message;
             }
         })
       .catch((response: Response) => {
-        return response.json().message;
+        throw response.json().message;
       });
   }
 

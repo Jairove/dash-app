@@ -6,6 +6,7 @@ const authController  = require('../controller/auth-controller');
 const weatherController  = require('../controller/weather-controller');
 const settingsController  = require('../controller/settings-controller');
 const quotesController  = require('../controller/quotes-controller');
+const widgetsController  = require('../controller/widget-controller');
 const mongoose = require( 'mongoose' );
 const jwt = require('express-jwt');
 
@@ -27,14 +28,31 @@ router.put('/todos', auth, todoController.create);
 router.delete('/todos/:id', auth, todoController.delete);
 
 // Auth Routes
-router.get('/profile/:userid', auth, authController.profile); //to handle new users registering
+router.get('/profile', auth, authController.profile); //to handle new users registering
+router.post('/password', auth, authController.changePassword);
+router.post('/profile', auth, authController.updateProfile); //to handle new users registering
 router.post('/login', authController.login); //to handle new users registering
 router.put('/register', authController.register); //to return profile details when given a USERID
+
+// =====================================
+// FACEBOOK ROUTES =====================
+// =====================================
+// route for facebook authentication and login
+router.get('/auth/facebook', authController.facebookSignUp);
+
+// handle the callback after facebook has authenticated the user
+router.get('/auth/facebook/callback', authController.facebookLoginCallback);
+
 
 router.get('/weather', weatherController.refresh);
 
 router.get('/settings', auth, settingsController.get);
+router.post('/settings', auth, settingsController.save);
 
 router.get('/quote', quotesController.get);
+
+router.get('/widgets', auth, widgetsController.index);
+router.post('/widget', auth, widgetsController.updateWidget);
+router.delete('/widget/:id', auth, widgetsController.removeWidget);
 
 module.exports = router;

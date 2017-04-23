@@ -17,7 +17,8 @@ module.exports = function (config) {
     ],
     preprocessors: {
       './src/test.ts': ['angular-cli'],
-      'dist/app/**/!(*spec).js': ['coverage']
+      'dist/app/**/!(*spec).js': ['coverage'],
+      'e2e/**/*.spec.ts': ['e2e']
     },
     mime: {
       'text/x-typescript': ['ts','tsx']
@@ -39,7 +40,7 @@ module.exports = function (config) {
       { type: 'lcov' }
     ]
     },
-    customLaunchers: {  
+    customLaunchers: {
       Chrome_travis_ci: {
         base: 'Chrome',
         flags: ['--no-sandbox']

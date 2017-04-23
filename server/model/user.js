@@ -16,7 +16,14 @@ var userDataSchema = new Schema({
     },
     hash: String,
     salt: String,
-    todos: [{type : ObjectId, ref: 'Todo'}]
+    //settings: {
+      //type: ObjectId,
+      //unique: true,
+      //required: true,
+      //ref: 'Settings'
+    //},
+    todos: [{type : ObjectId, ref: 'Todo'}],
+    widgets: [{type : ObjectId, ref: 'Widget'}]
 });
 
 userDataSchema.methods.setPassword = function(password){

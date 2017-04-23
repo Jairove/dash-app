@@ -18,11 +18,13 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-     // logout before login
-     this.authenticationService.logout();
-
      // get the return url from route parameters or go to root
      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dash';
+     
+     // If the user is already loged in, we must redirect
+     if(this.authenticationService.isUserLoggedIn()) {
+        this.router.navigate([this.returnUrl]);
+     }
   }
 
   username: string = '';
@@ -33,10 +35,15 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authenticationService.login(this.username,this.password)
                       .subscribe(
-                          status => {
-                            this.router.navigate([this.returnUrl]);
+                          response => {
+                            console.log(response);
+                            if(response==true) this.router.navigate([this.returnUrl]);
+                            else this.errorMessage = response;
                           },
-                          error => { this.errorMessage = <any>error; }
+                          error => {
+                            this.errorMessage = <any>error;
+
+                          }
                       );
   }
 

@@ -5,10 +5,9 @@
 }
 
 .info {
-  float: left;
-  display: inline-block;
+  float: right;
   margin-top: 25px;
-  margin-left: 20px;
+  vertical-align: top;
 }
 
 .unit {
@@ -25,16 +24,16 @@
 }
 
 .wrapper {
-  display: inline-block;
-  float: right;
+
 }
 
 .temp {
   font-size: 0.8em;
   display: inline-block;
   vertical-align: top;
+  font-weight: bold;
 }
 
 .place {
-  margin-top: -5px;
+  margin-top: 0px;
 }

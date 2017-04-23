@@ -11,6 +11,8 @@ export class NavbarComponent implements OnInit {
 
   @Output() onEdit: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  private editLabel = "Edit";
+
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
@@ -27,6 +29,11 @@ export class NavbarComponent implements OnInit {
   }
 
   private activateEdit() {
+    // Change the link label
+    if(this.editLabel=="Edit") this.editLabel = "Save";
+    else this.editLabel = "Edit";
+
+    // Emit the event
     this.onEdit.emit(true);
   }
 
