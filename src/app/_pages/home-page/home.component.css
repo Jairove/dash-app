@@ -15,11 +15,13 @@ header {
 }
 
 .pad-lg{
-  padding:70px 0;
+  padding: 50px 0;
+  height: 507px;
 }
 
 footer {
-  background-color: #e2e2e2;
+  background-color: #eeeeee;
+  padding-top: 45px;
 }
 
 .header-info{
@@ -35,8 +37,4 @@ footer {
 .title {
   font-weight: bold;
   font-size: 55px;
-}
-
-.login-button {
-  width: 100%;
 }

@@ -19,6 +19,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="isUserLoggedIn()">
           <li><a class="clickable" data-toggle="modal" data-target="#addWidgetModal" *ngIf="editLabel=='Save'">Add Widget</a>
+          <li><a class="clickable" data-toggle="modal" data-target="#profileModal">Settings</a>
           <li><a class="clickable"(click)="activateEdit()">{{editLabel}}</a></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>

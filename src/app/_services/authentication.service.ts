@@ -56,7 +56,7 @@ export class AuthenticationService {
       this.router.navigate(['/login']);
   }
 
-  register(username: string, password: string, name: string): Observable<string> {
+  register(username: string, password: string, name: string): Observable<any> {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -73,14 +73,14 @@ export class AuthenticationService {
                 localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
 
                 // return true to indicate successful login
-                return "success";
+                return true;
             } else {
                 // return false to indicate failed login
-                return response.json().message;
+                throw response.json().message;
             }
         })
       .catch((response: Response) => {
-        return response.json().message;
+        throw response.json().message;
       });
   }
 

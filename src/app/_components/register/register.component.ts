@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'register',
@@ -16,7 +17,10 @@ export class RegisterComponent implements OnInit {
          };
   status: string = '';
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -24,9 +28,14 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.authService.register(this.user.username, this.user.password, this.user.name)
             .subscribe(
-              status => {
-                this.status = status;
+              response => {
+                if(response==true) this.router.navigate(['./dash']);
+                else this.status = status;
               },
+              error => {
+                this.status = <any>error;
+              }
+
             );
   }
 

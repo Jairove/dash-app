@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-
   ) { }
 
   ngOnInit() {
@@ -25,6 +24,7 @@ export class HomeComponent implements OnInit {
   username: string = '';
   password: string = '';
   errorMessage: any = '';
+  toggleLogin: boolean = true;
 
   onSubmit() {
     this.authenticationService.login(this.username,this.password)
@@ -34,6 +34,14 @@ export class HomeComponent implements OnInit {
                           },
                           error => { this.errorMessage = <any>error; }
                       );
+  }
+
+  private showlogin() {
+    this.toggleLogin = true;
+  }
+  
+  private showregister() {
+    this.toggleLogin = false;
   }
 
 }

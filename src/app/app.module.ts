@@ -14,16 +14,18 @@ import { TodoComponent } from './todo/todo.component';
 import { QuotesComponent } from './quotes/quotes.component';
 import { WidgetWrapperComponent } from './widget-wrapper/widget-wrapper.component';
 import { NewsRssComponent } from './news-rss/news-rss.component';
-import { HomeComponent } from './_components/home/home.component';
+import { HomeComponent } from './_pages/home-page/home.component';
 import { RegisterComponent } from './_components/register/register.component';
-import { DashboardComponent } from './_components/dashboard/dashboard.component';
+import { DashboardComponent } from './_pages/dashboard/dashboard.component';
 import { LoginComponent } from './_components/login/login.component';
 import { LoginGuard } from './_services/login-guard.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { WeatherComponent } from './weather/weather.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { CoversComponent } from './covers/covers.component';
-import { ProfileComponent } from './_components/profile/profile.component';
+import { ProfileComponent } from './_pages/profile-page/profile.component';
+import { LoginPageComponent } from './_pages/login-page/login-page.component';
+import { RegisterPageComponent } from './_pages/register-page/register-page.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { ProfileComponent } from './_components/profile/profile.component';
     WeatherComponent,
     WelcomeComponent,
     CoversComponent,
-    ProfileComponent
+    ProfileComponent,
+    LoginPageComponent,
+    RegisterPageComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -58,11 +62,11 @@ import { ProfileComponent } from './_components/profile/profile.component';
       },
       {
         path: 'login',
-        component: LoginComponent
+        component: LoginPageComponent
       },
       {
         path: 'register',
-        component: RegisterComponent
+        component: RegisterPageComponent
       },
       {
         path: 'dash',

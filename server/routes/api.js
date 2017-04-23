@@ -34,6 +34,16 @@ router.post('/profile', auth, authController.updateProfile); //to handle new use
 router.post('/login', authController.login); //to handle new users registering
 router.put('/register', authController.register); //to return profile details when given a USERID
 
+// =====================================
+// FACEBOOK ROUTES =====================
+// =====================================
+// route for facebook authentication and login
+router.get('/auth/facebook', authController.facebookSignUp);
+
+// handle the callback after facebook has authenticated the user
+router.get('/auth/facebook/callback', authController.facebookLoginCallback);
+
+
 router.get('/weather', weatherController.refresh);
 
 router.get('/settings', auth, settingsController.get);
