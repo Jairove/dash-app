@@ -9,6 +9,7 @@ const quotesController  = require('../controller/quotes-controller');
 const widgetsController  = require('../controller/widget-controller');
 const mongoose = require( 'mongoose' );
 const jwt = require('express-jwt');
+const passport = require('passport');
 
 var auth = jwt({
   secret: 'MY_SECRET',
@@ -38,7 +39,7 @@ router.put('/register', authController.register); //to return profile details wh
 // FACEBOOK ROUTES =====================
 // =====================================
 // route for facebook authentication and login
-router.get('/auth/facebook', authController.facebookSignUp);
+router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
 // handle the callback after facebook has authenticated the user
 router.get('/auth/facebook/callback', authController.facebookLoginCallback);

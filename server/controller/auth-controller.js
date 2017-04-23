@@ -167,11 +167,6 @@ exports.changePassword = function (req, res, next) {
     });
 }
 
-exports.facebookSignUp = function(req,res,next) {
-  console.log('Facebook login attempt');
-  passport.authenticate('facebook', { scope : 'email' });
-}
-
 exports.facebookLoginCallback = function(req, res, next) {
   passport.authenticate('facebook',
       {session: false, failureRedirect: '/' }),
