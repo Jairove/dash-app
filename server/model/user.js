@@ -24,7 +24,7 @@ var userDataSchema = new Schema({
     //},
     todos: [{type : ObjectId, ref: 'Todo'}],
     widgets: [{type : ObjectId, ref: 'Widget'}],
-    facebookId; String
+    facebookId: String
 });
 
 userDataSchema.methods.setPassword = function(password){
