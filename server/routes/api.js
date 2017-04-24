@@ -42,11 +42,12 @@ router.put('/register', authController.register); //to return profile details wh
 router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
 // handle the callback after facebook has authenticated the user
-router.get('/auth/facebook/callback/:code',
+router.get('/auth/facebook/callback',
   passport.authenticate('facebook',
       {session: false, failureRedirect: '/' }),
           function(req, res, next) {
               var token = user.generateJwt();
+              console.log(token);
               res.redirect("/"+token);
               //res.redirect("/dash/"+token);
           });
