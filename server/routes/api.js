@@ -44,7 +44,6 @@ router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email'
 // handle the callback after facebook has authenticated the user
 router.get('/auth/facebook/callback',
   passport.authenticate('facebook',
-      {session: false, failureRedirect: '/' }),
           function(req, res, next) {
               var token = user.generateJwt();
               console.log(token);
