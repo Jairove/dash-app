@@ -44,10 +44,7 @@ router.get(
 );
 
 router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { session: false, failureRedirect: "/" }),
-  function(req, res) {
     res.redirect("/dash");
-  }
 );
 
 
