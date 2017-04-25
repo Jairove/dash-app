@@ -38,18 +38,17 @@ router.put('/register', authController.register); //to return profile details wh
 // =====================================
 // FACEBOOK ROUTES =====================
 // =====================================
-// route for facebook authentication and login
-router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-
+router.get(
+  '/auth/facebook',
+    passport.authenticate('facebook', { session: false, scope: [] })
+);
 
 router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate('facebook', { session: false, failureRedirect: "/" }),
   function(req, res) {
-    var token = user.generateJwt();
-    console.log(token);
-    res.redirect("/"+token);
-    //res.redirect('/');
-  });
+    res.redirect("/dash");
+  }
+);
 
 
 
