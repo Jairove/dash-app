@@ -44,8 +44,7 @@ router.get(
 );
 
 router.get('/auth/facebook/callback',
-    res.redirect("/dash");
-);
+  (req,res) => res.redirect("/dash"));
 
 
 
