@@ -7,27 +7,13 @@ export class LoginPageObject {
     private passwordInput;
     private emailInput;
     private submitButton;
-    private goToRegisterLink;
     private title;
 
     constructor() {
         this.title = element(by.id('login-title'));
-    }
-
-    navigateToForgotPasswordPage(): wdpromise.Promise<void> {
-        return this.goToForgotPasswordLink.click();
-    }
-
-    navigateToRegisterPage(): wdpromise.Promise<void> {
-        return this.goToRegisterLink.click();
-    }
-
-    setEmail(value: string): wdpromise.Promise<void> {
-        return this.emailInput.clear().sendKeys(value);
-    }
-
-    setPassword(value: string): wdpromise.Promise<void> {
-        return this.passwordInput.clear().sendKeys(value);
+        this.emailInput = element(by.id('username'));
+        this.passwordInput = element(by.id('password'));
+        this.submitButton = element(by.css('login-button'));
     }
 
     getTitle(): wdpromise.Promise<string> {
@@ -39,12 +25,21 @@ export class LoginPageObject {
     }
 
     formIsValid(): wdpromise.Promise<boolean> {
-        return this.getAllErrorMessages().count().then(value => {
-            return value === 0;
-        });
+        let valid = this.getErrorMessage().then( (result) => valid = result != '');
+        return valid;
     }
 
-    private getAllErrorMessages(): ElementArrayFinder {
-        return element.all(by.css('.error-group'));
+    private getErrorMessage(): wdpromise.Promise<string> {
+        return element(by.css('.alert-danger')).getText();
     }
+
+    setEmail(value: string): wdpromise.Promise<void> {
+        return this.emailInput.clear().sendKeys(value);
+    }
+
+    setPassword(value: string): wdpromise.Promise<void> {
+        return this.passwordInput.clear().sendKeys(value);
+    }
+
+
 }

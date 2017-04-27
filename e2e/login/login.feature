@@ -3,8 +3,8 @@ Feature: This feature describe the scenarios of the login part of our authentica
   Scenario Outline: The user is using the login form
 
     Given user clicks the login link
-    And '<email>' is the user email in the login form
-    And '<password>' is the user password in the login form
+    Given '<email>' is the user email in the login form
+    Given '<password>' is the user password in the login form
     When submitting the login form
     Then the login form is validated '<valid>'
 

@@ -22,8 +22,9 @@ exports.config = {
   cucumberOpts: {
     // require step definitions
     require: [
-      './e2e/**/*.steps.js' // accepts a glob
-    ]
+      './e2e/**/*.steps.ts' // accepts a glob
+    ],
+    format: 'pretty'
   },
 
   beforeLaunch: function() {
