@@ -35,19 +35,6 @@ router.post('/profile', auth, authController.updateProfile); //to handle new use
 router.post('/login', authController.login); //to handle new users registering
 router.put('/register', authController.register); //to return profile details when given a USERID
 
-// =====================================
-// FACEBOOK ROUTES =====================
-// =====================================
-router.get(
-  '/auth/facebook',
-    passport.authenticate('facebook', { session: false, scope: [] })
-);
-
-router.get('/auth/facebook/callback',
-  (req,res) => res.redirect("/dash"));
-
-
-
 router.get('/weather', weatherController.refresh);
 
 router.get('/settings', auth, settingsController.get);

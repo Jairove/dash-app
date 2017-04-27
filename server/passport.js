@@ -1,5 +1,4 @@
 var passport = require('passport');
-var FacebookStrategy = require( 'passport-facebook' ).Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
@@ -39,18 +38,3 @@ passport.use(new LocalStrategy({
             done(err, user);
         });
     });
-
-    // code for login (use('local-login', new LocalStategy))
-    // code for signup (use('local-signup', new LocalStategy))
-
-    passport.use(new FacebookStrategy({
-        clientID        : '1853436468015082',
-        clientSecret    : '6b95065cf822ba8f0ae480091cd9ded1',
-        callbackURL     : 'http://dashpot.herokuapp.com/api/auth/facebook/callback'
-      },
-      function(accessToken, refreshToken, profile, cb) {
-        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-          return cb(err, user);
-        });
-      }
-    ));

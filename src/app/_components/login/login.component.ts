@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
      // get the return url from route parameters or go to root
      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dash';
-     
+
      // If the user is already loged in, we must redirect
      if(this.authenticationService.isUserLoggedIn()) {
         this.router.navigate([this.returnUrl]);

@@ -21,7 +21,6 @@
           <input type="text" class="form-control" id="name"  name="name" required [(ngModel)]="user.name">
         </div>
         <p *ngIf="status!=''" class="alert alert-danger"><strong>Register failed! </strong>{{status}}</p>
-        <a href="/api/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook Login </a>
         <button type="Login" class="btn btn-success register-button">Register</button>
       </form>
     </div>
