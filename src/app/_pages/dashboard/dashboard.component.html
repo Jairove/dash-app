@@ -6,7 +6,7 @@
         <div *ngFor="let widget of widgets" [class]="widget.colSize">
           <div class="widget-edit">
             <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="removeWidget(widget.pos)"></span>
-            <widget-wrapper [type]="types[widget.type]"></widget-wrapper>
+            <widget-wrapper [type]="types[widget.type]" [idwidget]="widget._id"></widget-wrapper>
           </div>
         </div>
 
@@ -59,7 +59,7 @@
 
       <div *ngIf="!editMode" class="row">
         <div *ngFor="let widget of widgets" [class]="widget.colSize">
-            <widget-wrapper [type]="types[widget.type]"></widget-wrapper>
+            <widget-wrapper [type]="types[widget.type]" [idwidget]="widget._id"></widget-wrapper>
         </div>
       </div>
   </div>

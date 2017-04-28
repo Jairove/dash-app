@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 , ObjectId = Schema.ObjectId;
 
 var todoSchema = new Schema({
-    _userid : { type: ObjectId, ref: 'User' },
+    _widgetid : { type: ObjectId, ref: 'TodoWidget' },
     title : String,
     complete : Boolean
 });

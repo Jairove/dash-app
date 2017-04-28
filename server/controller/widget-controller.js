@@ -4,8 +4,9 @@ const mongoose = require('mongoose').set('debug', true)
 
 const user = require('../model/user');
 var User = user.User;
-const widgetModel = require('../model/widget');
+const widgetModel = require('../model/widgets');
 var Widget = widgetModel.Widget;
+var TodoWidgetSchema = widgetModel.TodoWidgetSchema;
 
 //Manages the creation of a new widget
 exports.addWidget = function (req,res,next) {
@@ -95,9 +96,38 @@ exports.createDefaultDash = function(userid) {
     {type: 'TodoComponent', colSize: "col-md-4", pos:5}];
 
     // Save the widgets in DB
-    for (widget of widgets) {
-      create(userid,widget);
-    }
+    //for (widget of widgets) {
+    //  create(userid,widget);
+    //}
+    var todoWidget = {type: 'TodoComponent', colSize: "col-md-4", pos:5};
+    createTodoWidget(userid,todoWidget);
+
+}
+
+//Manages the creation of a new widget
+function createTodoWidget (userid,widget) {
+    // Set fields
+    var newWidget= new TodoWidgetSchema();
+    newWidget._userid = userid;
+    newWidget._id = mongoose.Types.ObjectId();
+    newWidget.type = widget.type;
+    newWidget.colSize = widget.colSize;
+    newWidget.pos = widget.pos;
+
+    console.log(newWidget);
+
+    // Save the widget to DB
+    newWidget.save(function(err){
+        if(err){ throw err; }
+        console.log('saved: '+newWidget);
+    })
+
+    //Update the user's widget list
+    User.findByIdAndUpdate(userid, {
+        $push: { widgets: newWidget._id }
+    }, {'new': true}, function(err,user) {
+        if(err) { throw err; }
+    });
 }
 
 //Retrieves the widgets of a user

@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CoversComponent implements OnInit {
 
   private routeToCover;
+  public id = null;
 
   constructor() {}
 

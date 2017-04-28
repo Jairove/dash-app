@@ -23,9 +23,9 @@ router.get('/', (req, res) => {
 
 
 // To-dos Routes
-router.get('/todos', auth, todoController.index);
+router.get('/todos/:idwidget', auth, todoController.index);
 router.post('/todos', auth, todoController.update);
-router.put('/todos', auth, todoController.create);
+router.put('/todos/:idwidget', auth, todoController.create);
 router.delete('/todos/:id', auth, todoController.delete);
 
 // Auth Routes

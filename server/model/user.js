@@ -22,7 +22,6 @@ var userDataSchema = new Schema({
       //required: true,
       //ref: 'Settings'
     //},
-    todos: [{type : ObjectId, ref: 'Todo'}],
     widgets: [{type : ObjectId, ref: 'Widget'}],
 });
 

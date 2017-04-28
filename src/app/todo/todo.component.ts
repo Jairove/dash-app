@@ -12,6 +12,7 @@ export class TodoComponent implements OnInit {
   newTodo: Todo = new Todo();
   todos: Todo[] = [];
   errorMessage: string;
+  public id = null;
 
   // Ask Angular DI system to inject the dependency
   // associated with the dependency injection token `TodoDataService`
@@ -22,11 +23,10 @@ export class TodoComponent implements OnInit {
   // Service is now available as this.todoDataService
 
   addTodo() {
-    this.todoDataService.addTodo(this.newTodo)
+    this.todoDataService.addTodo(this.newTodo,this.id)
             .subscribe(
                 todo  => this.todos.push(todo),
                 error =>  this.errorMessage = <any>error);
-    // TODO Handle errors
     this.newTodo = new Todo();
   }
 
@@ -45,7 +45,7 @@ export class TodoComponent implements OnInit {
   }
 
   refreshTodos() {
-    this.todoDataService.getUserTodos()
+    this.todoDataService.getTodos(this.id)
         .subscribe(
             todos => this.todos = todos,
             error =>  this.errorMessage = <any>error

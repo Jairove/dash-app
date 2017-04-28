@@ -17,7 +17,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
   private editMode = false;
-  private widgets: any = [{type: 'WelcomeComponent', colSize: "col-md-6", pos: 0}];
+  private widgets: any = [{type: 'WelcomeComponent', colSize: "col-md-6", pos: 0, id: "init"}];
   private response: String;
   private widgetsToBeDeleted: Array<any> = [];
 
@@ -125,7 +125,7 @@ export class DashboardComponent implements OnInit {
      if(this.widgets[position]._id!=null) {
        this.widgetsToBeDeleted.push(this.widgets[position]);
      }
-     
+
     console.log('Widget to be removed: '+position);
     this.widgets.splice(position, 1);
 

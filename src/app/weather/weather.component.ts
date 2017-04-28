@@ -11,6 +11,7 @@ import { Forecast } from './forecast';
 export class WeatherComponent implements OnInit {
   private forecast;
   private units = 'metric';
+  public id = null;
 
   constructor(private weatherService: WeatherService) {
       this.refreshWeather();
