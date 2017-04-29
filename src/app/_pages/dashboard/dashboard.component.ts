@@ -17,7 +17,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
   private editMode = false;
-  private widgets: any = [{type: 'WelcomeComponent', colSize: "col-md-6", pos: 0, id: "init"}];
+  private widgets: any = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos: 0, id: "init"}];
   private response: String;
   private widgetsToBeDeleted: Array<any> = [];
 

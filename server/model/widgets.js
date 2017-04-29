@@ -35,11 +35,13 @@ var TodoWidgetSchema = new BaseSchema({todos: [{type : ObjectId, ref: 'Todo'}]})
 var WeatherWidgetSchema = new BaseSchema();
 var NewsWidgetSchema = new BaseSchema();
 var CoversWidgetSchema = new BaseSchema();
+var WelcomeWidgetSchema = new BaseSchema();
 
 Widget = mongoose.model('Widget', WidgetSchema);
+exports.Widget = mongoose.model('Widget', WidgetSchema);
 exports.QuotesWidgetSchema = Widget.discriminator('QuotesComponent', QuotesWidgetSchema);
 exports.TodoWidgetSchema = Widget.discriminator('TodoComponent', TodoWidgetSchema);
 exports.WeatherWidgetSchema = Widget.discriminator('WeatherComponent', WeatherWidgetSchema);
 exports.NewsWidgetSchema = Widget.discriminator('NewsRssComponent', NewsWidgetSchema);
 exports.CoversWidgetSchema = Widget.discriminator('CoversComponent', CoversWidgetSchema);
-exports.Widget;
+exports.WelcomeWidgetSchema = Widget.discriminator('WelcomeComponent', WelcomeWidgetSchema);

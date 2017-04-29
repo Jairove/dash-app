@@ -7,15 +7,21 @@ var User = user.User;
 const widgetModel = require('../model/widgets');
 var Widget = widgetModel.Widget;
 var TodoWidgetSchema = widgetModel.TodoWidgetSchema;
+var WelcomeWidgetSchema = widgetModel.WelcomeWidgetSchema;
+var QuotesWidgetSchema = widgetModel.QuotesWidgetSchema;
+var CoversWidgetSchema = widgetModel.CoversWidgetSchema;
+var NewsWidgetSchema = widgetModel.NewsWidgetSchema;
+var WeatherWidgetSchema = widgetModel.WeatherWidgetSchema;
 
 //Manages the creation of a new widget
 exports.addWidget = function (req,res,next) {
     var userid = req.payload._id;
-
     //Create a new widget
-    var widget = new Widget();
-    widget.type = req.body.type;
-    widget.colSize = req.body.colSize;
+    var widget = {
+      __t: req.body.__t,
+      colSize: req.body.colSize,
+      pos: req.body.pos
+    };
 
     create(userid,widget);
 }
@@ -23,10 +29,34 @@ exports.addWidget = function (req,res,next) {
 //Manages the creation of a new widget
 function create (userid,widget) {
     // Set fields
-    var newWidget= new Widget();
+
+    var newWidget;
+
+    switch(widget.type) {
+      case 'WelcomeComponent':
+        newWidget= new WelcomeWidgetSchema();
+        break;
+      case 'WeatherComponent':
+        newWidget= new WeatherWidgetSchema();
+        break;
+      case 'NewsRssComponent':
+        newWidget= new NewsWidgetSchema();
+        break;
+      case 'CoversComponent':
+        newWidget= new CoversWidgetSchema();
+        break;
+      case 'QuotesComponent':
+        newWidget = new QuotesWidgetSchema();
+        break;
+      case 'TodoComponent':
+        newWidget= new TodoWidgetSchema();
+        break;
+      default:
+        throw new Error('Invalid widget type');
+    }
+
     newWidget._userid = userid;
     newWidget._id = mongoose.Types.ObjectId();
-    newWidget.type = widget.type;
     newWidget.colSize = widget.colSize;
     newWidget.pos = widget.pos;
 
@@ -46,31 +76,18 @@ function create (userid,widget) {
     });
 }
 
-// //Manages the update of the widgets array
-// exports.updateDash = function (req, res, next) {
-//     var userid = req.payload._id;
-//     var newWidgets = req.body.widgets;
-//
-//     //Update the user's widget list
-//     User.findByIdAndUpdate(userid, {
-//         $set: { widgets: newWidgets }
-//     }, {'new': true}, function(err,user) {
-//         if(err) { throw err; }
-//     });
-// }
-
 //Manages the update of a widget, creates a new one if it does not exist
 exports.updateWidget = function (req, res, next) {
 
   if(req.body._id!=null) {
-
+    console.log('Before find');
     Widget.findById(req.body._id, function(err, widget) {
+        console.log('Enter find');
         if (err) {
             console.log(err)
             return next(err)
         }
         else {
-              widget.type = req.body.type || widget.type;
               widget.colSize = req.body.colSize || widget.colSize;
               widget.pos = req.body.pos;
 
@@ -95,39 +112,10 @@ exports.createDefaultDash = function(userid) {
     {type: 'NewsRssComponent', colSize: "col-md-8", pos:3},{type: 'QuotesComponent', colSize: "col-md-4", pos:4},
     {type: 'TodoComponent', colSize: "col-md-4", pos:5}];
 
-    // Save the widgets in DB
-    //for (widget of widgets) {
-    //  create(userid,widget);
-    //}
-    var todoWidget = {type: 'TodoComponent', colSize: "col-md-4", pos:5};
-    createTodoWidget(userid,todoWidget);
-
-}
-
-//Manages the creation of a new widget
-function createTodoWidget (userid,widget) {
-    // Set fields
-    var newWidget= new TodoWidgetSchema();
-    newWidget._userid = userid;
-    newWidget._id = mongoose.Types.ObjectId();
-    newWidget.type = widget.type;
-    newWidget.colSize = widget.colSize;
-    newWidget.pos = widget.pos;
-
-    console.log(newWidget);
-
-    // Save the widget to DB
-    newWidget.save(function(err){
-        if(err){ throw err; }
-        console.log('saved: '+newWidget);
-    })
-
-    //Update the user's widget list
-    User.findByIdAndUpdate(userid, {
-        $push: { widgets: newWidget._id }
-    }, {'new': true}, function(err,user) {
-        if(err) { throw err; }
-    });
+    //Save the widgets in DB
+    for (widget of widgets) {
+      create(userid,widget);
+    }
 }
 
 //Retrieves the widgets of a user
