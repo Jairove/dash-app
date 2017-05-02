@@ -26,7 +26,7 @@ import { CoversComponent } from './covers/covers.component';
 import { ProfileComponent } from './_pages/profile-page/profile.component';
 import { LoginPageComponent } from './_pages/login-page/login-page.component';
 import { RegisterPageComponent } from './_pages/register-page/register-page.component';
-import { WidgetEditorComponent } from './_components/widget-editor/widget-editor.component';
+import { widgetSettingsComponent } from './_components/widget-settings/widget-settings.component';
 
 
 @NgModule({
@@ -47,7 +47,7 @@ import { WidgetEditorComponent } from './_components/widget-editor/widget-editor
     ProfileComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    WidgetEditorComponent
+    widgetSettingsComponent
   ],
   imports: [
     AlertModule.forRoot(),

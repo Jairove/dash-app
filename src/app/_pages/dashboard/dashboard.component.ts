@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   private widgets: any = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos: 0, id: "init"}];
   private response: String;
   private widgetsToBeDeleted: Array<any> = [];
+  private edibleWidget = { id: null, type: null };
+  private newWidgetType =  'TodoComponent';
 
   private types = {
     'WelcomeComponent': WelcomeComponent,
@@ -40,10 +42,7 @@ export class DashboardComponent implements OnInit {
     'xxl': 'col-md-12'
   };
 
-  newWidgetForm = {
-    size: 'xs',
-    type: 'covers'
-  };
+
 
   constructor(private settingsService: SettingsService) { }
 
@@ -104,15 +103,14 @@ export class DashboardComponent implements OnInit {
     this.updateDash();
   }
 
-  // TODO Remove this
-  public select(element: string): void {
-    console.log(element);
+  public setEdibleWidget(id: string, type: string): void {
+    this.edibleWidget.id = id;
+    this.edibleWidget.type = type;
   }
 
   public addWidget() {
     let widget = {
-      __t: this.newWidgetForm.type,
-      colSize: this.sizes[this.newWidgetForm.size],
+      __t: this.newWidgetType,
       pos: this.widgets.length
     }
     this.widgets.push(widget);

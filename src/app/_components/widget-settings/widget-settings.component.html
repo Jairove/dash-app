@@ -1,0 +1,25 @@
+<h5>Size</h5>
+<div class="size-option">
+  <select name="size" class="dropdown" [(ngModel)]="editWidgetForm.size">
+    <option value="xs">Extra Small</option>
+    <option value="s">Small</option>
+    <option value="m" selected>Medium</option>
+    <option value="l">Large</option>
+    <option value="xl">Extra Large</option>
+    <option value="xxl">Full Large</option>
+  </select>
+</div>
+
+<div *ngIf="type=='TodoComponent'" class="title-option">
+  <label>Title: </label><input type="text" [(ngModel)]="editWidgetForm.title" placeholder="Todo List">
+</div>
+
+<div *ngIf="type=='NewsRssComponent'" class="title-option">
+  <label>Title: </label><input type="text" [(ngModel)]="editWidgetForm.title" placeholder=" RSS News">
+  <label>Feed URL: </label><input type="text" [(ngModel)]="editWidgetForm.url" placeholder=" RSS News">
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+  <button type="button" class="btn btn-success" id="addWidgetButton" (click)="updateWidget()" data-dismiss="modal">Add</button>
+</div>

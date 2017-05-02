@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { WidgetEditorComponent } from './widget-editor.component';
+import { widgetSettingsComponent } from './widget-settings.component';
 
-describe('WidgetEditorComponent', () => {
-  let component: WidgetEditorComponent;
-  let fixture: ComponentFixture<WidgetEditorComponent>;
+describe('widgetSettingsComponent', () => {
+  let component: widgetSettingsComponent;
+  let fixture: ComponentFixture<widgetSettingsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WidgetEditorComponent ]
+      declarations: [ widgetSettingsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WidgetEditorComponent);
+    fixture = TestBed.createComponent(widgetSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,13 +5,15 @@
       <div *ngIf="editMode" class="row" [dragula]="widget-bag" [dragulaModel]="widgets">
         <div *ngFor="let widget of widgets" [class]="widget.colSize">
           <div class="widget-edit">
-            <span class="glyphicon glyphicon-edit widget-edit-btn" aria-hidden="true" (click)="removeWidget(widget.pos)"></span>
+            <a class="clickable" data-toggle="modal" data-target="#editWidgetModal">
+              <span class="glyphicon glyphicon-edit widget-edit-btn" aria-hidden="true" (click)="setEdibleWidget(widget._id, widget.__t)"></span>
+            </a>
             <span class="glyphicon glyphicon-remove widget-remove-btn" aria-hidden="true" (click)="removeWidget(widget.pos)"></span>
             <widget-wrapper [type]="types[widget.__t]" [idwidget]="widget._id"></widget-wrapper>
           </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Add widget modal -->
         <div id="addWidgetModal" class="modal fade" role="dialog">
           <div class="modal-dialog">
 
@@ -23,27 +25,21 @@
               </div>
               <div class="modal-body">
 
-                <div id="widget-settings" class="widget-settings-container">
+                <div class="widget-settings" class="widget-settings-container">
                     <form>
                       <h5>Widget</h5>
-                      <select name="type" class="dropdown" (change)="select($event.target.value)" [(ngModel)]="newWidgetForm.type">
+                      <select name="type" class="dropdown" (change)="setEdibleWidget(null, $event.target.value)" [(ngModel)]="newWidgetType">
                         <option value="WelcomeComponent">Welcome</option>
                         <option value="CoversComponent">Covers</option>
-                        <option value="TodoComponent">Todo List</option>
+                        <option value="TodoComponent" selected>Todo List</option>
                         <option value="WeatherComponent">Weather</option>
                         <option value="NewsRssComponent">RSS News</option>
                         <option value="QuotesComponent">Quotes</option>
                       </select>
 
-                      <h5>Size</h5>
-                      <select name="size" class="dropdown" [(ngModel)]="newWidgetForm.size">
-                        <option value="xs">Extra Small</option>
-                        <option value="s">Small</option>
-                        <option value="m">Medium</option>
-                        <option value="l">Large</option>
-                        <option value="xl">Extra Large</option>
-                        <option value="xxl">Full Large</option>
-                      </select>
+
+
+                      <widget-settings [type]="newWidgetType" [idwidget]="null"></widget-settings>
                   </form>
                 </div>
               </div>
@@ -54,14 +50,39 @@
               </div>
             </div>
 
+
+
           </div>
         </div>
-      </div>
 
-      <div *ngIf="!editMode" class="row">
-        <div *ngFor="let widget of widgets" [class]="widget.colSize">
-            <widget-wrapper [type]="types[widget.__t]" [idwidget]="widget._id"></widget-wrapper>
+        <!-- Edit widget modal -->
+        <div id="editWidgetModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Widget</h4>
+              </div>
+              <div class="modal-body">
+
+                <div class="widget-settings" class="widget-settings-container">
+                    <widget-settings [type]="edibleWidget.type" [idwidget]="edibleWidget.id"></widget-settings>
+                </div>
+              </div>
+
+          </div>
         </div>
+
       </div>
+    </div>
+
+    <div *ngIf="!editMode" class="row">
+      <div *ngFor="let widget of widgets" [class]="widget.colSize">
+          <widget-wrapper [type]="types[widget.__t]" [idwidget]="widget._id"></widget-wrapper>
+      </div>
+    </div>
+    
   </div>
 </div>
