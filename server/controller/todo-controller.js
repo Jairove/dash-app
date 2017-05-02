@@ -4,7 +4,7 @@ const mongoose = require('mongoose').set('debug', true)
 
 const widget = require('../model/widgets');
 const todo = require('../model/todo');
-var TodoWidget = widget.TodoWidget;
+var TodoWidget = widget.TodoWidgetSchema;
 var Todo = todo.Todo;
 
 
@@ -73,7 +73,7 @@ exports.update = function (req, res, next) {
 
 //Retrieves the todos of a given widget
 exports.index = function (req, res, next) {
-    var widgetid = req.payload._id;
+    var widgetid = req.params.idwidget;
 
     TodoWidget.findById(widgetid).populate('todos').exec(function(err,widget) {
         if (err||widget===null) { res.status(500).send(err) }

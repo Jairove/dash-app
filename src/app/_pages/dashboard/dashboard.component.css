@@ -18,15 +18,26 @@
   opacity: 1;
 }
 
-.widget-edit span {
+.widget-edit-btn {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  cursor: pointer;
+}
+
+.widget-remove-btn {
   position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
 }
 
-.widget-edit span:hover {
+.widget-remove-btn:hover {
   color: red;
+}
+
+.widget-edit-btn:hover {
+  color: green;
 }
 
 #addWidgetModal {

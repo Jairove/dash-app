@@ -111,7 +111,7 @@ export class DashboardComponent implements OnInit {
 
   public addWidget() {
     let widget = {
-      type: this.newWidgetForm.type,
+      __t: this.newWidgetForm.type,
       colSize: this.sizes[this.newWidgetForm.size],
       pos: this.widgets.length
     }

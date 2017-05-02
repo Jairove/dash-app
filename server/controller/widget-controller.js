@@ -32,7 +32,7 @@ function create (userid,widget) {
 
     var newWidget;
 
-    switch(widget.type) {
+    switch(widget.__t) {
       case 'WelcomeComponent':
         newWidget= new WelcomeWidgetSchema();
         break;
