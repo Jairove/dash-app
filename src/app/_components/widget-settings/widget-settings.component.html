@@ -1,6 +1,6 @@
 <h5>Size</h5>
 <div class="size-option">
-  <select name="size" class="dropdown" [(ngModel)]="editWidgetForm.size">
+  <select name="size" class="dropdown" [(ngModel)]="editWidgetForm.colSize">
     <option value="xs">Extra Small</option>
     <option value="s">Small</option>
     <option value="m" selected>Medium</option>
@@ -21,5 +21,5 @@
 
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-  <button type="button" class="btn btn-success" id="addWidgetButton" (click)="updateWidget()" data-dismiss="modal">Add</button>
+  <button type="button" class="btn btn-success" id="addWidgetButton" (click)="saveWidget()" data-dismiss="modal">Save</button>
 </div>

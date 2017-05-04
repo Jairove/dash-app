@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   private widgets: any = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos: 0, id: "init"}];
   private response: String;
   private widgetsToBeDeleted: Array<any> = [];
-  private edibleWidget = { id: null, type: null };
+  private edibleWidget = { pos: null, type: null };
   private newWidgetType =  'TodoComponent';
 
   private types = {
@@ -31,18 +31,6 @@ export class DashboardComponent implements OnInit {
     'QuotesComponent': QuotesComponent,
     'TodoComponent': TodoComponent
   };
-
-
-  private sizes = {
-    'xs': 'col-md-2',
-    's': 'col-md-4',
-    'm': 'col-md-6',
-    'l': 'col-md-8',
-    'xl': 'col-md-10',
-    'xxl': 'col-md-12'
-  };
-
-
 
   constructor(private settingsService: SettingsService) { }
 
@@ -103,19 +91,24 @@ export class DashboardComponent implements OnInit {
     this.updateDash();
   }
 
-  public setEdibleWidget(id: string, type: string): void {
-    this.edibleWidget.id = id;
+  public setEdibleWidget(pos: number, type: string): void {
+    this.edibleWidget.pos = pos;
     this.edibleWidget.type = type;
   }
 
-  public addWidget() {
-    let widget = {
-      __t: this.newWidgetType,
-      pos: this.widgets.length
+  private editWidget(editedWidget) {
+    for(let widget of this.widgets) {
+      if(widget.pos == editedWidget.pos) {
+        Object.assign(widget, editedWidget);
+        this.settingsService.updateWidget(widget).subscribe();
+      }
     }
-    this.widgets.push(widget);
+    ///this.widgets.push(widget);
+  }
 
-    console.log('Widget added');
+  public createWidget(newWidget) {
+    newWidget.pos = this.widgets.length;
+    this.widgets.push(newWidget);
   }
 
   public removeWidget(position: number): void {
@@ -131,6 +124,7 @@ export class DashboardComponent implements OnInit {
     for(let widget of this.widgets) {
       if(widget.pos != this.widgets.indexOf(widget)) {
         widget.pos = this.widgets.indexOf(widget);
+        break;
       }
     }
 
