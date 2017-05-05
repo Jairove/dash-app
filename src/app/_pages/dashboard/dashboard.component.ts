@@ -97,9 +97,9 @@ export class DashboardComponent implements OnInit {
   }
 
   private editWidget(editedWidget) {
-    for(let widget of this.widgets) {
-      if(widget.pos == editedWidget.pos) {
-        Object.assign(widget, editedWidget);
+    for(var i=0; i<this.widgets.length; i++) {
+      if(this.widgets[i].pos == editedWidget.pos) {
+        this.widgets[i] = Object.assign(this.widgets[i], editedWidget);
       }
     }
   }

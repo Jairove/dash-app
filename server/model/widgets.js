@@ -31,9 +31,14 @@ util.inherits(BaseSchema, Schema);
 var WidgetSchema = new BaseSchema();
 
 var QuotesWidgetSchema = new BaseSchema();
-var TodoWidgetSchema = new BaseSchema({todos: [{type : ObjectId, ref: 'Todo'}]});
+var TodoWidgetSchema = new BaseSchema({
+  todos: [{type : ObjectId, ref: 'Todo'}],
+  title: { type: String }
+});
 var WeatherWidgetSchema = new BaseSchema();
-var NewsWidgetSchema = new BaseSchema();
+var NewsWidgetSchema = new BaseSchema({
+  title: { type: String }
+});
 var CoversWidgetSchema = new BaseSchema();
 var WelcomeWidgetSchema = new BaseSchema();
 

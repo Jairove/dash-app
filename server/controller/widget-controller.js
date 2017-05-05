@@ -41,6 +41,7 @@ function create (userid,widget) {
         break;
       case 'NewsRssComponent':
         newWidget= new NewsWidgetSchema();
+        newWidget.title = widget.title;
         break;
       case 'CoversComponent':
         newWidget= new CoversWidgetSchema();
@@ -50,6 +51,7 @@ function create (userid,widget) {
         break;
       case 'TodoComponent':
         newWidget= new TodoWidgetSchema();
+        newWidget.title = widget.title;
         break;
       default:
         throw new Error('Invalid widget type: '+widget.__t);
@@ -81,25 +83,42 @@ exports.updateWidget = function (req, res, next) {
 
   if(req.body._id!=null) {
     console.log('Before find');
-    Widget.findById(req.body._id, function(err, widget) {
-        console.log('Enter find');
-        if (err) {
-            console.log(err)
-            return next(err)
-        }
-        else {
-              widget.colSize = req.body.colSize || widget.colSize;
-              widget.pos = req.body.pos;
 
-              widget.save(function(err,save) {
-                  if (err) { res.status(500).send(err) }
-                  else res.send(save);
-              })
-        }
-      })
-    }
+      Widget.findById(req.body._id, function(err, widget) {
+          console.log('Enter find');
+          if (err) {
+              console.log(err)
+              return next(err)
+          }
+          else {
 
-  else create(req.payload._id, req.body);
+            switch(widget.__t) {
+              case 'WelcomeComponent':
+                // Set properties
+              case 'WeatherComponent':
+                // Set properties
+              case 'NewsRssComponent':
+                widget.title = req.body.title || widget.title;
+              case 'CoversComponent':
+                // Set properties
+              case 'QuotesComponent':
+                // Set properties
+              case 'TodoComponent':
+                widget.title = req.body.title || widget.title;
+
+              default:
+                widget.colSize = req.body.colSize || widget.colSize;
+                widget.pos = req.body.pos;
+            }
+
+            widget.save(function(err,save) {
+                if (err) { res.status(500).send(err) }
+                else res.send(save);
+            })
+          }
+        })
+      }
+    else create(req.payload._id, req.body);
 
 }
 
@@ -109,7 +128,7 @@ exports.updateWidget = function (req, res, next) {
 exports.createDefaultDash = function(userid) {
     var widgets = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos:0},
     {__t: 'WeatherComponent', colSize: "col-md-6", pos:1},{__t: 'CoversComponent', colSize: "col-md-12", pos:2},
-    {__t: 'NewsRssComponent', colSize: "col-md-8", pos:3, title="Latest News"},{__t: 'QuotesComponent', colSize: "col-md-4", pos:4},
+    {__t: 'NewsRssComponent', colSize: "col-md-8", pos:3, title: "Latest News"},{__t: 'QuotesComponent', colSize: "col-md-4", pos:4},
     {__t: 'TodoComponent', colSize: "col-md-4", pos:5, title: "To Do List"}];
 
     //Save the widgets in DB
