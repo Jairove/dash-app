@@ -12,13 +12,13 @@ export class TodoComponent implements OnInit {
   newTodo: Todo = new Todo();
   todos: Todo[] = [];
   errorMessage: string;
-  public id = null;
+  public widgetdata;
 
   constructor(private todoDataService: TodoDataService) {
   }
 
   addTodo() {
-    this.todoDataService.addTodo(this.newTodo,this.id)
+    this.todoDataService.addTodo(this.newTodo,this.widgetdata._id)
             .subscribe(
                 todo  => this.todos.push(todo),
                 error =>  this.errorMessage = <any>error);
@@ -40,8 +40,8 @@ export class TodoComponent implements OnInit {
   }
 
   refreshTodos() {
-    if(this.id) {
-      this.todoDataService.getTodos(this.id)
+    if(this.widgetdata._id) {
+      this.todoDataService.getTodos(this.widgetdata._id)
           .subscribe(
               todos => this.todos = todos,
               error =>  this.errorMessage = <any>error

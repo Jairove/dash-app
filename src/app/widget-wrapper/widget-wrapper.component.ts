@@ -13,7 +13,7 @@ import { Component,
 export class WidgetWrapperComponent implements OnInit {
   @ViewChild('target', {read: ViewContainerRef}) target: ViewContainerRef;
   @Input() type: Type<Component>;
-  @Input() idwidget: string;
+  @Input() widgetdata: any;
   cmpRef: any;
   private isViewInitialized:boolean = false;
 
@@ -31,7 +31,7 @@ export class WidgetWrapperComponent implements OnInit {
 
     let factory = this.componentFactoryResolver.resolveComponentFactory(this.type);
     this.cmpRef = this.target.createComponent(factory);
-    this.cmpRef.instance.id = this.idwidget;
+    this.cmpRef.instance.widgetdata = this.widgetdata;
 
   }
 

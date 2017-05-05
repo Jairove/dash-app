@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
   private today: number = Date.now();
-  private name = 'ay';
-  private id = null;
+  private name = '';
+  private widgetdata;
 
   constructor() {
       this.name = JSON.parse(localStorage.getItem('settings')).name;

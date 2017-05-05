@@ -100,10 +100,8 @@ export class DashboardComponent implements OnInit {
     for(let widget of this.widgets) {
       if(widget.pos == editedWidget.pos) {
         Object.assign(widget, editedWidget);
-        this.settingsService.updateWidget(widget).subscribe();
       }
     }
-    ///this.widgets.push(widget);
   }
 
   public createWidget(newWidget) {
@@ -117,7 +115,6 @@ export class DashboardComponent implements OnInit {
        this.widgetsToBeDeleted.push(this.widgets[position]);
      }
 
-    console.log('Widget to be removed: '+position);
     this.widgets.splice(position, 1);
 
     //Update positions
@@ -128,7 +125,6 @@ export class DashboardComponent implements OnInit {
       }
     }
 
-    console.log(this.widgets);
   }
 
 }

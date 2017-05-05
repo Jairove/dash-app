@@ -109,8 +109,8 @@ exports.updateWidget = function (req, res, next) {
 exports.createDefaultDash = function(userid) {
     var widgets = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos:0},
     {__t: 'WeatherComponent', colSize: "col-md-6", pos:1},{__t: 'CoversComponent', colSize: "col-md-12", pos:2},
-    {__t: 'NewsRssComponent', colSize: "col-md-8", pos:3},{__t: 'QuotesComponent', colSize: "col-md-4", pos:4},
-    {__t: 'TodoComponent', colSize: "col-md-4", pos:5}];
+    {__t: 'NewsRssComponent', colSize: "col-md-8", pos:3, title="Latest News"},{__t: 'QuotesComponent', colSize: "col-md-4", pos:4},
+    {__t: 'TodoComponent', colSize: "col-md-4", pos:5, title: "To Do List"}];
 
     //Save the widgets in DB
     for (widget of widgets) {

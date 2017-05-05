@@ -9,7 +9,7 @@
               <span class="glyphicon glyphicon-edit widget-edit-btn" aria-hidden="true" (click)="setEdibleWidget(widget.pos, widget.__t)"></span>
             </a>
             <span class="glyphicon glyphicon-remove widget-remove-btn" aria-hidden="true" (click)="removeWidget(widget.pos)"></span>
-            <widget-wrapper [type]="types[widget.__t]" [idwidget]="widget._id"></widget-wrapper>
+            <widget-wrapper [type]="types[widget.__t]" [widgetdata]="widget"></widget-wrapper>
           </div>
         </div>
 
@@ -73,7 +73,7 @@
 
     <div *ngIf="!editMode" class="row">
       <div *ngFor="let widget of widgets" [class]="widget.colSize">
-          <widget-wrapper [type]="types[widget.__t]" [idwidget]="widget._id"></widget-wrapper>
+          <widget-wrapper [type]="types[widget.__t]" [widgetdata]="widget"></widget-wrapper>
       </div>
     </div>
 
