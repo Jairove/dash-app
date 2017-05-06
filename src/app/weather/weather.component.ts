@@ -34,10 +34,11 @@ export class WeatherComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    if(this.lat!=this.widgetdata.lat || this.lon!=this.widgetdata.lon) {
+    if(this.lat!=this.widgetdata.lat || this.lon!=this.widgetdata.lon || this.units!=this.widgetdata.units) {
       this.refreshWeather();
       this.lat = this.widgetdata.lat;
       this.lon = this.widgetdata.lon;
+      this.units = this.widgetdata.units;
     }
   }
 
