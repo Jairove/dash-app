@@ -1,33 +1,44 @@
-<h5>Size</h5>
-<div class="size-option">
-  <select name="size" class="dropdown" [(ngModel)]="editWidgetForm.colSize">
-    <option value="xs" [selected]="widget.colSize ? 'col-md-2' : ''">Extra Small</option>
-    <option value="s" [selected]="widget.colSize ? 'col-md-4' : ''">Small</option>
-    <option value="m" [selected]="widget.colSize ? 'col-md-6' : ''">Medium</option>
-    <option value="l" [selected]="widget.colSize ? 'col-md-8' : ''">Large</option>
-    <option value="xl" [selected]="widget.colSize ? 'col-md-10' : ''">Extra Large</option>
-    <option value="xxl" [selected]="widget.colSize ? 'col-md-12' : ''">Full Large</option>
-  </select>
-</div>
+<div class="settings">
+  <div class="size-option">
+    <label>Size</label>
+    <select name="size" class="dropdown" [(ngModel)]="editWidgetForm.colSize">
+      <option value="xs" [selected]="widget.colSize == 'col-md-2'">Extra Small</option>
+      <option value="s" [selected]="widget.colSize == 'col-md-4'">Small</option>
+      <option value="m" [selected]="widget.colSize == 'col-md-6'">Medium</option>
+      <option value="l" [selected]="widget.colSize == 'col-md-8'">Large</option>
+      <option value="xl" [selected]="widget.colSize == 'col-md-10'">Extra Large</option>
+      <option value="xxl" [selected]="widget.colSize == 'col-md-12'">Full Large</option>
+    </select>
+  </div>
 
-<div *ngIf="widget.__t=='TodoComponent'" class="title-option">
-  <label>Title: </label><input type="text" [(ngModel)]="editWidgetForm.title" placeholder="{{widget.title}}">
-</div>
+  <div *ngIf="widget.__t=='TodoComponent'" class="widget-options">
+    <label>Title: </label><input type="text" [(ngModel)]="editWidgetForm.title" placeholder="{{widget.title}}">
+  </div>
 
-<div *ngIf="widget.__t=='NewsRssComponent'" class="title-option">
-  <label>Title: </label><input type="text" [(ngModel)]="editWidgetForm.title" placeholder="{{widget.title}}">
-  <label>Feed URL: </label><input type="text" [(ngModel)]="editWidgetForm.url" placeholder="{{widget.title}}">
-</div>
+  <div *ngIf="widget.__t=='NewsRssComponent'" class="widget-options">
+    <label>Title: </label><input type="text" [(ngModel)]="editWidgetForm.title" placeholder="{{widget.title}}">
+    <label>Add feed URL: </label>
+    <div class="add-url">
+      <input #url
+      (keyup.enter)="addFeedUrl(url.value)"
+      (blur)="addFeedUrl(url.value); url.value=''" type="text" placeholder="Enter a feed URL">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true" (click)="addFeedUrl(url.value)"></span>
+    </div>
+    <p *ngFor="let url of widget.feedUrls">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="removeFeedUrl(url)"></span>{{url}}
+    </p>
+  </div>
 
-<div *ngIf="widget.__t=='WeatherComponent'" class="title-option">
-  <label>Latitude: </label><input type="text" [(ngModel)]="editWidgetForm.lat" placeholder="{{widget.lat}}">
-  <label>Longitude: </label><input type="numeric" [(ngModel)]="editWidgetForm.lon" placeholder="{{widget.lon}}">
-  <label for="units">Units system</label>
-  <input type="radio" name="units" value="metric" [(ngModel)]="editWidgetForm.units"> Metric
-  <input type="radio" name="units" value="imperial" [(ngModel)]="editWidgetForm.units"> Imperial
-</div>
+  <div *ngIf="widget.__t=='WeatherComponent'" class="widget-options">
+    <label>Latitude: </label><input type="text" [(ngModel)]="editWidgetForm.lat" placeholder="{{widget.lat}}">
+    <label>Longitude: </label><input type="text" [(ngModel)]="editWidgetForm.lon" placeholder="{{widget.lon}}">
+    <label for="units">Units system</label>
+    <input type="radio" name="units" value="metric" [(ngModel)]="editWidgetForm.units"> Metric
+    <input type="radio" name="units" value="imperial" [(ngModel)]="editWidgetForm.units"> Imperial
+  </div>
 
-<div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-  <button type="button" class="btn btn-success" id="addWidgetButton" (click)="saveWidget()" data-dismiss="modal">Save</button>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-success" id="addWidgetButton" (click)="saveWidget()" data-dismiss="modal">Save</button>
+  </div>
 </div>

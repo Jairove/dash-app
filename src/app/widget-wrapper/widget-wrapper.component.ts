@@ -24,11 +24,10 @@ export class WidgetWrapperComponent implements OnInit {
       return;
     }
     if(this.cmpRef) {
-      // when the `type` input changes we destroy a previously
+      // when the input changes we destroy a previously
       // created component before creating the new one
       this.cmpRef.destroy();
     }
-
     let factory = this.componentFactoryResolver.resolveComponentFactory(this.type);
     this.cmpRef = this.target.createComponent(factory);
     this.cmpRef.instance.widgetdata = this.widgetdata;

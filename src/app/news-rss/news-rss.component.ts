@@ -16,11 +16,10 @@ export class NewsRssComponent implements OnInit {
   public widgetdata;
 
   constructor(private feedRssService: FeedRssService) {
-    this.refreshFeed();
   }
 
   ngOnInit() {
-
+    this.refreshFeed();
   }
 
   private sortItems() {
@@ -35,7 +34,7 @@ export class NewsRssComponent implements OnInit {
   }
 
   private refreshFeed() {
-    for(let url of this.feedUrls) {
+    for(let url of this.widgetdata.feedUrls) {
       this.feedRssService.getContent(url)
           .finally(() => this.sortItems())
           .subscribe(

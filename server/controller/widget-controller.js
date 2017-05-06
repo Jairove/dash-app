@@ -45,6 +45,7 @@ function create (userid,widget) {
       case 'NewsRssComponent':
         newWidget= new NewsWidgetSchema();
         newWidget.title = widget.title;
+        newWidget.feedUrls = widget.feedUrls;
         break;
       case 'CoversComponent':
         newWidget= new CoversWidgetSchema();
@@ -104,6 +105,7 @@ exports.updateWidget = function (req, res, next) {
                 widget.units = req.body.units || widget.units;
               case 'NewsRssComponent':
                 widget.title = req.body.title || widget.title;
+                widget.feedUrls = req.body.feedUrls || widget.feedUrls;
               case 'CoversComponent':
                 // Set properties
               case 'QuotesComponent':
@@ -132,8 +134,10 @@ exports.updateWidget = function (req, res, next) {
 //Manages the creation of a new widget
 exports.createDefaultDash = function(userid) {
     var widgets = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos:0},
-    {__t: 'WeatherComponent', colSize: "col-md-6", lat: "40.712784", lon: "-74.005941", units: "metric", pos:1},{__t: 'CoversComponent', colSize: "col-md-12", pos:2},
-    {__t: 'NewsRssComponent', colSize: "col-md-8", pos:3, title: "Latest News"},{__t: 'QuotesComponent', colSize: "col-md-4", pos:4},
+    {__t: 'WeatherComponent', colSize: "col-md-6", lat: "40.712784", lon: "-74.005941", units: "metric", pos:1},
+    {__t: 'CoversComponent', colSize: "col-md-12", pos:2},
+    {__t: 'NewsRssComponent', colSize: "col-md-8", pos:3, title: "Latest News", feedUrls: ['http://www.huffingtonpost.es/feeds/verticals/spain/index.xml','http://ep00.epimg.net/rss/elpais/portada.xml']},
+    {__t: 'QuotesComponent', colSize: "col-md-4", pos:4},
     {__t: 'TodoComponent', colSize: "col-md-4", pos:5, title: "To Do List"}];
 
     //Save the widgets in DB

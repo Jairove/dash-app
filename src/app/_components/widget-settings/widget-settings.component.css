@@ -1,0 +1,17 @@
+.settings {
+  display: block;
+}
+
+label {
+  display: block;
+  font-size: 15px;
+}
+
+input, select {
+  margin-bottom: 15px;
+  min-width: 200px;
+}
+
+input[type="text"] {
+  padding: 10px;
+}

@@ -41,7 +41,8 @@ var WeatherWidgetSchema = new BaseSchema({
   units: {type: String}
 });
 var NewsWidgetSchema = new BaseSchema({
-  title: { type: String }
+  title: { type: String },
+  feedUrls: [{type: String }]
 });
 var CoversWidgetSchema = new BaseSchema();
 var WelcomeWidgetSchema = new BaseSchema();
