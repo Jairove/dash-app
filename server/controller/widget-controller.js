@@ -38,6 +38,9 @@ function create (userid,widget) {
         break;
       case 'WeatherComponent':
         newWidget= new WeatherWidgetSchema();
+        newWidget.lat = widget.lat;
+        newWidget.lon = widget.lon;
+        newWidget.units = widget.units;
         break;
       case 'NewsRssComponent':
         newWidget= new NewsWidgetSchema();
@@ -96,7 +99,9 @@ exports.updateWidget = function (req, res, next) {
               case 'WelcomeComponent':
                 // Set properties
               case 'WeatherComponent':
-                // Set properties
+                widget.lat = req.body.lat || widget.lat;
+                widget.lon = req.body.lon || widget.lon;
+                widget.units = req.body.units || widget.units;
               case 'NewsRssComponent':
                 widget.title = req.body.title || widget.title;
               case 'CoversComponent':
@@ -127,7 +132,7 @@ exports.updateWidget = function (req, res, next) {
 //Manages the creation of a new widget
 exports.createDefaultDash = function(userid) {
     var widgets = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos:0},
-    {__t: 'WeatherComponent', colSize: "col-md-6", pos:1},{__t: 'CoversComponent', colSize: "col-md-12", pos:2},
+    {__t: 'WeatherComponent', colSize: "col-md-6", lat: "40.712784", lon: "-74.005941", units: "metric", pos:1},{__t: 'CoversComponent', colSize: "col-md-12", pos:2},
     {__t: 'NewsRssComponent', colSize: "col-md-8", pos:3, title: "Latest News"},{__t: 'QuotesComponent', colSize: "col-md-4", pos:4},
     {__t: 'TodoComponent', colSize: "col-md-4", pos:5, title: "To Do List"}];
 

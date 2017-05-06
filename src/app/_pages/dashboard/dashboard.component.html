@@ -6,7 +6,7 @@
         <div *ngFor="let widget of widgets" [class]="widget.colSize">
           <div class="widget-edit">
             <a class="clickable" data-toggle="modal" data-target="#editWidgetModal">
-              <span class="glyphicon glyphicon-edit widget-edit-btn" aria-hidden="true" (click)="setEdibleWidget(widget.pos, widget.__t)"></span>
+              <span class="glyphicon glyphicon-edit widget-edit-btn" aria-hidden="true" (click)="setEdibleWidget(widget)"></span>
             </a>
             <span class="glyphicon glyphicon-remove widget-remove-btn" aria-hidden="true" (click)="removeWidget(widget.pos)"></span>
             <widget-wrapper [type]="types[widget.__t]" [widgetdata]="widget"></widget-wrapper>
@@ -28,7 +28,7 @@
                 <div class="widget-settings" class="widget-settings-container">
                     <form>
                       <h5>Widget</h5>
-                      <select name="type" class="dropdown" (change)="setEdibleWidget(null, $event.target.value)" [(ngModel)]="newWidgetType">
+                      <select name="type" class="dropdown" (change)="setEdibleWidget({type: $event.target.value})">
                         <option value="WelcomeComponent">Welcome</option>
                         <option value="CoversComponent">Covers</option>
                         <option value="TodoComponent" selected>Todo List</option>
@@ -36,7 +36,7 @@
                         <option value="NewsRssComponent">RSS News</option>
                         <option value="QuotesComponent">Quotes</option>
                       </select>
-                      <widget-settings [type]="newWidgetType" [pos]="null" (created)="createWidget($event)"></widget-settings>
+                      <widget-settings [widget]="edibleWidget" (created)="createWidget($event)"></widget-settings>
                   </form>
                 </div>
               </div>
@@ -61,7 +61,7 @@
               <div class="modal-body">
 
                 <div class="widget-settings" class="widget-settings-container">
-                    <widget-settings [type]="edibleWidget.type" [pos]="edibleWidget.pos" (edited)="editWidget($event)"></widget-settings>
+                    <widget-settings [widget]="edibleWidget" (edited)="editWidget($event)"></widget-settings>
                 </div>
               </div>
 

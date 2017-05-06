@@ -4,8 +4,8 @@
     <i class="wi wi-owm-{{forecast.weather[0].id}}"></i>
     <h1 class="temp">
       {{forecast.main.temp}}
-      <span class="unit" *ngIf="units=='metric'">ºC</span>
-      <span class="unit" *ngIf="units=='imperial'">ºF</span>
+      <span class="unit" *ngIf="widgetdata.units=='metric'">ºC</span>
+      <span class="unit" *ngIf="widgetdata.units=='imperial'">ºF</span>
     </h1>
   </div>
 

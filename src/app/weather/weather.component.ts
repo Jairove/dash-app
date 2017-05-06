@@ -10,29 +10,33 @@ import { Forecast } from './forecast';
 })
 export class WeatherComponent implements OnInit {
   private forecast;
-  private units = 'metric';
   public widgetdata;
 
-  constructor(private weatherService: WeatherService) {
-      this.refreshWeather();
-  }
+  constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
-    if(this.forecast == null) {
+    if(this.forecast == null && this.widgetdata!=null) {
       this.forecast = {
         weather:[{main:"Unavailable",description:"Not available"}],
         main:{temp:0,temp_min:0,temp_max:0},
         name:"Unknown",
         cod:0
       };
+      this.refreshWeather();
+    }
+  }
+
+  ngOnChanges() {
+    if(this.widgetdata!=null) {
+      this.refreshWeather();
     }
   }
 
   private refreshWeather() {
-    this.weatherService.getContent()
+    this.weatherService.getContent(this.widgetdata.lat, this.widgetdata.lon, this.widgetdata.units)
         .subscribe(
             data => {
-              if(data.cod!=0 && data.cod!=null) this.forecast = data;
+              if(data.cod==200) this.forecast = data;
             },
             error => console.log(error));
   }

@@ -21,7 +21,6 @@ export class DashboardComponent implements OnInit {
   private response: String;
   private widgetsToBeDeleted: Array<any> = [];
   private edibleWidget = { pos: null, type: null };
-  private newWidgetType =  'TodoComponent';
 
   private types = {
     'WelcomeComponent': WelcomeComponent,
@@ -91,12 +90,12 @@ export class DashboardComponent implements OnInit {
     this.updateDash();
   }
 
-  public setEdibleWidget(pos: number, type: string): void {
-    this.edibleWidget.pos = pos;
-    this.edibleWidget.type = type;
+  public setEdibleWidget(widget): void {
+    this.edibleWidget = widget;
   }
 
   private editWidget(editedWidget) {
+    console.log(editedWidget);
     for(var i=0; i<this.widgets.length; i++) {
       if(this.widgets[i].pos == editedWidget.pos) {
         this.widgets[i] = Object.assign(this.widgets[i], editedWidget);

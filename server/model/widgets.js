@@ -35,7 +35,11 @@ var TodoWidgetSchema = new BaseSchema({
   todos: [{type : ObjectId, ref: 'Todo'}],
   title: { type: String }
 });
-var WeatherWidgetSchema = new BaseSchema();
+var WeatherWidgetSchema = new BaseSchema({
+  lat: {type: String},
+  lon: {type: String},
+  units: {type: String}
+});
 var NewsWidgetSchema = new BaseSchema({
   title: { type: String }
 });

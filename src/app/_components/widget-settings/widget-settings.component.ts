@@ -6,8 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./widget-settings.component.css']
 })
 export class widgetSettingsComponent implements OnInit {
-  @Input() type: string;
-  @Input() pos: number;
+  @Input() widget;
   @Output() edited: EventEmitter<any> = new EventEmitter<any>();
   @Output() created: EventEmitter<any> = new EventEmitter<any>();
   private editWidgetForm = {__t: null, pos: null, colSize: null};
@@ -28,10 +27,12 @@ export class widgetSettingsComponent implements OnInit {
   }
 
   private saveWidget() {
-    this.editWidgetForm.__t = this.type;
-    this.editWidgetForm.pos = this.pos;
+    this.editWidgetForm.__t = this.widget.__t;
+    this.editWidgetForm.pos = this.widget.pos;
+
     if (this.editWidgetForm.colSize != null)
       this.editWidgetForm.colSize = this.sizes[this.editWidgetForm.colSize];
+    else this.editWidgetForm.colSize = this.widget.colSize;
 
     if(this.editWidgetForm.pos!=null) this.edited.emit(this.editWidgetForm);
     else this.created.emit(this.editWidgetForm);
