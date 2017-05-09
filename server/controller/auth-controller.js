@@ -140,6 +140,7 @@ exports.updateProfile = function (req, res, next) {
 
 //Updates the profile of the current user
 exports.changePassword = function (req, res, next) {
+
     var userid = req.payload._id;
     if(!req.body.password) {
       res.status(400);
@@ -150,13 +151,8 @@ exports.changePassword = function (req, res, next) {
     }
 
     User.findOne({ _id: userid }).exec(function(err, user){
-      var u = new User();
-      u.name = user.name;
-      u.email = user.email;
-      u._id = user._id;
-
-      u.setPassword(req.body.password);
-      u.save(function(err) {
+      user.setPassword(req.body.password);
+      user.save(function(err) {
         if(err) console.log(err);
         else {
           res.status(200);
