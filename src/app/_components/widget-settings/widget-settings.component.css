@@ -9,9 +9,36 @@ label {
 
 input, select {
   margin-bottom: 15px;
-  min-width: 200px;
+  width: 100%;
 }
 
 input[type="text"] {
   padding: 10px;
+}
+
+.url-input {
+  width: 92%;
+}
+
+.add-rss-btn {
+  cursor: pointer;
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.remove-rss-btn {
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.add-rss-btn:hover {
+  color: green;
+}
+
+.remove-rss-btn:hover {
+  color: red;
+}
+
+.error-msg {
+  color: red;
 }

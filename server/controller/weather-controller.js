@@ -20,7 +20,6 @@ exports.refresh = function (req, res, next) {
 
     http.get(options, function(resp){
       resp.on('data', function(chunk){
-        console.log(options);
         res.send(chunk);
       });
     }).on("error", function(e){

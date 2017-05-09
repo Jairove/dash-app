@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   private widgets: any = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos: 0, id: "init"}];
   private response: String;
   private widgetsToBeDeleted: Array<any> = [];
-  private edibleWidget = { pos: null, type: null };
+  private edibleWidget = { pos: null, __t: TodoComponent };
 
   private types = {
     'WelcomeComponent': WelcomeComponent,

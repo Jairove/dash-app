@@ -16,12 +16,6 @@ var userDataSchema = new Schema({
     },
     hash: String,
     salt: String,
-    //settings: {
-      //type: ObjectId,
-      //unique: true,
-      //required: true,
-      //ref: 'Settings'
-    //},
     widgets: [{type : ObjectId, ref: 'Widget'}],
 });
 

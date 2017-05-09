@@ -24,7 +24,7 @@
 }
 
 .wrapper {
-
+  min-height: 160px;
 }
 
 .temp {
