@@ -6,9 +6,6 @@ import { Forecast } from './forecast';
 @Injectable()
 export class WeatherService {
   private apiBaseUrl = "/api/weather?";
-  private lat = "41.5696259";
-  private lon = "-4.7200211";
-  private units = "metric";
 
   constructor(private http: Http) { }
 

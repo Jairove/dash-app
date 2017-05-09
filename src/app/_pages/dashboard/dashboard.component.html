@@ -28,7 +28,7 @@
                 <div class="widget-settings" class="widget-settings-container">
                     <form>
                       <h5>Widget</h5>
-                      <select name="type" class="dropdown" (change)="setEdibleWidget({__t: $event.target.value})">
+                      <select name="type" class="dropdown" (change)="edibleWidget.__t = $event.target.value">
                         <option value="WelcomeComponent">Welcome</option>
                         <option value="CoversComponent">Covers</option>
                         <option value="TodoComponent">Todo List</option>

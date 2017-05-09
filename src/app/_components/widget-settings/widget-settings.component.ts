@@ -31,9 +31,9 @@ export class widgetSettingsComponent implements OnInit {
     this.editWidgetForm.__t = this.widget.__t;
     this.editWidgetForm.pos = this.widget.pos;
 
-    if (this.editWidgetForm.colSize != null)
-      this.editWidgetForm.colSize = this.sizes[this.editWidgetForm.colSize];
-    else this.editWidgetForm.colSize = this.widget.colSize;
+    if (this.editWidgetForm.colSize != null) this.editWidgetForm.colSize = this.sizes[this.editWidgetForm.colSize];
+    else if(this.widget.colSize!=null && this.widget.colSize!=undefined) this.editWidgetForm.colSize = this.widget.colSize;
+    else this.editWidgetForm.colSize = 'col-md-6';
 
     if(this.editWidgetForm.pos!=null) this.edited.emit(this.editWidgetForm);
     else this.created.emit(this.editWidgetForm);

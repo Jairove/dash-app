@@ -10,6 +10,7 @@ import { Forecast } from './forecast';
 })
 export class WeatherComponent implements OnInit, DoCheck {
   private forecast;
+  private temp;
   public widgetdata;
   private lat;
   private lon;
@@ -46,7 +47,10 @@ export class WeatherComponent implements OnInit, DoCheck {
     this.weatherService.getContent(this.widgetdata.lat, this.widgetdata.lon, this.widgetdata.units)
         .subscribe(
             data => {
-              if(data.cod==200) this.forecast = data;
+              if(data.cod==200) {
+                data.main.temp = Math.round(data.main.temp);
+                this.forecast = data;
+              }
             },
             error => console.log(error));
   }

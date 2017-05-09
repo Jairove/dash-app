@@ -7,7 +7,7 @@ exports.refresh = function (req, res, next) {
   if(lon != null && lat!=null && units!=null) {
 
     var lang = req.query.lang;
-    if(lang==null) lang = "es";
+    if(lang==null) lang = "en";
 
     var http = require('http');
     var key = "7fa9b10c5a391cccf5aa4196888b33e8";
