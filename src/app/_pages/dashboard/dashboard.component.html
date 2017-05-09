@@ -31,10 +31,10 @@
                       <select name="type" class="dropdown" (change)="setEdibleWidget({__t: $event.target.value})">
                         <option value="WelcomeComponent">Welcome</option>
                         <option value="CoversComponent">Covers</option>
-                        <option value="TodoComponent" selected>Todo List</option>
+                        <option value="TodoComponent">Todo List</option>
                         <option value="WeatherComponent">Weather</option>
                         <option value="NewsRssComponent">RSS News</option>
-                        <option value="QuotesComponent">Quotes</option>
+                        <option value="QuotesComponent" selected>Quotes</option>
                       </select>
                       <widget-settings [widget]="edibleWidget" (created)="createWidget($event)"></widget-settings>
                   </form>

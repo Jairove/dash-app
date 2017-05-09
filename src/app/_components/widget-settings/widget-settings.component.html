@@ -4,7 +4,7 @@
     <select name="size" class="dropdown" [(ngModel)]="editWidgetForm.colSize">
       <option value="xs" [selected]="widget.colSize == 'col-md-2'">Extra Small</option>
       <option value="s" [selected]="widget.colSize == 'col-md-4'">Small</option>
-      <option value="m" [selected]="widget.colSize == 'col-md-6'">Medium</option>
+      <option value="m" [selected]="widget.colSize == 'col-md-6' || widget.colSize == null">Medium</option>
       <option value="l" [selected]="widget.colSize == 'col-md-8'">Large</option>
       <option value="xl" [selected]="widget.colSize == 'col-md-10'">Extra Large</option>
       <option value="xxl" [selected]="widget.colSize == 'col-md-12'">Full Large</option>
