@@ -21,7 +21,6 @@ export class FeedRssService {
     return res.json() || { };
   }
 
-  // TODO: Maybe I should use a remote logging infrastructure
   private handleError (error: any) {
     const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';

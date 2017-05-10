@@ -1,5 +1,10 @@
 .cover-wrapper {
   padding-bottom: 40px;
+  display: inline;
+}
+
+.cover {
+  display: inline;
 }
 
 #big-cover {
