@@ -9,6 +9,7 @@ import { Forecast } from './forecast';
   providers: [ WeatherService ]
 })
 export class WeatherComponent implements OnInit, DoCheck {
+  private loading = true;
   private forecast;
   private temp;
   public widgetdata;
@@ -50,6 +51,7 @@ export class WeatherComponent implements OnInit, DoCheck {
               if(data.cod==200) {
                 data.main.temp = Math.round(data.main.temp);
                 this.forecast = data;
+                this.loading = false;
               }
             },
             error => console.log(error));

@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 export class CoversComponent implements OnInit {
 
   private routeToCover;
+  private loading = true;
   public widgetdata;
   private coversUrls = [];
 
@@ -21,38 +22,40 @@ export class CoversComponent implements OnInit {
   }
 
   private adjustSlicker() {
+    if(!this.loading) {
       (<any>$('.cover-wrapper')).slick({
-        dots: true,
-        infinite: false,
-        speed: 300,
-        slidesToShow: 6,
-        slidesToScroll: 6,
-        responsive: [
-          {
-            breakpoint: 1240,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 4,
-              infinite: true,
-              dots: true
+          dots: true,
+          infinite: false,
+          speed: 300,
+          slidesToShow: 6,
+          slidesToScroll: 6,
+          responsive: [
+            {
+              breakpoint: 1240,
+              settings: {
+                slidesToShow: 4,
+                slidesToScroll: 4,
+                infinite: true,
+                dots: true
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2
+              }
             }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2
-            }
-          }
-        ]
-      });
+          ]
+        });
+      }
     }
 
     private changeCoverToBeOpened(route: string) {
@@ -66,8 +69,8 @@ export class CoversComponent implements OnInit {
       dt.setDate(dt.getDate()-1);
       var yesterdayString = dt.getFullYear() + "/" + ("0" + (dt.getMonth() + 1)).slice(-2) +
                                           "/" + ("0" + dt.getDate()).slice(-2);
-
-      var coverUrls = ["/es/elpais","/es/elmundo","/es/abc","/us/newyork_times","/uk/the_times","/es/marca","/es/mundodeportivo"];
+      var coverUrls = ["/es/elpais","/es/elmundo","/es/abc","/us/newyork_times","/uk/the_times",
+      "/es/marca","/es/mundodeportivo"];
 
       for(var i=0; i < coverUrls.length; i++) {
         this.getAvailableCovers(coverUrls[i], todayString)
@@ -77,11 +80,11 @@ export class CoversComponent implements OnInit {
                     this.getAvailableCovers(coverUrls[i], yesterdayString)
                         .subscribe();
                   }
+                  this.loading = false;
+                  this.adjustSlicker();
                 },
                 error => console.log(error));
       }
-
-      this.adjustSlicker();
 
     }
 

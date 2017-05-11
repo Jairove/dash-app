@@ -10,6 +10,7 @@ import { FeedRssService } from './feed-rss.service'
 })
 export class NewsRssComponent implements OnInit {
 
+  public loading = true;
   feedUrls: string[] = ['http://www.huffingtonpost.es/feeds/verticals/spain/index.xml','http://ep00.epimg.net/rss/elpais/portada.xml'];
   feedItems: any[] = [];
   noOfItems = 10; // This will have to be a config value
@@ -40,18 +41,10 @@ export class NewsRssComponent implements OnInit {
           .subscribe(
               feed => {
                 this.feedItems.push(...feed.items);
+                this.loading = false;
               },
               error => console.log(error));
     }
   }
-
-/*private sortArrayByDate():any {
-    this.feedItems.sort(function(a,b):any{
-    // Turn your strings into dates, and then subtract them
-    // to get a value that is either negative, positive, or zero.
-    return new Date(b.date) - new Date(a.date);
-  });
-}*/
-
 
 }

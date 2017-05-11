@@ -1,4 +1,8 @@
-<div class="wrapper">
+<div class="loading-spinner" *ngIf="loading">
+    <img src="assets/img/small-spinner.gif" alt="loading">
+</div>
+
+<div class="wrapper" *ngIf="!loading">
 
   <div class="icon">
     <i class="wi wi-owm-{{forecast.weather[0].id}}"></i>

@@ -8,6 +8,12 @@ import { WelcomeComponent } from '../../welcome/welcome.component';
 import { SettingsService } from '../../_services/settings.service';
 import { CoversComponent } from '../../covers/covers.component';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router,
+         Event,
+         NavigationStart,
+         NavigationEnd,
+         NavigationCancel,
+         NavigationError} from '@angular/router';
 
 @Component({
   selector: 'dashboard',
@@ -16,6 +22,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   providers: [ SettingsService ]
 })
 export class DashboardComponent implements OnInit {
+  private loading = true;
   private editMode = false;
   private widgets: any = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos: 0, id: "init"}];
   private response: String;
@@ -31,7 +38,11 @@ export class DashboardComponent implements OnInit {
     'TodoComponent': TodoComponent
   };
 
-  constructor(private settingsService: SettingsService) { }
+  constructor(private settingsService: SettingsService, private router: Router) {
+    router.events.subscribe((event: Event) => {
+      this.navigationInterceptor(event);
+    });
+  }
 
   private getSettings() {
     this.settingsService.getSettings()
@@ -125,6 +136,22 @@ export class DashboardComponent implements OnInit {
       }
     }
 
+  }
+
+  // Shows and hides the loading spinner during RouterEvent changes
+  private navigationInterceptor(event: Event): void {
+    if (event instanceof NavigationStart) {
+        this.loading = true;
+    }
+    if (event instanceof NavigationEnd) {
+        this.loading = false;
+    }
+    if (event instanceof NavigationCancel) {
+        this.loading = false;
+    }
+    if (event instanceof NavigationError) {
+        this.loading = false;
+    }
   }
 
 }

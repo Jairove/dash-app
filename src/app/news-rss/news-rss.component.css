@@ -6,3 +6,8 @@
     list-style-type: none;
     padding-left: 15px;
 }
+
+.loading-spinner {
+  text-align: center;
+  padding-top: 40px;
+}
