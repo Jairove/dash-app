@@ -9,7 +9,7 @@ export class widgetSettingsComponent implements OnInit {
   @Input() widget;
   @Output() edited: EventEmitter<any> = new EventEmitter<any>();
   @Output() created: EventEmitter<any> = new EventEmitter<any>();
-  private editWidgetForm = {__t: null, pos: null, colSize: null, feedUrls: null};
+  private editWidgetForm = {__t: null, pos: null, colSize: null, feedUrls: ['']};
   private errorMessage = null;
 
   private sizes = {
@@ -21,10 +21,28 @@ export class widgetSettingsComponent implements OnInit {
     'xxl': 'col-md-12'
   };
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  private initializeWidget(type) {
+    console.log(this.widget);
+
+    // Initialize new widgets with default values
+    if(type == 'NewsRssComponent')
+      if(this.widget.feedUrls.length==0)
+        this.widget.feedUrls = ['http://news.ycombinator.com/rss'];
+
+    if(type == 'WeatherComponent')
+      if(this.widget.lat == null || this.widget.lon == null || this.widget.units == null) {
+        this.widget.lat = '40.712784';
+        this.widget.lon = '-74.005941';
+        this.widget.units = 'metric';
+      }
+
+    if(this.widget.colSize == null) {
+      this.widget.colSize = 'col-md-6';
+    }
   }
 
   private saveWidget() {

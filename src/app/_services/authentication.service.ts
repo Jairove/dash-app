@@ -9,6 +9,7 @@ export class AuthenticationService {
   public token: string;
   private loginUrl: string = '/api/login';
   private registerUrl: string = '/api/register';
+  private recoveryUrl: string = '/api/passrecover';
 
   constructor(private http: Http, private router: Router) {
       // set token if saved in local storage
@@ -17,12 +18,12 @@ export class AuthenticationService {
   }
 
 
-  isUserLoggedIn() {
+  private isUserLoggedIn() {
     if(JSON.parse(localStorage.getItem('currentUser'))!=null) return true;
     else return false;
   }
 
-  login(username: string, password: string): Observable<any> {
+  private login(username: string, password: string): Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -56,7 +57,7 @@ export class AuthenticationService {
       this.router.navigate(['/login']);
   }
 
-  register(username: string, password: string, name: string): Observable<any> {
+  private register(username: string, password: string, name: string): Observable<any> {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -82,6 +83,24 @@ export class AuthenticationService {
       .catch((response: Response) => {
         throw response.json().message;
       });
+  }
+
+  private recoverPassword(email: string): Observable<any> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(this.recoveryUrl, JSON.stringify({ email: email }), options)
+                    .map((response: Response) => {
+                      if(response.json()="ok") {
+                          return true;
+                      }
+                      else {
+                          throw response.json().message;
+                        }
+                      })
+                      .catch((response: Response) => {
+                        throw response.json().message;
+                      });
   }
 
 }

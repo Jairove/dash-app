@@ -1,4 +1,9 @@
-<div class="cover-wrapper">
+<div class="loading-spinner" *ngIf="loading">
+    <img src="assets/img/small-spinner.gif" alt="loading">
+</div>
+
+
+<div class="cover-wrapper" *ngIf="loading">
   <div *ngFor="let coverUrl of coversUrls">
     <a href="#" data-toggle="modal" data-target="#coverModal" (click)="changeCoverToBeOpened(coverUrl)">
       <img class="cover" src="{{coverUrl}}" height="220" width="160">

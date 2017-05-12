@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="!passwordRecovery">
     <div class="col-md-6">
       <h1>Sign in</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae pulvinar velit. Aenean at nisl sit amet ligula eleifend tincidunt non at libero.</p>
@@ -16,11 +16,17 @@
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password"  name="password" required [(ngModel)]="password">
+            <a (click)="recoverPassword()">Forgot your password?</a>
           </div>
           <p *ngIf="errorMessage!=''" class="alert alert-danger"><strong>Login failed! </strong>{{errorMessage}}</p>
           <button type="Login" class="btn btn-success login-button">Login</button>
         </form>
       </div>
     </div>
+  </div>
+  <div class="row" *ngIf="passwordRecovery">
+    <label for="email">Please, enter your email</label>
+    <input type="email" class="form-control" name="email-recovery" required [(ngModel)]="emailRecovery">
+    <button class="btn btn-success login-button" (click)="recoverPassword()">Recover</button>
   </div>
 </div>

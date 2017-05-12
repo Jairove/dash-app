@@ -35,6 +35,7 @@ router.post('/password', auth, authController.changePassword);
 router.post('/profile', auth, authController.updateProfile); //to handle new users registering
 router.post('/login', authController.login); //to handle new users registering
 router.put('/register', authController.register); //to return profile details when given a USERID
+router.post('/passrecover', authController.recoverPassword);
 
 router.get('/weather', weatherController.refresh);
 
