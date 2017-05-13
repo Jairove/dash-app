@@ -35,7 +35,6 @@ router.post('/password', auth, authController.changePassword);
 router.post('/profile', auth, authController.updateProfile); //to handle new users registering
 router.post('/login', authController.login); //to handle new users registering
 router.put('/register', authController.register); //to return profile details when given a USERID
-router.post('/passrecover', authController.recoverPassword);
 
 router.get('/weather', weatherController.refresh);
 
@@ -49,5 +48,9 @@ router.get('/quote', quotesController.get);
 router.get('/widgets', auth, widgetsController.index);
 router.post('/widget', auth, widgetsController.updateWidget);
 router.delete('/widget/:id', auth, widgetsController.removeWidget);
+
+
+router.post('/recoverpass', authController.forgotPassword);
+router.post('/resetpass', authController.resetPassword);
 
 module.exports = router;

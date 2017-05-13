@@ -8,18 +8,14 @@ var User = mongoose.model('User');
 
 const widgetsController = require('./widget-controller');
 
-var sendJSONresponse = function(res, status, content) {
-  res.status(status);
-  res.json(content);
-};
-
 exports.login = function(req,res,next) {
   console.log(req.body);
   passport.authenticate('local', function(err, user, info){
     var token;
     // If Passport throws/catches an error
     if (err) {
-      res.status(404).json(err);
+      res.status(404);
+      res.json(err);
       return;
     }
     // If a user is found
@@ -31,7 +27,8 @@ exports.login = function(req,res,next) {
       });
     } else {
       // If user is not found
-      res.status(401).json(info);
+      res.status(401);
+      res.json(info);
     }
   })(req, res);
 }
@@ -97,7 +94,8 @@ exports.profile = function(req, res) {
           name: user.name,
           email: user.email
         }
-        res.status(200).json(responseUser);
+        res.status(200);
+        res.json(responseUser);
       });
   }
 }
@@ -133,7 +131,7 @@ exports.updateProfile = function (req, res, next) {
     User.findByIdAndUpdate(userid, { name: req.body.name, email: req.body.email },
         {'new': true}, function(err,user) {
         if(err) { throw err; res.send('ko'); }
-        res.send('ok');
+        res.json('ok');
     });
 
 }
@@ -156,9 +154,105 @@ exports.changePassword = function (req, res, next) {
         if(err) console.log(err);
         else {
           res.status(200);
-          res.send('Password updated');
+          res.json('Password updated');
           return;
         }
       });
     });
+}
+
+//Updates the profile of the current user
+exports.forgotPassword = function (req, res) {
+    var email = req.body.email;
+    User.findOne({ email: email }).exec(function(err, user){
+      if(user) {
+        var token = user.setRecoveryToken();
+        user.save(function(err) {
+          if(err) console.log(err);
+          else {
+            res.status(200);
+            res.json('ok');
+            return;
+          }
+        });
+        sendRecoveryEmail(token,email);
+
+      }
+      else {
+        res.status(400);
+        res.json('Invalid email.');
+        return;
+      }
+
+    });
+
+}
+
+function sendRecoveryEmail(token,email) {
+  'use strict';
+  const nodemailer = require('nodemailer');
+  const smtpTransport = require('nodemailer-smtp-transport');
+  const recoveryUrl = 'http://localhost:3000/password-recover/'
+
+  let transporter = nodemailer.createTransport(smtpTransport({
+     host: 'hl302.hosteurope.es',
+     port: 465,
+     auth: {
+         user: 'mailer@dashpot.co',
+         pass: 'wxcfZIMWdFk*'
+     }
+  }));
+
+  // setup email data with unicode symbols
+  let mailOptions = {
+      from: '"Dashpot" <mailer@dashpot.co>', // sender address
+      to: email, // list of receivers
+      subject: 'Recover your password', // Subject line
+      html: '<p>You have requested a password reset.</p><b>Follow this link to change your password:</b> '+
+      '<a href="'+recoveryUrl+token+'">'+recoveryUrl+token+'</a>' // html body
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+      console.log('Message %s sent: %s', info.messageId, info.response);
+  });
+
+  return;
+}
+
+exports.resetPassword = function (req, res) {
+
+    var password = req.body.password;
+    var token = req.body.token;
+
+    User.findOne({ recoveryToken: token }).exec(function(err, user){
+      if(user) {
+        user.recoveryToken = null;
+        user.setPassword(password);
+        user.save(function(err) {
+          if(err) console.log(err);
+          else {
+            res.status(200);
+            res.json('ok');
+            return;
+          }
+        });
+      }
+      else {
+        res.status(400);
+        res.json('Invalid token');
+        return;
+      }
+      if(err) {
+        console.error(err);
+        res.status(500);
+        res.json(err);
+        return;
+      }
+
+    });
+
 }

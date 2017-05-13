@@ -9,7 +9,7 @@ export class AuthenticationService {
   public token: string;
   private loginUrl: string = '/api/login';
   private registerUrl: string = '/api/register';
-  private recoveryUrl: string = '/api/passrecover';
+  private recoveryUrl: string = '/api/recoverpass';
 
   constructor(private http: Http, private router: Router) {
       // set token if saved in local storage
@@ -18,12 +18,12 @@ export class AuthenticationService {
   }
 
 
-  private isUserLoggedIn() {
+  public isUserLoggedIn() {
     if(JSON.parse(localStorage.getItem('currentUser'))!=null) return true;
     else return false;
   }
 
-  private login(username: string, password: string): Observable<any> {
+  public login(username: string, password: string): Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -57,7 +57,7 @@ export class AuthenticationService {
       this.router.navigate(['/login']);
   }
 
-  private register(username: string, password: string, name: string): Observable<any> {
+  public register(username: string, password: string, name: string): Observable<any> {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -85,22 +85,31 @@ export class AuthenticationService {
       });
   }
 
-  private recoverPassword(email: string): Observable<any> {
+  public recoverPassword(email: string): Observable<string> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(this.recoveryUrl, JSON.stringify({ email: email }), options)
                     .map((response: Response) => {
-                      if(response.json()="ok") {
-                          return true;
-                      }
-                      else {
-                          throw response.json().message;
-                        }
+                        return response.json();
                       })
                       .catch((response: Response) => {
-                        throw response.json().message;
+                        console.error(response);
+                        throw response.json();
                       });
+  }
+
+  public resetPassword(token: string, newPassword: string): Observable<string> {
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+    let options = new RequestOptions({ headers: headers });
+    const params = {token: token, password: newPassword};
+
+    return this.http.post('api/resetpass', params, options)
+                    .map((response: Response) => {
+                        return response.json();
+                    })
   }
 
 }

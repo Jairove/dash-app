@@ -16,6 +16,7 @@ var userDataSchema = new Schema({
     },
     hash: String,
     salt: String,
+    recoveryToken: String,
     widgets: [{type : ObjectId, ref: 'Widget'}],
 });
 
@@ -31,6 +32,12 @@ userDataSchema.methods.validPassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
   // Compare to calculated hash with stored hash
   return this.hash === hash;
+};
+
+userDataSchema.methods.setRecoveryToken = function(){
+  // Create a random token
+  this.recoveryToken = crypto.randomBytes(16).toString('hex');
+  return this.recoveryToken;
 };
 
 userDataSchema.methods.generateJwt = function() {

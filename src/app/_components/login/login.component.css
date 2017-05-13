@@ -1,8 +1,22 @@
-.login {
-  text-align: center;
+@media(min-width: 992px) {
+  #labelMessage {
+    margin-top: 60px;
+  }
+  .login {
+    line-height: 30px;
+  }
+
+  .recover-button {
+    margin-top: 10px;
+    padding: 20px 20px;
+  }
+
+  .login-button {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 }
 
-.login-button {
-  padding-left: 40px;
-  padding-right: 40px;
+#forgot-password {
+  cursor: pointer;
 }
