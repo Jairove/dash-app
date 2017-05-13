@@ -26,6 +26,8 @@ import { CoversComponent } from './covers/covers.component';
 import { ProfileComponent } from './_pages/profile-page/profile.component';
 import { LoginPageComponent } from './_pages/login-page/login-page.component';
 import { RegisterPageComponent } from './_pages/register-page/register-page.component';
+import { widgetSettingsComponent } from './_components/widget-settings/widget-settings.component';
+import { PasswordRecoveryPageComponent } from './_pages/password-recovery-page/password-recovery-page.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { RegisterPageComponent } from './_pages/register-page/register-page.comp
     CoversComponent,
     ProfileComponent,
     LoginPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    widgetSettingsComponent,
+    PasswordRecoveryPageComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -67,6 +71,10 @@ import { RegisterPageComponent } from './_pages/register-page/register-page.comp
       {
         path: 'register',
         component: RegisterPageComponent
+      },
+      {
+        path: 'password-recover/:token',
+        component: PasswordRecoveryPageComponent
       },
       {
         path: 'dash',

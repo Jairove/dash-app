@@ -8,12 +8,14 @@ export class LoginPageObject {
     private emailInput;
     private submitButton;
     private title;
+    private errorMessage;
 
     constructor() {
         this.title = element(by.id('login-title'));
         this.emailInput = element(by.id('username'));
         this.passwordInput = element(by.id('password'));
         this.submitButton = element(by.css('login-button'));
+        this.errorMessage =  element(by.css('.alert-danger'));
     }
 
     getTitle(): wdpromise.Promise<string> {
@@ -29,8 +31,8 @@ export class LoginPageObject {
         return valid;
     }
 
-    private getErrorMessage(): wdpromise.Promise<string> {
-        return element(by.css('.alert-danger')).getText();
+    getErrorMessage(): wdpromise.Promise<string> {
+        return this.errorMessage.getText();
     }
 
     setEmail(value: string): wdpromise.Promise<void> {

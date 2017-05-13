@@ -4,17 +4,24 @@ const mongoose = require('mongoose').set('debug', true)
 
 const user = require('../model/user');
 var User = user.User;
-const widgetModel = require('../model/widget');
+const widgetModel = require('../model/widgets');
 var Widget = widgetModel.Widget;
+var TodoWidgetSchema = widgetModel.TodoWidgetSchema;
+var WelcomeWidgetSchema = widgetModel.WelcomeWidgetSchema;
+var QuotesWidgetSchema = widgetModel.QuotesWidgetSchema;
+var CoversWidgetSchema = widgetModel.CoversWidgetSchema;
+var NewsWidgetSchema = widgetModel.NewsWidgetSchema;
+var WeatherWidgetSchema = widgetModel.WeatherWidgetSchema;
 
 //Manages the creation of a new widget
 exports.addWidget = function (req,res,next) {
     var userid = req.payload._id;
-
     //Create a new widget
-    var widget = new Widget();
-    widget.type = req.body.type;
-    widget.colSize = req.body.colSize;
+    var widget = {
+      __t: req.body.__t,
+      colSize: req.body.colSize,
+      pos: req.body.pos
+    };
 
     create(userid,widget);
 }
@@ -22,10 +29,40 @@ exports.addWidget = function (req,res,next) {
 //Manages the creation of a new widget
 function create (userid,widget) {
     // Set fields
-    var newWidget= new Widget();
+
+    var newWidget;
+
+    switch(widget.__t) {
+      case 'WelcomeComponent':
+        newWidget= new WelcomeWidgetSchema();
+        break;
+      case 'WeatherComponent':
+        newWidget= new WeatherWidgetSchema();
+        newWidget.lat = widget.lat;
+        newWidget.lon = widget.lon;
+        newWidget.units = widget.units;
+        break;
+      case 'NewsRssComponent':
+        newWidget= new NewsWidgetSchema();
+        newWidget.title = widget.title;
+        newWidget.feedUrls = widget.feedUrls;
+        break;
+      case 'CoversComponent':
+        newWidget= new CoversWidgetSchema();
+        break;
+      case 'QuotesComponent':
+        newWidget = new QuotesWidgetSchema();
+        break;
+      case 'TodoComponent':
+        newWidget= new TodoWidgetSchema();
+        newWidget.title = widget.title;
+        break;
+      default:
+        throw new Error('Invalid widget type: '+widget.__t);
+    }
+
     newWidget._userid = userid;
     newWidget._id = mongoose.Types.ObjectId();
-    newWidget.type = widget.type;
     newWidget.colSize = widget.colSize;
     newWidget.pos = widget.pos;
 
@@ -45,43 +82,50 @@ function create (userid,widget) {
     });
 }
 
-// //Manages the update of the widgets array
-// exports.updateDash = function (req, res, next) {
-//     var userid = req.payload._id;
-//     var newWidgets = req.body.widgets;
-//
-//     //Update the user's widget list
-//     User.findByIdAndUpdate(userid, {
-//         $set: { widgets: newWidgets }
-//     }, {'new': true}, function(err,user) {
-//         if(err) { throw err; }
-//     });
-// }
-
 //Manages the update of a widget, creates a new one if it does not exist
 exports.updateWidget = function (req, res, next) {
 
   if(req.body._id!=null) {
+    console.log('Before find');
 
-    Widget.findById(req.body._id, function(err, widget) {
-        if (err) {
-            console.log(err)
-            return next(err)
-        }
-        else {
-              widget.type = req.body.type || widget.type;
-              widget.colSize = req.body.colSize || widget.colSize;
-              widget.pos = req.body.pos;
+      Widget.findById(req.body._id, function(err, widget) {
+          console.log('Enter find');
+          if (err) {
+              console.log(err)
+              return next(err)
+          }
+          else {
 
-              widget.save(function(err,save) {
-                  if (err) { res.status(500).send(err) }
-                  else res.send(save);
-              })
-        }
-      })
-    }
+            switch(widget.__t) {
+              case 'WelcomeComponent':
+                // Set properties
+              case 'WeatherComponent':
+                widget.lat = req.body.lat || widget.lat;
+                widget.lon = req.body.lon || widget.lon;
+                widget.units = req.body.units || widget.units;
+              case 'NewsRssComponent':
+                widget.title = req.body.title || widget.title;
+                widget.feedUrls = req.body.feedUrls || widget.feedUrls;
+              case 'CoversComponent':
+                // Set properties
+              case 'QuotesComponent':
+                // Set properties
+              case 'TodoComponent':
+                widget.title = req.body.title || widget.title;
 
-  else create(req.payload._id, req.body);
+              default:
+                widget.colSize = req.body.colSize || widget.colSize;
+                widget.pos = req.body.pos;
+            }
+
+            widget.save(function(err,save) {
+                if (err) { res.status(500).send(err) }
+                else res.send(save);
+            })
+          }
+        })
+      }
+    else create(req.payload._id, req.body);
 
 }
 
@@ -89,12 +133,14 @@ exports.updateWidget = function (req, res, next) {
 
 //Manages the creation of a new widget
 exports.createDefaultDash = function(userid) {
-    var widgets = [{type: 'WelcomeComponent', colSize: "col-md-6", pos:0},
-    {type: 'WeatherComponent', colSize: "col-md-6", pos:1},{type: 'CoversComponent', colSize: "col-md-12", pos:2},
-    {type: 'NewsRssComponent', colSize: "col-md-8", pos:3},{type: 'QuotesComponent', colSize: "col-md-4", pos:4},
-    {type: 'TodoComponent', colSize: "col-md-4", pos:5}];
+    var widgets = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos:0},
+    {__t: 'WeatherComponent', colSize: "col-md-6", lat: "40.712784", lon: "-74.005941", units: "metric", pos:1},
+    {__t: 'CoversComponent', colSize: "col-md-12", pos:2},
+    {__t: 'NewsRssComponent', colSize: "col-md-8", pos:3, title: "Latest News", feedUrls: ['http://www.huffingtonpost.es/feeds/verticals/spain/index.xml','http://ep00.epimg.net/rss/elpais/portada.xml']},
+    {__t: 'QuotesComponent', colSize: "col-md-4", pos:4},
+    {__t: 'TodoComponent', colSize: "col-md-4", pos:5, title: "To Do List"}];
 
-    // Save the widgets in DB
+    //Save the widgets in DB
     for (widget of widgets) {
       create(userid,widget);
     }

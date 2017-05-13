@@ -7,6 +7,7 @@ const weatherController  = require('../controller/weather-controller');
 const settingsController  = require('../controller/settings-controller');
 const quotesController  = require('../controller/quotes-controller');
 const widgetsController  = require('../controller/widget-controller');
+const coversProxy  = require('../controller/covers-controller');
 const mongoose = require( 'mongoose' );
 const jwt = require('express-jwt');
 const passport = require('passport');
@@ -23,9 +24,9 @@ router.get('/', (req, res) => {
 
 
 // To-dos Routes
-router.get('/todos', auth, todoController.index);
+router.get('/todos/:idwidget', auth, todoController.index);
 router.post('/todos', auth, todoController.update);
-router.put('/todos', auth, todoController.create);
+router.put('/todos/:idwidget', auth, todoController.create);
 router.delete('/todos/:id', auth, todoController.delete);
 
 // Auth Routes
@@ -40,10 +41,16 @@ router.get('/weather', weatherController.refresh);
 router.get('/settings', auth, settingsController.get);
 router.post('/settings', auth, settingsController.save);
 
+router.get('/coverproxy/:coverurl', coversProxy.performRequest);
+
 router.get('/quote', quotesController.get);
 
 router.get('/widgets', auth, widgetsController.index);
 router.post('/widget', auth, widgetsController.updateWidget);
 router.delete('/widget/:id', auth, widgetsController.removeWidget);
+
+
+router.post('/recoverpass', authController.forgotPassword);
+router.post('/resetpass', authController.resetPassword);
 
 module.exports = router;

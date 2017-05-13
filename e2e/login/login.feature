@@ -12,6 +12,6 @@ Feature: This feature describe the scenarios of the login part of our authentica
       | email         | password             | valid |
       |               |                      | false |
       |               | thisisavalidpassword | false |
-      | samkwerri.be  | thisisavalidpassword | false |
-      | sam@kwerri.be |                      | false |
-      | sam@kwerri.be | thisisavalidpassword | true  |
+      | test.es       | thisisavalidpassword | false |
+      | test@test.es  |                      | false |
+      | test@test.es  | thisisavalidpassword | true  |

@@ -2,11 +2,11 @@
   <section class="todoapp">
     <div class="panel-heading">
       <header class="header">
-        <h3>Todo list</h3>
+        <h3>{{widgetdata.title}}</h3>
         <input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
       </header>
     </div>
-  
+
       <section class="main" *ngIf="todos.length > 0">
         <div class="panel-body">
         <ul class="todo-list">

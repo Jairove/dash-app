@@ -29,8 +29,9 @@ export class LoginComponent implements OnInit {
 
   username: string = '';
   password: string = '';
-
+  passwordRecovery: boolean = false;
   errorMessage: any = '';
+  labelMessage: string = '';
 
   onSubmit() {
     this.authenticationService.login(this.username,this.password)
@@ -45,6 +46,24 @@ export class LoginComponent implements OnInit {
 
                           }
                       );
+  }
+
+  private recoverPassword() {
+    this.authenticationService.recoverPassword(this.username)
+                        .subscribe(
+                          response => {
+                            if(response=="ok") this.labelMessage = "A recovery message has been sent. Please, check your email.";
+                            else this.errorMessage = response;
+                          },
+                          error => {
+                            this.errorMessage = <any>error;
+                          }
+                        );
+  }
+
+  private enableRecoverPassword() {
+    this.errorMessage = '';
+    this.passwordRecovery = true;
   }
 
 }

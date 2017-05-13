@@ -13,7 +13,8 @@ import { Component,
 export class WidgetWrapperComponent implements OnInit {
   @ViewChild('target', {read: ViewContainerRef}) target: ViewContainerRef;
   @Input() type: Type<Component>;
-  cmpRef: ComponentRef<Component>;
+  @Input() widgetdata: any;
+  cmpRef: any;
   private isViewInitialized:boolean = false;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver, private compiler: Compiler) {}
@@ -23,16 +24,14 @@ export class WidgetWrapperComponent implements OnInit {
       return;
     }
     if(this.cmpRef) {
-      // when the `type` input changes we destroy a previously
+      // when the input changes we destroy a previously
       // created component before creating the new one
       this.cmpRef.destroy();
     }
-
     let factory = this.componentFactoryResolver.resolveComponentFactory(this.type);
-    this.cmpRef = this.target.createComponent(factory)
-    // to access the created instance use
-    // this.compRef.instance.someProperty = 'someValue';
-    // this.compRef.instance.someOutput.subscribe(val => doSomething());
+    this.cmpRef = this.target.createComponent(factory);
+    this.cmpRef.instance.widgetdata = this.widgetdata;
+
   }
 
   ngOnChanges() {

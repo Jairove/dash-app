@@ -2,6 +2,11 @@
   text-align: justify;
 }
 
+.loading-spinner {
+  padding-top: 100px;
+  text-align: center;
+}
+
 .row {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -18,15 +23,26 @@
   opacity: 1;
 }
 
-.widget-edit span {
+.widget-edit-btn {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  cursor: pointer;
+}
+
+.widget-remove-btn {
   position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
 }
 
-.widget-edit span:hover {
+.widget-remove-btn:hover {
   color: red;
+}
+
+.widget-edit-btn:hover {
+  color: green;
 }
 
 #addWidgetModal {
@@ -35,8 +51,4 @@
 
 #addWidgetButton {
   width: 100px;
-}
-
-.dropdown {
-  width: 100%;
 }

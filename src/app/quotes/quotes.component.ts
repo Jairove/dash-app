@@ -9,6 +9,8 @@ import { Quote } from './quote';
   providers: [ QuotesService ]
 })
 export class QuotesComponent implements OnInit {
+  public widgetdata;
+
   private quote: Quote = {
     text: 'Unavailable',
     author: 'Undefined'

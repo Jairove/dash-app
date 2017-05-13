@@ -22,9 +22,9 @@ export class TodoDataService {
     });
   }
 
-  getUserTodos(): Observable<Todo[]> {
+  getTodos(widgetid): Observable<Todo[]> {
     let options = new RequestOptions({ headers: this.headers });
-    return this.http.get(this.todosUrl, options)
+    return this.http.get(this.todosUrl + '/' + widgetid, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
@@ -48,10 +48,10 @@ export class TodoDataService {
     return Observable.throw(errMsg);
   }
 
-  addTodo(todo: Todo): Observable<Todo> {
+  addTodo(todo: Todo, idwidget: string): Observable<Todo> {
     let options = new RequestOptions({ headers: this.headers });
 
-    return this.http.put(this.todosUrl, todo, options)
+    return this.http.put(this.todosUrl + '/' + idwidget, todo, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }

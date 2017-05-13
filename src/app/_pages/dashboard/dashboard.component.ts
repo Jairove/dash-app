@@ -8,6 +8,12 @@ import { WelcomeComponent } from '../../welcome/welcome.component';
 import { SettingsService } from '../../_services/settings.service';
 import { CoversComponent } from '../../covers/covers.component';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router,
+         Event,
+         NavigationStart,
+         NavigationEnd,
+         NavigationCancel,
+         NavigationError} from '@angular/router';
 
 @Component({
   selector: 'dashboard',
@@ -16,10 +22,12 @@ import { FormControl, FormGroup } from '@angular/forms';
   providers: [ SettingsService ]
 })
 export class DashboardComponent implements OnInit {
+  private loading = true;
   private editMode = false;
-  private widgets: any = [{type: 'WelcomeComponent', colSize: "col-md-6", pos: 0}];
+  private widgets: any = [{__t: 'WelcomeComponent', colSize: "col-md-6", pos: 0, id: "init"}];
   private response: String;
   private widgetsToBeDeleted: Array<any> = [];
+  private edibleWidget = { pos: null, __t: 'QuotesComponent', colSize: 'col-md-6' };
 
   private types = {
     'WelcomeComponent': WelcomeComponent,
@@ -30,22 +38,11 @@ export class DashboardComponent implements OnInit {
     'TodoComponent': TodoComponent
   };
 
-
-  private sizes = {
-    'xs': 'col-md-2',
-    's': 'col-md-4',
-    'm': 'col-md-6',
-    'l': 'col-md-8',
-    'xl': 'col-md-10',
-    'xxl': 'col-md-12'
-  };
-
-  newWidgetForm = {
-    size: 'xs',
-    type: 'covers'
-  };
-
-  constructor(private settingsService: SettingsService) { }
+  constructor(private settingsService: SettingsService, private router: Router) {
+    router.events.subscribe((event: Event) => {
+      this.navigationInterceptor(event);
+    });
+  }
 
   private getSettings() {
     this.settingsService.getSettings()
@@ -104,20 +101,23 @@ export class DashboardComponent implements OnInit {
     this.updateDash();
   }
 
-  // TODO Remove this
-  public select(element: string): void {
-    console.log(element);
+  public setEdibleWidget(widget): void {
+    this.edibleWidget = widget;
   }
 
-  public addWidget() {
-    let widget = {
-      type: this.newWidgetForm.type,
-      colSize: this.sizes[this.newWidgetForm.size],
-      pos: this.widgets.length
+  private editWidget(editedWidget) {
+    console.log(editedWidget);
+    for(var i=0; i<this.widgets.length; i++) {
+      if(this.widgets[i].pos == editedWidget.pos) {
+        this.widgets[i] = Object.assign(this.widgets[i], editedWidget);
+      }
     }
-    this.widgets.push(widget);
+  }
 
-    console.log('Widget added');
+  public createWidget(newWidget) {
+    console.log(newWidget);
+    newWidget.pos = this.widgets.length;
+    this.widgets.push(newWidget);
   }
 
   public removeWidget(position: number): void {
@@ -125,18 +125,33 @@ export class DashboardComponent implements OnInit {
      if(this.widgets[position]._id!=null) {
        this.widgetsToBeDeleted.push(this.widgets[position]);
      }
-     
-    console.log('Widget to be removed: '+position);
+
     this.widgets.splice(position, 1);
 
     //Update positions
     for(let widget of this.widgets) {
       if(widget.pos != this.widgets.indexOf(widget)) {
         widget.pos = this.widgets.indexOf(widget);
+        break;
       }
     }
 
-    console.log(this.widgets);
+  }
+
+  // Shows and hides the loading spinner during RouterEvent changes
+  private navigationInterceptor(event: Event): void {
+    if (event instanceof NavigationStart) {
+        this.loading = true;
+    }
+    if (event instanceof NavigationEnd) {
+        this.loading = false;
+    }
+    if (event instanceof NavigationCancel) {
+        this.loading = false;
+    }
+    if (event instanceof NavigationError) {
+        this.loading = false;
+    }
   }
 
 }

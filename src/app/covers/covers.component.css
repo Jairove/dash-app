@@ -1,5 +1,14 @@
 .cover-wrapper {
   padding-bottom: 40px;
+  display: inline-block;
+}
+
+.cover {
+  display: inline;
+}
+
+.loading-spinner {
+  text-align: center;
 }
 
 #big-cover {

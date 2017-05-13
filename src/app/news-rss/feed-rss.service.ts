@@ -7,7 +7,7 @@ import { Feed } from './feed';
 export class FeedRssService {
 
   // rss2json API is used to retrieve an rss feed in JSON format
-  private rssToJsonServiceBaseUrl: string = 'https://rss2json.com/api.json?rss_url=';
+  private rssToJsonServiceBaseUrl: string = 'https://api.rss2json.com/v1/api.json?&api_key=8lx7mka8fpf5dtbvwbzsxphlvq6kcq6hbuo7rb1g&rss_url=';
 
   constructor(private http: Http) { }
 
@@ -21,7 +21,6 @@ export class FeedRssService {
     return res.json() || { };
   }
 
-  // TODO: Maybe I should use a remote logging infrastructure
   private handleError (error: any) {
     const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
