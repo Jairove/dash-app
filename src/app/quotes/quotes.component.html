@@ -1,13 +1,15 @@
 
-  <div class="panel panel-default">
+<div class="loading-spinner" *ngIf="loading">
+    <img src="assets/img/small-spinner.gif" alt="loading">
+</div>
 
-      <section class="main">
-        <div class="panel-body">
-          <blockquote class="blockquote">
-            <p class="mb-0">{{quote.text}}</p>
-            <footer class="blockquote-footer"><cite>{{quote.author}}</cite></footer>
-          </blockquote>
-        </div>
-      </section>
-
-  </div>
+<div class="panel panel-default">
+  <section class="main">
+    <div class="panel-body">
+      <blockquote class="blockquote">
+        <p class="mb-0">{{quote.text}}</p>
+        <footer class="blockquote-footer"><cite>{{quote.author}}</cite></footer>
+      </blockquote>
+    </div>
+  </section>
+</div>

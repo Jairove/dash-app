@@ -10,6 +10,7 @@ import { Quote } from './quote';
 })
 export class QuotesComponent implements OnInit {
   public widgetdata;
+  public loading = true;
 
   private quote: Quote = {
     text: 'Unavailable',
@@ -20,6 +21,7 @@ export class QuotesComponent implements OnInit {
 
   ngOnInit() {
     this.refreshQuote();
+    this.loading = false;
   }
 
   private refreshQuote() {

@@ -25,15 +25,29 @@ export class widgetSettingsComponent implements OnInit {
 
   ngOnInit() {}
 
-  private initializeWidget(type) {
+  ngOnChanges() {
+    console.log('On changes');
+    this.initializeWidgetForm();
+  }
+
+  ngDoCheck() {
+    if(this.widget!=this.widget) this.initializeWidgetForm();
+  }
+
+  private cleanWidgetForm() {
+    this.editWidgetForm = null;
+    this.editWidgetForm = {__t: null, pos: null, colSize: null, feedUrls: ['']};
+  }
+
+  private initializeWidgetForm() {
     console.log(this.widget);
 
     // Initialize new widgets with default values
-    if(type == 'NewsRssComponent')
+    if(this.widget.type == 'NewsRssComponent')
       if(this.widget.feedUrls.length==0)
         this.widget.feedUrls = ['http://news.ycombinator.com/rss'];
 
-    if(type == 'WeatherComponent')
+    if(this.widget.type == 'WeatherComponent')
       if(this.widget.lat == null || this.widget.lon == null || this.widget.units == null) {
         this.widget.lat = '40.712784';
         this.widget.lon = '-74.005941';
@@ -51,10 +65,10 @@ export class widgetSettingsComponent implements OnInit {
 
     if (this.editWidgetForm.colSize != null) this.editWidgetForm.colSize = this.sizes[this.editWidgetForm.colSize];
     else if(this.widget.colSize!=null && this.widget.colSize!=undefined) this.editWidgetForm.colSize = this.widget.colSize;
-    else this.editWidgetForm.colSize = 'col-md-6';
 
     if(this.editWidgetForm.pos!=null) this.edited.emit(this.editWidgetForm);
     else this.created.emit(this.editWidgetForm);
+    this.cleanWidgetForm();
   }
 
   private addFeedUrl(url) {
