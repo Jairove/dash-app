@@ -1,35 +1,26 @@
-// Protractor configuration file, see link for more information
-// https://github.com/angular/protractor/blob/master/lib/config.ts
-
 exports.config = {
-  allScriptsTimeout: 11000,
+  allScriptsTimeout: 180000,
+  specs:['./e2e/**/*.feature'],
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'chrome',
+    'chromeOptions': {}
   },
-  directConnect: true,
+  plugins: [],
   baseUrl: 'http://localhost:4200/',
-  // set to "custom" instead of cucumber.
+  directConnect: true,
   framework: 'custom',
-
-  // path relative to the current config file
   frameworkPath: require.resolve('protractor-cucumber-framework'),
-
-  // require feature files
-  specs: [
-    './e2e/**/*.feature' // accepts a glob
-  ],
-
   cucumberOpts: {
-    // require step definitions
-    require: [
-      './e2e/**/*.steps.ts' // accepts a glob
-    ],
-    format: 'pretty'
+    compiler: "ts:ts-node/register",
+    format: "pretty",
+    require:[
+      './e2e/**/*.steps.ts'
+    ]
   },
-
-  beforeLaunch: function() {
-    require('ts-node').register({
-      project: 'e2e'
-    });
+  useAllAngular2AppRoots: true,
+  onPrepare: function() {
+    const globals = require('protractor');
+    const browser = globals.browser;
+    browser.ignoreSynchronization = true;
   }
-}
+};

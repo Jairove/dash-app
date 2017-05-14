@@ -30,8 +30,8 @@
         "../node_modules/lodash/lodash.js",
         "../node_modules/slick-carousel/slick/slick.min.js"
       ],
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }
