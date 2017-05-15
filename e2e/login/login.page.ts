@@ -1,5 +1,6 @@
 import { element, by, protractor, ElementArrayFinder } from 'protractor';
 import { promise as wdpromise } from 'selenium-webdriver';
+import { browser } from 'protractor';
 
 export class LoginPageObject {
 
@@ -14,7 +15,7 @@ export class LoginPageObject {
         this.title = element(by.id('login-title'));
         this.emailInput = element(by.id('username'));
         this.passwordInput = element(by.id('password'));
-        this.submitButton = element(by.css('login-button'));
+        this.submitButton = element(by.css('.login-button'));
         this.errorMessage =  element(by.css('.alert-danger'));
     }
 
@@ -42,6 +43,10 @@ export class LoginPageObject {
     setPassword(value: string): wdpromise.Promise<void> {
         return this.passwordInput.clear().sendKeys(value);
     }
+
+    get = function() {
+      browser.get('http://localhost:3000/login');
+    };
 
 
 }

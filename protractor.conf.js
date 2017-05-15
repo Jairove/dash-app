@@ -6,7 +6,7 @@ exports.config = {
     'chromeOptions': {}
   },
   plugins: [],
-  baseUrl: 'http://localhost:4200/',
+  baseUrl: 'http://localhost:3000/',
   directConnect: true,
   framework: 'custom',
   frameworkPath: require.resolve('protractor-cucumber-framework'),

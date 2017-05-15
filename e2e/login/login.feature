@@ -9,9 +9,9 @@ Feature: This feature describe the scenarios of the login part of our authentica
     Then the login form is validated '<valid>'
 
     Examples:
-      | email         | password             | valid |
-      |               |                      | false |
-      |               | thisisavalidpassword | false |
-      | test.es       | thisisavalidpassword | false |
-      | test@test.es  |                      | false |
-      | test@test.es  | thisisavalidpassword | true  |
+      | email           | password                 | valid |
+      | ""              | ""                       | false |
+      | ""              | "thisisavalidpassword"   | false |
+      | "test.es"       | "thisisavalidpassword"   | false |
+      | "test@test.es"  | ""                       | false |
+      | "test@test.es"  | "thisisavalidpassword"   | true  |
