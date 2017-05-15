@@ -28,7 +28,6 @@
     "@angular/platform-browser-dynamic": "^2.4.3",
     "@angular/router": "^3.3.1",
     "@angular/cli": "^1.0.3",
-    "@angular/compiler-cli": "^2.4.3",
     "@types/jquery": "^2.0.41",
     "@types/lodash": "4.14.50",
     "@types/node": "^6.0.65",
@@ -53,6 +52,7 @@
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
+    "@angular/compiler-cli": "^2.4.3",
     "@types/jasmine": "2.5.38",
     "@types/jquery": "^2.0.39",
     "@types/node": "^6.0.42",
