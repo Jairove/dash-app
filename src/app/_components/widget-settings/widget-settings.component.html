@@ -2,12 +2,12 @@
   <div class="size-option">
     <label>Size</label>
     <select name="size" class="dropdown" [(ngModel)]="editWidgetForm.colSize">
-      <option value="xs" [selected]="widget.colSize == 'col-md-2'">Extra Small</option>
-      <option value="s" [selected]="widget.colSize == 'col-md-4'">Small</option>
-      <option value="m" [selected]="widget.colSize == 'col-md-6' || widget.colSize == null || widget.colSize == undefined">Medium</option>
-      <option value="l" [selected]="widget.colSize == 'col-md-8'">Large</option>
-      <option value="xl" [selected]="widget.colSize == 'col-md-10'">Extra Large</option>
-      <option value="xxl" [selected]="widget.colSize == 'col-md-12'">Full Large</option>
+      <option value="col-md-2" [selected]="editWidgetForm.colSize == 'col-md-2'">Extra Small</option>
+      <option value="col-md-4" [selected]="editWidgetForm.colSize == 'col-md-4'">Small</option>
+      <option value="col-md-6" [selected]="editWidgetForm.colSize == 'col-md-6'">Medium</option>
+      <option value="col-md-8" [selected]="editWidgetForm.colSize == 'col-md-8'">Large</option>
+      <option value="col-md-10" [selected]="editWidgetForm.colSize == 'col-md-10'">Extra Large</option>
+      <option value="col-md-12" [selected]="editWidgetForm.colSize == 'col-md-12'">Full Large</option>
     </select>
   </div>
 
@@ -24,14 +24,14 @@
       (blur)="url.value=''" type="text" placeholder="Enter a feed URL" class="url-input">
       <span class="glyphicon glyphicon-plus add-rss-btn" aria-hidden="true" (click)="addFeedUrl(url.value)"></span>
     </div>
-    <p *ngFor="let url of widget.feedUrls">
+    <p *ngFor="let url of editWidgetForm.feedUrls">
       <span class="glyphicon glyphicon-remove remove-rss-btn" aria-hidden="true" (click)="removeFeedUrl(url)"></span>{{url}}
     </p>
   </div>
 
   <div *ngIf="widget.__t=='WeatherComponent'" class="widget-options">
-    <label>Latitude: </label><input type="text" [(ngModel)]="editWidgetForm.lat" placeholder="{{widget.lat}}">
-    <label>Longitude: </label><input type="text" [(ngModel)]="editWidgetForm.lon" placeholder="{{widget.lon}}">
+    <label>Latitude: </label><input type="text" [(ngModel)]="editWidgetForm.lat" placeholder="{{editWidgetForm.lat}}">
+    <label>Longitude: </label><input type="text" [(ngModel)]="editWidgetForm.lon" placeholder="{{editWidgetForm.lon}}">
     <label for="units">Units system</label>
     <input type="radio" name="units" value="metric" [(ngModel)]="editWidgetForm.units"> Metric
     <input type="radio" name="units" value="imperial" [(ngModel)]="editWidgetForm.units"> Imperial

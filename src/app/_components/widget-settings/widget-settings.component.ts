@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
 
 @Component({
   selector: 'widget-settings',
@@ -9,7 +9,7 @@ export class widgetSettingsComponent implements OnInit {
   @Input() widget;
   @Output() edited: EventEmitter<any> = new EventEmitter<any>();
   @Output() created: EventEmitter<any> = new EventEmitter<any>();
-  private editWidgetForm = {__t: null, pos: null, colSize: null, feedUrls: ['']};
+  private editWidgetForm: any = {};
   private errorMessage = null;
 
   private sizes = {
@@ -21,51 +21,53 @@ export class widgetSettingsComponent implements OnInit {
     'xxl': 'col-md-12'
   };
 
-  constructor() {}
+  constructor() {
+  }
 
-  ngOnInit() {}
-
-  ngOnChanges() {
-    console.log('On changes');
+  ngOnInit() {
+    this.editWidgetForm.__t = this.widget.__t;
     this.initializeWidgetForm();
   }
 
   ngDoCheck() {
-    if(this.widget!=this.widget) this.initializeWidgetForm();
+    if(this.editWidgetForm!=this.widget) this.initializeWidgetForm();
   }
 
   private cleanWidgetForm() {
-    this.editWidgetForm = null;
-    this.editWidgetForm = {__t: null, pos: null, colSize: null, feedUrls: ['']};
+    this.editWidgetForm = {};
+    this.editWidgetForm.__t = 'QuotesComponent';
   }
 
   private initializeWidgetForm() {
     console.log(this.widget);
 
-    // Initialize new widgets with default values
-    if(this.widget.type == 'NewsRssComponent')
-      if(this.widget.feedUrls.length==0)
-        this.widget.feedUrls = ['http://news.ycombinator.com/rss'];
+    if(this.widget.pos!=null) {
+      this.editWidgetForm = this.widget;
+    }
+    else {
+      if(this.editWidgetForm.__t != this.widget.__t)
+        this.editWidgetForm.__t = this.widget.__t;
 
-    if(this.widget.type == 'WeatherComponent')
-      if(this.widget.lat == null || this.widget.lon == null || this.widget.units == null) {
-        this.widget.lat = '40.712784';
-        this.widget.lon = '-74.005941';
-        this.widget.units = 'metric';
+      // Initialize new widgets with default values
+      if(this.widget.__t == 'NewsRssComponent')
+      if(this.widget.feedUrls==undefined)
+          this.editWidgetForm.feedUrls = ['http://news.ycombinator.com/rss'];
+
+      if(this.widget.__t == 'WeatherComponent')
+        if(this.widget.lat == null || this.widget.lon == null || this.widget.units == null) {
+          this.editWidgetForm.lat = '40.712784';
+          this.editWidgetForm.lon = '-74.005941';
+          this.editWidgetForm.units = 'metric';
+        }
+
+      if(this.editWidgetForm.colSize == null || this.editWidgetForm.colSize == undefined) {
+        this.editWidgetForm.colSize = 'col-md-6';
       }
-
-    if(this.widget.colSize == null) {
-      this.widget.colSize = 'col-md-6';
+      console.log(this.editWidgetForm);
     }
   }
 
   private saveWidget() {
-    this.editWidgetForm.__t = this.widget.__t;
-    this.editWidgetForm.pos = this.widget.pos;
-
-    if (this.editWidgetForm.colSize != null) this.editWidgetForm.colSize = this.sizes[this.editWidgetForm.colSize];
-    else if(this.widget.colSize!=null && this.widget.colSize!=undefined) this.editWidgetForm.colSize = this.widget.colSize;
-
     if(this.editWidgetForm.pos!=null) this.edited.emit(this.editWidgetForm);
     else this.created.emit(this.editWidgetForm);
     this.cleanWidgetForm();
