@@ -14,10 +14,11 @@
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor",
     "build": "ng build && node server.js",
-    "postinstall": "ng build"
+    "postinstall": "ng build -prod"
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "^1.0.3",
     "@angular/common": "^2.4.3",
     "@angular/compiler": "^2.4.3",
     "@angular/core": "^2.4.3",
@@ -50,7 +51,6 @@
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
-    "@angular/cli": "^1.0.3",
     "@angular/compiler-cli": "^2.4.3",
     "@types/jasmine": "2.5.38",
     "@types/jquery": "^2.0.39",
@@ -65,7 +65,6 @@
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
     "tslint": "^4.3.0",
-
     "@types/chai": "3.4.35",
     "@types/chai-as-promised": "0.0.29",
     "chai": "3.5.0",
