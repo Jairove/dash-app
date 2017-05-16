@@ -28,7 +28,7 @@ export class LoginPageObject {
     }
 
     formIsValid(): wdpromise.Promise<boolean> {
-        let valid = this.getErrorMessage().then( (result) => valid = result != '');
+        let valid = this.getErrorMessage().then( (result) => valid = result == '');
         return valid;
     }
 

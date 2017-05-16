@@ -11,3 +11,8 @@
   text-align: center;
   padding-top: 40px;
 }
+
+.headline {
+  font-weight: 300;
+  color: #2c3e50;
+}

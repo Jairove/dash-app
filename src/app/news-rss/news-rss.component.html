@@ -16,8 +16,8 @@
           <li *ngFor="let feed of feedItems">
             <hr />
             <div class="view">
-              <a href="{{feed.link}}">
-                <h4>{{feed.title}}</h4>
+              <a class="news-link" href="{{feed.link}}">
+                <h4 class="headline">{{feed.title}}</h4>
               </a>
               <label class="author">{{feed.author}} | {{feed.pubDate}}</label>
               <!--  <p>{{feed.description}}</p> -->

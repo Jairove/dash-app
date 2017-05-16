@@ -15,12 +15,10 @@ class LoginSteps {
 
   private loginPageObject = new LoginPageObject();
 
-  @given(/^user clicks the login link$/)
+  @given(/^user is at the login page$/)
   givenUserClicksTheLoginLink(callback: any) {
     this.loginPageObject.get();
-    this.loginPageObject.getTitle();
-  //  browser.driver.get('http://localhost:3000/');
-    //this.loginPageObject.getTitle();
+    expect(this.loginPageObject.getTitle()).to.eql('Login');
     callback();
   }
 
@@ -44,13 +42,13 @@ class LoginSteps {
 
   @then(/^the login form is validated 'false'$/)
   thenInvalidFormIsValidated(callback: any) {
-    //expect(this.loginPageObject.formIsValid()).to.become(true);
+    expect(this.loginPageObject.formIsValid()).to.become(true);
     callback();
   }
 
   @then(/^the login form is validated 'true'$/)
   thenFormIsValidated(callback: any) {
-    //expect(this.loginPageObject.formIsValid()).to.become(true);
+    expect(this.loginPageObject.formIsValid()).to.become(true);
     callback();
   }
 }

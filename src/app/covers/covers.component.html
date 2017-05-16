@@ -1,31 +1,36 @@
-<div class="loading-spinner" *ngIf="loading">
+<div class="loading-spinner" *ngIf="!slicked">
     <img src="assets/img/small-spinner.gif" alt="loading">
 </div>
 
+<div *ngIf="slicked">
 
-<div class="cover-wrapper" *ngIf="loading">
-  <div *ngFor="let coverUrl of coversUrls">
-    <a href="#" data-toggle="modal" data-target="#coverModal" (click)="changeCoverToBeOpened(coverUrl)">
-      <img class="cover" src="{{coverUrl}}" height="220" width="160">
-    </a>
+  <div *ngIf="coversUrls.length!=0">
+  <div class="cover-wrapper">
+    <div *ngFor="let coverUrl of coversUrls">
+      <a href="#" data-toggle="modal" data-target="#coverModal" (click)="changeCoverToBeOpened(coverUrl)">
+        <img class="cover" src="{{coverUrl}}" height="220" width="160">
+      </a>
+    </div>
   </div>
-</div>
-<div *ngIf="coversUrls.length==0">
-  <h3>There are no covers available for today yet</h3>
-</div>
+  <div *ngIf="coversUrls.length==0">
+    <h3>There are no covers available for today yet</h3>
+  </div>
+  </div>
 
-<!-- Modal -->
-<div id="coverModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Cover</h4>
-      </div>
-      <div class="modal-body">
-        <img src="{{routeToCover}}" alt="cover" id="big-cover">
+  <!-- Modal -->
+  <div id="coverModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Cover</h4>
+        </div>
+        <div class="modal-body">
+          <img src="{{routeToCover}}" alt="cover" id="big-cover">
+        </div>
       </div>
     </div>
   </div>
+
 </div>

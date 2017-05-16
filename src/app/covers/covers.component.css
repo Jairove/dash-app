@@ -1,14 +1,12 @@
 .cover-wrapper {
-  padding-bottom: 40px;
-  display: inline-block;
-}
-
-.cover {
-  display: inline;
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 .loading-spinner {
   text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 #big-cover {
