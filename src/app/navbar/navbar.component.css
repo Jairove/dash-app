@@ -2,6 +2,47 @@
   margin-bottom: 90px;
 }
 
+.navbar-brand {
+  font-weight: 500;
+  font-size: 28px;
+  padding-left: 30px;
+  padding-top: 15px;
+}
+
 .clickable  {
   cursor: pointer;
+  width: 130px;
+  text-align: center;
+}
+
+.clickable span {
+  padding-right: 5px;
+}
+
+a:hover {
+  color: white !important;
+}
+
+#add-widget {
+  background-color: #95a5a6;
+}
+
+#add-widget:hover {
+  background-color: #798d8f;
+}
+
+#save {
+  background-color: #18bc9c;
+}
+
+#save:hover {
+  background-color: #128f76;
+}
+
+#edit {
+  background-color: #51769a;
+}
+
+#edit:hover {
+  background-color: #436280;
 }

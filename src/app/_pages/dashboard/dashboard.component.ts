@@ -106,7 +106,6 @@ export class DashboardComponent implements OnInit {
   }
 
   private editWidget(editedWidget) {
-    console.log(editedWidget);
     for(var i=0; i<this.widgets.length; i++) {
       if(this.widgets[i].pos == editedWidget.pos) {
         this.widgets[i] = Object.assign(this.widgets[i], editedWidget);
@@ -115,7 +114,6 @@ export class DashboardComponent implements OnInit {
   }
 
   public createWidget(newWidget) {
-    console.log(newWidget);
     newWidget.pos = this.widgets.length;
     this.widgets.push(newWidget);
   }

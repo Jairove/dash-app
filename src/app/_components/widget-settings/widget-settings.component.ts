@@ -39,7 +39,6 @@ export class widgetSettingsComponent implements OnInit {
   }
 
   private initializeWidgetForm() {
-    console.log(this.widget);
 
     if(this.widget.pos!=null) {
       this.editWidgetForm = this.widget;
@@ -63,7 +62,6 @@ export class widgetSettingsComponent implements OnInit {
       if(this.editWidgetForm.colSize == null || this.editWidgetForm.colSize == undefined) {
         this.editWidgetForm.colSize = 'col-md-6';
       }
-      console.log(this.editWidgetForm);
     }
   }
 
