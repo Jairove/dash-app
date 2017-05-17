@@ -15,18 +15,21 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right" *ngIf="isUserLoggedIn()">
-          <li>
+          <li *ngIf="isUserAtDash()">
             <a class="clickable" id="add-widget" data-toggle="modal" data-target="#addWidgetModal" *ngIf="editLabel=='Save'">
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Widget
             </a>
           </li>
-          <li>
+          <li *ngIf="isUserAtDash()">
             <a class="clickable"(click)="activateEdit()" id="save" *ngIf="editLabel=='Save'">
               <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>{{editLabel}}
             </a>
             <a class="clickable"(click)="activateEdit()" id="edit" *ngIf="editLabel!='Save'">
               <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>{{editLabel}}
             </a>
+          </li>
+          <li *ngIf="!isUserAtDash()">
+            <a routerLink="/dash">Dash</a>
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>

@@ -1,16 +1,9 @@
+<app-navbar></app-navbar>
 
-<div class="container">
+<div class="container settings">
   <div class="row">
-    <div class="col-md-3" id="sidebar">
-      <div class="affix">
-        <p><a [routerLink]="['/profile']" fragment="profile-settings" (click)="onAnchorClick()">Profile settings</a></p>
-        <p><a [routerLink]="['/profile']" fragment="new-pass" (click)="onAnchorClick()">Change password</a></p>
-        <p><a [routerLink]="['/profile']" fragment="dash-settings" (click)="onAnchorClick()">Dashboard Settings</a></p>
-        <p><a [routerLink]="['/profile']" fragment="widget-settings" (click)="onAnchorClick()">Widget Settings</a></p>
-      </div>
-    </div>
 
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div *ngIf="profile">
         <div id="profile-settings" class="settings-container">
           <h1>Profile Settings</h1>
@@ -23,6 +16,7 @@
               <label for="username">Email</label>
               <input type="text" class="form-control" id="username" name="username" required [(ngModel)]="profile.email">
             </div>
+            <p class="alert alert-info" *ngIf="profileFeedbackLabel!=null">{{profileFeedbackLabel}}</p>
             <button class="btn btn-success">Update profile</button>
           </form>
         </div>
@@ -39,18 +33,8 @@
             <label for="verifypass">Verify Password</label>
             <input type="password" class="form-control" id="verifypass" name="verifypass" required [(ngModel)]="verifyPassword">
           </div>
+          <p class="alert alert-info" *ngIf="passwordFeedbackLabel!=null">{{passwordFeedbackLabel}}</p>
           <button class="btn btn-success">Save password</button>
-          <p>{{passwordFeedbackLabel}}</p>
-        </form>
-      </div>
-
-      <div id="dash-settings" class="settings-container">
-        <h1>Dashboard Settings</h1>
-        <form [formGroup]="settingsform" (ngSubmit)="saveSettings()">
-          <p><label for="units">Units system</label></p>
-          <input type="radio" formControlName="units" value="metric" > Metric
-          <input type="radio" formControlName="units" value="imperial"> Imperial
-          <button class="btn btn-success">Save settings</button>
         </form>
       </div>
 

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [ SettingsService ]
+  providers: [ AuthenticationService, SettingsService ]
 })
 export class ProfileComponent implements OnInit {
 
@@ -15,14 +16,15 @@ export class ProfileComponent implements OnInit {
   private newPassword;
   private verifyPassword;
   private passwordFeedbackLabel;
+  private profileFeedbackLabel;
 
-  constructor(private route: ActivatedRoute, private settingsService: SettingsService) {
+  constructor(
+    private route: ActivatedRoute,
+    private authenticationService: AuthenticationService,
+    private settingsService: SettingsService,
+  ) {
     this.getProfile();
   }
-
-  settingsform = new FormGroup({
-    units: new FormControl('metric'),
-  });
 
   ngOnInit() {
   }
@@ -34,33 +36,29 @@ export class ProfileComponent implements OnInit {
         );
   }
 
-  private updateProfile() {
-    this.settingsService.updateProfile(this.profile).subscribe();
+  private resetLabels() {
+    this.passwordFeedbackLabel = null;
+    this.profileFeedbackLabel = null;
   }
 
-  private saveSettings() {
-    this.settingsService.saveSettings(this.settingsform.value).subscribe();
+  private updateProfile() {
+    this.resetLabels();
+    this.settingsService.updateProfile(this.profile).subscribe(
+      (response: string) => {this.profileFeedbackLabel = response}
+    );
   }
 
   private changePassword() {
+    this.resetLabels();
     if(this.newPassword===this.verifyPassword) {
       var password = {password: this.newPassword};
-             this.settingsService.changePassword(password).subscribe();
+      this.authenticationService.changePassword(password).subscribe(
+        (response: string) => {this.passwordFeedbackLabel = response}
+      );
     }
     else {
       this.passwordFeedbackLabel = "Passwords do not match";
     }
-  }
-
-  private onAnchorClick() {
-    this.route.fragment.subscribe(f => {
-     const element = document.querySelector("#" + f)
-     if (element) element.scrollIntoView(element)
-   })
-  }
-
-  private resetDashboard() {
-
   }
 
 }

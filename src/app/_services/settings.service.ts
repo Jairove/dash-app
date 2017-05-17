@@ -110,7 +110,7 @@ export class SettingsService {
 
   }
 
-  public updateProfile(profile): Observable<void> {
+  public updateProfile(profile): Observable<string> {
     var headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer '+ this.currentUser.token
@@ -119,19 +119,9 @@ export class SettingsService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post('/api/profile', profile, options)
-                    .catch(this.handleError);
-
-  }
-
-  public changePassword(password): Observable<void> {
-    var headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer '+ this.currentUser.token
-    });
-
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.post('/api/password', password, options)
+                    .map((response: Response) => {
+                        return response.json();
+                    })
                     .catch(this.handleError);
 
   }

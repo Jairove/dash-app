@@ -14,6 +14,7 @@ export class NewsRssComponent implements OnInit {
   feedUrls: string[] = ['http://www.huffingtonpost.es/feeds/verticals/spain/index.xml','http://ep00.epimg.net/rss/elpais/portada.xml'];
   feedItems: any[] = [];
   noOfItems = 10; // This will have to be a config value
+  selectedFeed: any = {};
   public widgetdata;
 
   constructor(private feedRssService: FeedRssService) {

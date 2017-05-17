@@ -13,6 +13,20 @@
 }
 
 .headline {
-  font-weight: 300;
+  font-weight: 400;
   color: #2c3e50;
+  font-size: 20px;
+}
+
+.headline-modal {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 25px;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+      width: 900px;
+      margin: 100px auto;
+    }
 }

@@ -10,11 +10,12 @@ export class AuthenticationService {
   private loginUrl: string = '/api/login';
   private registerUrl: string = '/api/register';
   private recoveryUrl: string = '/api/recoverpass';
+  private currentUser;
 
   constructor(private http: Http, private router: Router) {
       // set token if saved in local storage
-      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      this.token = currentUser && currentUser.token;
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.token = this.currentUser && this.currentUser.token;
   }
 
 
@@ -36,7 +37,7 @@ export class AuthenticationService {
                             this.token = token;
 
                             // store username and jwt token in local storage to keep user logged in between page refreshes
-                            localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                            localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token, name: response.json().name }));
 
                             // return true to indicate successful login
                             return true;
@@ -71,7 +72,7 @@ export class AuthenticationService {
                 this.token = token;
 
                 // store username and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token, name: name }));
 
                 // return true to indicate successful login
                 return true;
@@ -110,6 +111,21 @@ export class AuthenticationService {
                     .map((response: Response) => {
                         return response.json();
                     })
+  }
+
+  public changePassword(password): Observable<string> {
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ this.currentUser.token
+    });
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post('/api/password', password, options)
+                    .map((response: Response) => {
+                        return response.json();
+                    });
+
   }
 
 }

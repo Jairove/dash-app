@@ -6,7 +6,7 @@
   <section class="news">
     <div class="panel-heading">
       <header class="header">
-        <h3>RSS News</h3>
+        <h3>{{widgetdata.title}}</h3>
       </header>
     </div>
 
@@ -16,11 +16,12 @@
           <li *ngFor="let feed of feedItems">
             <hr />
             <div class="view">
-              <a class="news-link" href="{{feed.link}}">
-                <h4 class="headline">{{feed.title}}</h4>
+              <a class="news-link headline" href="#" data-toggle="modal" data-target="#newsModal" (click)="selectedFeed = feed">
+                {{feed.title}}
               </a>
-              <label class="author">{{feed.author}} | {{feed.pubDate}}</label>
-              <!--  <p>{{feed.description}}</p> -->
+              <p>
+                <label class="author">{{feed.author}} | {{feed.pubDate}}</label>
+              </p>
             </div>
           </li>
         </ul>
@@ -28,4 +29,24 @@
     </section>
 
   </section>
+</div>
+
+<!-- Modal -->
+<div id="newsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <a href="{{selectedFeed.link}}">
+          <h4 class="headline-modal">{{selectedFeed.title}}</h4>
+        </a>
+      </div>
+      <div class="modal-body">
+        <div class="divider"></div>
+        <div [innerHTML]="selectedFeed.content">
+        </div>
+    </div>
+    </div>
+  </div>
 </div>

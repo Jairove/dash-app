@@ -23,7 +23,8 @@ exports.login = function(req,res,next) {
       token = user.generateJwt();
       res.status(200);
       res.json({
-        "token" : token
+        "token" : token,
+        "name": user.name
       });
     } else {
       // If user is not found
@@ -38,7 +39,7 @@ exports.register = function(req,res,next) {
   if(!req.body.name || !req.body.email || !req.body.password) {
     res.status(400);
     res.json({
-      "message" : "All fields are required."
+      "message" : "All fields are required"
     });
     return;
   }
@@ -48,7 +49,7 @@ exports.register = function(req,res,next) {
     if (user) {
       res.status(400);
       res.json({
-        "message" : "This email is already in use."
+        "message" : "This email is already in use"
       });
       return;
     }
@@ -73,18 +74,25 @@ exports.register = function(req,res,next) {
         }
       });
 
+      let mailOptions = {
+          from: '"Dashpot" <mailer@dashpot.co>', // sender address
+          to: email, // list of receivers
+          subject: 'Welcome to dashpot.', // Subject line
+          html: '<p><b>Welcome to dashpot!</b></p> <p>Thank you for registering at dashpot, we hope you find it useful.</p>'
+      };
+
+      sendEmail(token,email,mailOptions);
+
       return;
     }
   });
 }
 
-exports.profile = function(req, res) {
 
+exports.profile = function(req, res) {
   // If no user ID exists in the JWT return a 401
   if (!req.payload._id) {
-    res.status(401).json({
-      "message" : "UnauthorizedError: private profile"
-    });
+    res.status(401).json("UnauthorizedError: private profile");
   } else {
     // Otherwise continue
     User
@@ -100,16 +108,13 @@ exports.profile = function(req, res) {
   }
 }
 
-
 //Updates the profile of the current user (username and password)
 exports.updateProfile = function (req, res, next) {
     var userid = req.payload._id;
 
     if(!req.body.email || !req.body.name) {
       res.status(400);
-      res.json({
-        "message" : "Name and email are required."
-      });
+      res.json("Name and email are required");
       return;
     }
 
@@ -119,9 +124,7 @@ exports.updateProfile = function (req, res, next) {
       if(user) {
         if (user._id != userid) {
           res.status(400);
-          res.json({
-            "message" : "This email is already in use."
-          });
+          res.json("This email is already in use");
           return;
         }
       }
@@ -130,8 +133,8 @@ exports.updateProfile = function (req, res, next) {
     //Update the user
     User.findByIdAndUpdate(userid, { name: req.body.name, email: req.body.email },
         {'new': true}, function(err,user) {
-        if(err) { throw err; res.send('ko'); }
-        res.json('ok');
+        if(err) { throw err; res.json('There was an error updating the profile'); }
+        res.json('Profile updated');
     });
 
 }
@@ -142,9 +145,7 @@ exports.changePassword = function (req, res, next) {
     var userid = req.payload._id;
     if(!req.body.password) {
       res.status(400);
-      res.json({
-        "message" : "Password is required."
-      });
+      res.json('Password is required');
       return;
     }
 
@@ -155,10 +156,20 @@ exports.changePassword = function (req, res, next) {
         else {
           res.status(200);
           res.json('Password updated');
-          return;
         }
       });
     });
+
+    let mailOptions = {
+        from: '"Dashpot" <mailer@dashpot.co>', // sender address
+        to: email, // list of receivers
+        subject: 'Password changed.', // Subject line
+        html: '<p><b>Your password has been changed!</b></p> <p>'+
+        'Your dashpot password has been changed, if you did not do this change please reset it now.</p>'
+    };
+
+    sendEmail(token,email,mailOptions);
+
 }
 
 //Updates the profile of the current user
@@ -175,12 +186,21 @@ exports.forgotPassword = function (req, res) {
             return;
           }
         });
-        sendRecoveryEmail(token,email);
+
+        let mailOptions = {
+            from: '"Dashpot" <mailer@dashpot.co>', // sender address
+            to: email, // list of receivers
+            subject: 'Recover your password', // Subject line
+            html: '<p>You have requested a password reset.</p><b>Follow this link to change your password:</b> '+
+            '<a href="'+recoveryUrl+token+'">'+recoveryUrl+token+'</a>' // html body
+        };
+
+        sendEmail(token,email,mailOptions);
 
       }
       else {
         res.status(400);
-        res.json('Invalid email.');
+        res.json('Invalid email');
         return;
       }
 
@@ -188,7 +208,7 @@ exports.forgotPassword = function (req, res) {
 
 }
 
-function sendRecoveryEmail(token,email) {
+function sendEmail(token,email,mailOptions) {
   'use strict';
   const nodemailer = require('nodemailer');
   const smtpTransport = require('nodemailer-smtp-transport');
@@ -202,15 +222,6 @@ function sendRecoveryEmail(token,email) {
          pass: 'wxcfZIMWdFk*'
      }
   }));
-
-  // setup email data with unicode symbols
-  let mailOptions = {
-      from: '"Dashpot" <mailer@dashpot.co>', // sender address
-      to: email, // list of receivers
-      subject: 'Recover your password', // Subject line
-      html: '<p>You have requested a password reset.</p><b>Follow this link to change your password:</b> '+
-      '<a href="'+recoveryUrl+token+'">'+recoveryUrl+token+'</a>' // html body
-  };
 
   // send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {

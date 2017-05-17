@@ -1,21 +1,9 @@
-.profile {
-  align-self: center;
-  text-align: center;
+.settings {
+  width: 700px;
 }
 
 .field {
   width: auto;
-}
-
-#sidebar {
-  visibility: hidden;
-}
-
-@media screen and (min-width: 993px) {
-  #sidebar {
-    visibility: visible;
-    padding-top: 20px;
-  }
 }
 
 .settings-container {

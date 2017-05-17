@@ -4,7 +4,6 @@ const API = 'https://jsonplaceholder.typicode.com';
 const todoController  = require('../controller/todo-controller');
 const authController  = require('../controller/auth-controller');
 const weatherController  = require('../controller/weather-controller');
-const settingsController  = require('../controller/settings-controller');
 const quotesController  = require('../controller/quotes-controller');
 const widgetsController  = require('../controller/widget-controller');
 const coversProxy  = require('../controller/covers-controller');
@@ -30,16 +29,14 @@ router.put('/todos/:idwidget', auth, todoController.create);
 router.delete('/todos/:id', auth, todoController.delete);
 
 // Auth Routes
-router.get('/profile', auth, authController.profile); //to handle new users registering
 router.post('/password', auth, authController.changePassword);
+router.get('/profile', auth, authController.profile); //to handle new users registering
 router.post('/profile', auth, authController.updateProfile); //to handle new users registering
 router.post('/login', authController.login); //to handle new users registering
 router.put('/register', authController.register); //to return profile details when given a USERID
 
 router.get('/weather', weatherController.refresh);
 
-router.get('/settings', auth, settingsController.get);
-router.post('/settings', auth, settingsController.save);
 
 router.get('/coverproxy/:coverurl', coversProxy.performRequest);
 

@@ -43,14 +43,7 @@ export class DashboardComponent implements OnInit {
       this.navigationInterceptor(event);
     });
   }
-
-  private getSettings() {
-    this.settingsService.getSettings()
-        .subscribe(
-            settings =>  localStorage.setItem('settings', JSON.stringify( settings ))
-        );
-  }
-
+  
   private getWidgets() {
     this.settingsService.getWidgets()
         .subscribe(
@@ -93,7 +86,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getWidgets();
-    this.getSettings();
   }
 
   public toggleEdit() {

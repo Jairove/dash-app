@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -13,22 +14,26 @@ export class NavbarComponent implements OnInit {
 
   private editLabel = "Edit";
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService, private router:Router) { }
 
   ngOnInit() {
   }
 
   ngOnChanges() { }
 
-  private logout() {
+  private logout(): void {
     this.authService.logout();
   }
 
-  private isUserLoggedIn() {
+  private isUserLoggedIn(): boolean {
     return this.authService.isUserLoggedIn();
   }
 
-  private activateEdit() {
+  private isUserAtDash(): boolean {
+    return this.router.url=='/dash';
+  }
+
+  private activateEdit(): void {
     // Change the link label
     if(this.editLabel=="Edit") this.editLabel = "Save";
     else this.editLabel = "Edit";
