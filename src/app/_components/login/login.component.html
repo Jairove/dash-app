@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-md-6">
       <h1>Sign in</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae pulvinar velit. Aenean at nisl sit amet ligula eleifend tincidunt non at libero.</p>
+      <p>Hey there! You have to log in with your account to access your dashpot.</p>
+      <p>If you don't have an account, you can <a href="/register">create one</a>.</p>
     </div>
 
     <div class="login col-md-4 col-md-offset-2" *ngIf="!passwordRecovery">
@@ -11,11 +12,11 @@
         <form (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="username">Email</label>
-            <input type="email" class="form-control" id="username" name="username" required [(ngModel)]="username">
+            <input type="email" class="form-control" id="username" name="username" required [(ngModel)]="username" placeholder="Email">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password"  name="password" required [(ngModel)]="password">
+            <input type="password" class="form-control" id="password"  name="password" required [(ngModel)]="password" placeholder="Password">
             <a id="forgot-password" (click)="enableRecoverPassword()">Forgot your password?</a>
           </div>
           <p *ngIf="errorMessage!=''" class="alert alert-danger"><strong>Login failed! </strong>{{errorMessage}}</p>
@@ -26,9 +27,9 @@
 
   <div class="login col-md-4 col-md-offset-2" *ngIf="passwordRecovery">
     <div *ngIf="labelMessage==''">
-      <h2>Password Recovery</h2>
-      <h4>Please, enter your email</h4>
-      <input *ngIf="username==''" type="email" class="form-control" name="email-recovery" required [(ngModel)]="username" placeholder="Enter your email">
+      <h2>Recover your password</h2>
+      <label>Please, enter your email:</label>
+      <input *ngIf="username==''" type="email" class="form-control" name="email-recovery" required [(ngModel)]="username" placeholder="Email">
       <input *ngIf="username!=''" type="email" class="form-control" name="email-recovery" required [(ngModel)]="username">
       <p *ngIf="errorMessage!=''" class="alert alert-danger">{{errorMessage}}</p>
       <button class="btn btn-success recover-button" (click)="recoverPassword()">Recover password</button>

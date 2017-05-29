@@ -2,19 +2,25 @@ import { Injectable } from '@angular/core';
 import { Settings } from '../_models/settings';
 import { Widget } from '../_models/widget';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class SettingsService {
+export class DashboardService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private router: Router) { }
 
   private currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   private extractData(res: Response) {
-    const body = res.json();
-    return body || { };
+    if(res.status == 401) {
+      this.router.navigate(['/login']);
+    }
+    else {
+      const body = res.json();
+      return body || { };
+    }
   }
 
   private handleError (error: Response | any) {
@@ -28,34 +34,6 @@ export class SettingsService {
     }
     console.error(errMsg);
     return Observable.throw(errMsg);
-  }
-
-
-  public getSettings(): Observable<Settings> {
-    var headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer '+ this.currentUser.token
-    });
-
-    let options = new RequestOptions({ headers: headers });
-    return this.http.get('/api/settings', options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
-
-
-  }
-
-  public saveSettings(settings): Observable<void> {
-    var headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer '+ this.currentUser.token
-    });
-
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post('/api/settings', settings, options)
-                    .catch(this.handleError);
-
-
   }
 
   public getProfile(): Observable<any> {

@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { SettingsService } from '../../_services/settings.service';
+import { DashboardService } from '../../_services/dashboard.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [ AuthenticationService, SettingsService ]
+  providers: [ AuthenticationService, DashboardService ]
 })
 export class ProfileComponent implements OnInit {
 
@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
-    private settingsService: SettingsService,
+    private dashboardService: DashboardService,
   ) {
     this.getProfile();
   }
@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   }
 
   private getProfile() {
-    this.settingsService.getProfile()
+    this.dashboardService.getProfile()
         .subscribe(
             profile => {this.profile = profile;}
         );
@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
 
   private updateProfile() {
     this.resetLabels();
-    this.settingsService.updateProfile(this.profile).subscribe(
+    this.dashboardService.updateProfile(this.profile).subscribe(
       (response: string) => {this.profileFeedbackLabel = response}
     );
   }

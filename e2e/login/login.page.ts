@@ -27,11 +27,6 @@ export class LoginPageObject {
         return this.submitButton.sendKeys(protractor.Key.ENTER);
     }
 
-    formIsValid(): wdpromise.Promise<boolean> {
-        let valid = this.getErrorMessage().then( (result) => valid = result == '');
-        return valid;
-    }
-
     getErrorMessage(): wdpromise.Promise<string> {
         return this.errorMessage.getText();
     }

@@ -2,6 +2,7 @@ let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 let cucumber = require('cucumber');
 
+import { element, by, protractor, ElementArrayFinder } from 'protractor';
 import { binding, given, when, then } from 'cucumber-tsflow';
 import { browser } from 'protractor';
 
@@ -16,9 +17,9 @@ class LoginSteps {
   private loginPageObject = new LoginPageObject();
 
   @given(/^user is at the login page$/)
-  givenUserClicksTheLoginLink(callback: any) {
+  public givenUserIsAtLoginPage (callback): void {
     this.loginPageObject.get();
-    expect(this.loginPageObject.getTitle()).to.eql('Login');
+    expect(this.loginPageObject.getTitle()).to.eventually.equal('Login');
     callback();
   }
 
@@ -42,13 +43,13 @@ class LoginSteps {
 
   @then(/^the login form is validated 'false'$/)
   thenInvalidFormIsValidated(callback: any) {
-    expect(this.loginPageObject.formIsValid()).to.become(true);
+    expect(element(by.css('.alert-danger')).isPresent()).to.eventually.equal(false);
     callback();
   }
 
   @then(/^the login form is validated 'true'$/)
   thenFormIsValidated(callback: any) {
-    expect(this.loginPageObject.formIsValid()).to.become(true);
+    expect(element(by.css('.alert-danger')).isPresent()).to.eventually.equal(false);
     callback();
   }
 }

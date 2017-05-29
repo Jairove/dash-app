@@ -5,7 +5,7 @@ import { TodoComponent } from '../../todo/todo.component';
 import { QuotesComponent } from '../../quotes/quotes.component';
 import { WeatherComponent } from '../../weather/weather.component';
 import { WelcomeComponent } from '../../welcome/welcome.component';
-import { SettingsService } from '../../_services/settings.service';
+import { DashboardService } from '../../_services/dashboard.service';
 import { CoversComponent } from '../../covers/covers.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router,
@@ -19,7 +19,7 @@ import { Router,
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [ SettingsService ]
+  providers: [ DashboardService ]
 })
 export class DashboardComponent implements OnInit {
   private loading = true;
@@ -38,14 +38,14 @@ export class DashboardComponent implements OnInit {
     'TodoComponent': TodoComponent
   };
 
-  constructor(private settingsService: SettingsService, private router: Router) {
+  constructor(private dashboardService: DashboardService, private router: Router) {
     router.events.subscribe((event: Event) => {
       this.navigationInterceptor(event);
     });
   }
   
   private getWidgets() {
-    this.settingsService.getWidgets()
+    this.dashboardService.getWidgets()
         .subscribe(
             widgets =>  {
               //Sort widgets by position
@@ -69,16 +69,16 @@ export class DashboardComponent implements OnInit {
     for(let widget of this.widgets) {
       if(widget.pos != this.widgets.indexOf(widget)) {
         widget.pos = this.widgets.indexOf(widget);
-        this.settingsService.updateWidget(widget).subscribe();
+        this.dashboardService.updateWidget(widget).subscribe();
       }
       else {
-        this.settingsService.updateWidget(widget).subscribe();
+        this.dashboardService.updateWidget(widget).subscribe();
       }
     }
 
     // Remove the deleted widgets if any
     for(let widget of this.widgetsToBeDeleted) {
-      this.settingsService.removeWidget(widget._id).subscribe();
+      this.dashboardService.removeWidget(widget._id).subscribe();
     }
 
     this.getWidgets();

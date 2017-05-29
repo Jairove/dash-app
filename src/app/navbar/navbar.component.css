@@ -19,6 +19,10 @@
   padding-right: 5px;
 }
 
+#logout {
+  cursor: pointer;
+}
+
 a:hover {
   color: white !important;
 }

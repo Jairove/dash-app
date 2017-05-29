@@ -1,6 +1,7 @@
 .cover-wrapper {
-  margin-top: 20px;
+  padding-top: 35px;
   margin-bottom: 50px;
+
 }
 
 .loading-spinner {
@@ -15,8 +16,4 @@
 
 #addWidgetModal .modal-dialog {
   width: 55%;
-}
-
-.widget-edit-btn, .widget-remove-btn {
-  top: -20px !important;
 }
