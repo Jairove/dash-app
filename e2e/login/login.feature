@@ -1,4 +1,4 @@
-Feature: This feature describe the scenarios of the login part of our authentication component
+Feature: Login
 
   Scenario Outline: The user is using the login form
 

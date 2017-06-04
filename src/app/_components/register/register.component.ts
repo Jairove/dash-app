@@ -26,17 +26,23 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.register(this.user.username, this.user.password, this.user.name)
-            .subscribe(
-              response => {
-                if(response==true) this.router.navigate(['./dash']);
-                else this.status = status;
-              },
-              error => {
-                this.status = <any>error;
-              }
+    if(this.user.password.length>=6) {
+      this.authService.register(this.user.username, this.user.password, this.user.name)
+              .subscribe(
+                response => {
+                  if(response==true) this.router.navigate(['./dash']);
+                  else this.status = status;
+                },
+                error => {
+                  this.status = <any>error;
+                }
 
-            );
+              );
+    }
+    else {
+      this.status = 'The password must contain at least 6 characters.';
+    }
+
   }
 
 }

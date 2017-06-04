@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Settings } from '../_models/settings';
 import { Widget } from '../_models/widget';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';

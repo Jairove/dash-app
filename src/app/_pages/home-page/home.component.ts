@@ -26,20 +26,10 @@ export class HomeComponent implements OnInit {
   errorMessage: any = '';
   toggleLogin: boolean = true;
 
-  onSubmit() {
-    this.authenticationService.login(this.username,this.password)
-                      .subscribe(
-                          status => {
-                            this.router.navigate(["/dash"]);
-                          },
-                          error => { this.errorMessage = <any>error; }
-                      );
-  }
-
   private showlogin() {
     this.toggleLogin = true;
   }
-  
+
   private showregister() {
     this.toggleLogin = false;
   }

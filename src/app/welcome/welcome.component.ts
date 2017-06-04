@@ -7,7 +7,7 @@ import { DashboardService } from '../_services/dashboard.service';
   styleUrls: ['./welcome.component.css'],
   providers: [DashboardService]
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent {
   private today: number = Date.now();
   private name = '';
   private widgetdata;
@@ -21,9 +21,6 @@ export class WelcomeComponent implements OnInit {
         .subscribe(
             profile => {this.name = profile.name;}
         );
-  }
-
-  ngOnInit() {
   }
 
 }
