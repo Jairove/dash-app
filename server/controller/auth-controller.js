@@ -3,6 +3,8 @@ const mongoose = require('mongoose').set('debug', true)
 , ObjectId = Schema.ObjectId;
 //const user = require('../model/user');
 const passport = require('passport');
+const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
 
 var User = mongoose.model('User');
 
@@ -76,12 +78,12 @@ exports.register = function(req,res,next) {
 
       let mailOptions = {
           from: '"Dashpot" <mailer@dashpot.co>', // sender address
-          to: email, // list of receivers
+          to: user.email, // list of receivers
           subject: 'Welcome to dashpot.', // Subject line
           html: '<p><b>Welcome to dashpot!</b></p> <p>Thank you for registering at dashpot, we hope you find it useful.</p>'
       };
 
-      sendEmail(token,email,mailOptions);
+      sendEmail(mailOptions);
 
       return;
     }
@@ -162,19 +164,21 @@ exports.changePassword = function (req, res, next) {
 
     let mailOptions = {
         from: '"Dashpot" <mailer@dashpot.co>', // sender address
-        to: email, // list of receivers
+        to: user.email, // list of receivers
         subject: 'Password changed.', // Subject line
         html: '<p><b>Your password has been changed!</b></p> <p>'+
         'Your dashpot password has been changed, if you did not do this change please reset it now.</p>'
     };
 
-    sendEmail(token,email,mailOptions);
+    sendEmail(mailOptions);
 
 }
 
 //Updates the profile of the current user
 exports.forgotPassword = function (req, res) {
     var email = req.body.email;
+    const recoveryUrl = 'http://localhost:3000/password-recover/';
+
     User.findOne({ email: email }).exec(function(err, user){
       if(user) {
         var token = user.setRecoveryToken();
@@ -195,7 +199,7 @@ exports.forgotPassword = function (req, res) {
             '<a href="'+recoveryUrl+token+'">'+recoveryUrl+token+'</a>' // html body
         };
 
-        sendEmail(token,email,mailOptions);
+        sendEmail(mailOptions);
 
       }
       else {
@@ -208,11 +212,7 @@ exports.forgotPassword = function (req, res) {
 
 }
 
-function sendEmail(token,email,mailOptions) {
-  'use strict';
-  const nodemailer = require('nodemailer');
-  const smtpTransport = require('nodemailer-smtp-transport');
-  const recoveryUrl = 'http://localhost:3000/password-recover/'
+function sendEmail(mailOptions) {
 
   let transporter = nodemailer.createTransport(smtpTransport({
      host: 'hl302.hosteurope.es',
