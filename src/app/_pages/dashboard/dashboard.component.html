@@ -9,6 +9,10 @@
 <div class="board" *ngIf="!loading">
   <div class="container">
 
+    <div *ngIf="widgets.length==0" class="row">
+      <h3>You have no widgets! You can add some using the edit mode.</h3>
+    </div>
+
       <div *ngIf="editMode" class="row" [dragula]="widget-bag" [dragulaModel]="widgets">
         <div *ngFor="let widget of widgets" [class]="widget.colSize">
           <div class="widget-edit">

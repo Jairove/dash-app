@@ -24,15 +24,12 @@ app.use(passport.initialize());
 
 // Set our api routes
 app.use('/api', api);
-//app.use('/api/todos', api);
-//app.use('/api/todos/:id', api);
 
 // Catch all other routes and return the index file
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-// error handlers
 // Catch unauthorised errors
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
@@ -41,18 +38,12 @@ app.use(function (err, req, res, next) {
   }
 });
 
-/**
- * Get port from environment and store in Express.
- */
+// Get port from environment and store in Express.
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
+/ Create HTTP server.
 const server = http.createServer(app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+// Listen on provided port, on all network interfaces.
 server.listen(port, () => console.log(`API running on localhost:${port}`));

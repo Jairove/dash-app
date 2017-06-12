@@ -24,7 +24,7 @@ export class CoversComponent implements OnInit {
 
   ngDoCheck() {
     if(!this.loading && !this.slicked) {
-      setTimeout(() => this.adjustSlicker(), 2000);
+      setTimeout(() => this.adjustSlicker(), 3000);
     }
   }
 
