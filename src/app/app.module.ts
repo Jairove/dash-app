@@ -28,7 +28,6 @@ import { LoginPageComponent } from './_pages/login-page/login-page.component';
 import { RegisterPageComponent } from './_pages/register-page/register-page.component';
 import { widgetSettingsComponent } from './_components/widget-settings/widget-settings.component';
 import { PasswordRecoveryPageComponent } from './_pages/password-recovery-page/password-recovery-page.component';
-import { TestComponent } from './test/test.component';
 
 
 @NgModule({
@@ -50,8 +49,7 @@ import { TestComponent } from './test/test.component';
     LoginPageComponent,
     RegisterPageComponent,
     widgetSettingsComponent,
-    PasswordRecoveryPageComponent,
-    TestComponent
+    PasswordRecoveryPageComponent
   ],
   imports: [
     AlertModule.forRoot(),
