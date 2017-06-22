@@ -177,7 +177,7 @@ exports.changePassword = function (req, res, next) {
 //Updates the profile of the current user
 exports.forgotPassword = function (req, res) {
     var email = req.body.email;
-    const recoveryUrl = 'http://localhost:3000/password-recover/';
+    const recoveryUrl = 'http://dashpot.herokuapp.com:3000/password-recover/';
 
     User.findOne({ email: email }).exec(function(err, user){
       if(user) {

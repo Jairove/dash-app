@@ -9,7 +9,14 @@ export class WeatherService {
 
   constructor(private http: Http) { }
 
-    getContent(lat: String, lon: String, units: String): Observable<Forecast> {
+    /**
+    * Calls the API to get the forecast
+    * @param lat The latitude of the place
+    * @param lon The longitude of the place
+    * @param units The disired units system (metric|imperial)
+    * @returns A Forecast Observable
+    **/
+    public getContent(lat: String, lon: String, units: String): Observable<Forecast> {
       var apiUrl = this.apiBaseUrl + "lat=" + lat
               + "&lon=" + lon + "&units=" + units;
       return this.http.get(apiUrl)
@@ -17,6 +24,11 @@ export class WeatherService {
               .catch(this.handleError);
     }
 
+    /**
+    * Extracts a Forecast Object from a Response object
+    * @param res  A Response object
+    * @return A Forecast
+    */
     private extractWeather(res: Response): Forecast {
       return res.json() || { };
     }

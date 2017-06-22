@@ -11,19 +11,22 @@ import { FeedRssService } from './feed-rss.service'
 export class NewsRssComponent implements OnInit {
 
   public loading = true;
-  feedUrls: string[] = ['http://www.huffingtonpost.es/feeds/verticals/spain/index.xml','http://ep00.epimg.net/rss/elpais/portada.xml'];
-  feedItems: any[] = [];
-  noOfItems = 10; // This will have to be a config value
-  selectedFeed: any = {};
   public widgetdata;
+  feedUrls: string[] = ['http://www.huffingtonpost.es/feeds/verticals/spain/index.xml',
+                        'http://ep00.epimg.net/rss/elpais/portada.xml'];
+  feedItems: any[] = [];
+  noOfItems = 10;
+  selectedFeed: any = {};
 
-  constructor(private feedRssService: FeedRssService) {
-  }
+  constructor(private feedRssService: FeedRssService) {}
 
   ngOnInit() {
     this.refreshFeed();
   }
 
+  /**
+  * Sorts the array of news by most date recent first
+  */
   private sortItems() {
     this.feedItems.sort(
       (a,b): number => {
@@ -35,6 +38,9 @@ export class NewsRssComponent implements OnInit {
     this.feedItems.splice(this.noOfItems);
   }
 
+  /**
+  * Updates the feedItems
+  */
   private refreshFeed() {
     for(let url of this.widgetdata.feedUrls) {
       this.feedRssService.getContent(url)

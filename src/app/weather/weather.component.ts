@@ -10,9 +10,10 @@ import { Forecast } from './forecast';
 })
 export class WeatherComponent implements OnInit, DoCheck {
   private loading = true;
+  public widgetdata;
+
   private forecast;
   private temp;
-  public widgetdata;
   private lat;
   private lon;
   private units;
@@ -44,6 +45,9 @@ export class WeatherComponent implements OnInit, DoCheck {
     }
   }
 
+  /**
+  * Updates the weather forecast
+  */
   public refreshWeather() {
     this.weatherService.getContent(this.widgetdata.lat, this.widgetdata.lon, this.widgetdata.units)
         .subscribe(

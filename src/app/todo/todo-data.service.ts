@@ -22,9 +22,55 @@ export class TodoDataService {
     });
   }
 
-  getTodos(widgetid): Observable<Todo[]> {
+  /**
+  * Gets the todos of a given widget
+  * @param widgetid The id of the widget
+  * @returns An Observable of a Todos array
+  */
+  public getTodos(widgetid): Observable<Todo[]> {
     let options = new RequestOptions({ headers: this.headers });
     return this.http.get(this.todosUrl + '/' + widgetid, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  /**
+  * Adds a todo to a given widget
+  * @param todo The todo to be added
+  * @param widgetid The id of the widget
+  * @returns A Todo Observable
+  */
+  public addTodo(todo: Todo, idwidget: string): Observable<Todo> {
+    let options = new RequestOptions({ headers: this.headers });
+
+    return this.http.put(this.todosUrl + '/' + idwidget, todo, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  /**
+  * Removes a todo from the system
+  * @param id The id of the todo
+  * @returns A Todo Observable
+  */
+  public deleteTodoById(id): Observable<Todo> {
+    let options = new RequestOptions({ headers: this.headers });
+
+    return this.http.delete(this.todosUrl + '/' + id, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  /**
+  * Changes the completion state of a widget
+  * @param id The id of the widget
+  * @returns A Todo Observable
+  */
+  public toggleTodoComplete(todo: Todo): Observable<Todo> {
+    todo.complete = !todo.complete;
+    let options = new RequestOptions({ headers: this.headers });
+
+    return this.http.post(this.todosUrl, todo, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
@@ -35,7 +81,6 @@ export class TodoDataService {
   }
 
   private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';
@@ -46,40 +91,6 @@ export class TodoDataService {
     }
     console.error(errMsg);
     return Observable.throw(errMsg);
-  }
-
-  addTodo(todo: Todo, idwidget: string): Observable<Todo> {
-    let options = new RequestOptions({ headers: this.headers });
-
-    return this.http.put(this.todosUrl + '/' + idwidget, todo, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
-  }
-
-  deleteTodoById(id): Observable<Todo> {
-    let options = new RequestOptions({ headers: this.headers });
-
-    return this.http.delete(this.todosUrl + '/' + id, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
-  }
-
-  // updateTodoById(id: number, values: Object = {}): Observable<Todo> {
-  //   let headers = new Headers({ 'Content-Type': 'application/json' });
-  //   let options = new RequestOptions({ headers: headers });
-
-  //   return this.http.post(this.todosUrl, {id, values}, options)
-  //                   .map(this.extractData)
-  //                   .catch(this.handleError);
-  // }
-
-  toggleTodoComplete(todo: Todo): Observable<Todo> {
-    todo.complete = !todo.complete;
-    let options = new RequestOptions({ headers: this.headers });
-
-    return this.http.post(this.todosUrl, todo, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
   }
 
 }
