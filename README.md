@@ -3,7 +3,11 @@
 
 # DashApp
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.25.5.
+The purpose of this project is to develop a SaaS (Software as a Service) application, which goal is to provide relevant information to the users daily planning and routine, such as news, to-do lists or the weather forecast, in a combined and customizable way.
+
+The application has been named Dashpot, and it is a customizable dashboard, in which the user can choose the widgets to show, the position on the screen and their configuration.
+
+The project has been developed using the MEAN stack as a framework, along with the technologies for web projects, such as HTML and CSS, following an agile development methodology and applying the principles of SCRUM and BDD (Behaviour Driven Development).
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
